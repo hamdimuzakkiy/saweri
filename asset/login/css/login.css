@@ -1,0 +1,52 @@
+	
+.boxLogin {
+	width:735px;
+	margin:auto;
+	margin-top:250px;
+	/*background:#565758 url("../img/bk_login_ver.jpg") no-repeat -5px bottom;*/
+	padding:0px;
+}
+
+#logo_login{
+	width:300px;
+	height:200px;
+	float:left;
+}
+
+.boxLogin  div.fields {
+	float:right;
+	width:360px;
+	padding:20px 0 0 50px;
+	height:185px;
+	background:#fff url("../img/bk_login_rpx.png") repeat-x top right;
+	overflow:hidden;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.boxLogin  .toolTip{
+	width:416px;
+	float:right;
+}
+
+.boxLogin  .fields p.error {
+	background:transparent;
+}
+
+.fields p.rem {
+	padding:10px 0 0 100px;
+}
+
+.fields p label { display:inline-block;}
+
+.action {
+	padding:20px 74px 0 0;
+	text-align:right;
+}
+
+#joinproduct{
+	margin-top:35px;
+	padding-right:10px;
+	float:right;
+	color:#aaa;
+}
