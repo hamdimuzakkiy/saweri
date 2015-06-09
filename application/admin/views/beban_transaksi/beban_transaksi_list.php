@@ -57,7 +57,7 @@
 			
 			<div class="block-footer">
 
-				<?=anchor('retur_pembelian/insert', 'Tambah Data', array('class'=>'button'))?>
+				<?=anchor('beban_transaksi/insert', 'Tambah Data', array('class'=>'button'))?>
 
 			</div>
 				

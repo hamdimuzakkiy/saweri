@@ -66,8 +66,101 @@ class beban_transaksi extends My_Controller
 		$this->close();
 	}
 
+	function insert()
+	{
+		if ($this->can_insert() == FALSE){
+			redirect('auth/failed');
+		}
+		
+		$this->open();
+				
+		$data['pembayaran'] = $this->input->post('pembayaran');		
+		$data['beban'] = $this->input->post('beban');
+		
+		$this->form_validation->set_rules('pembayaran', 'pembayaran', 'callback_cek_nama|required');
+		
+		
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		
+		
+		$this->form_validation->set_message('required', 'Field %s harus diisi!');
+		
+		
+		if ($this->form_validation->run() == FALSE){
+			
+			$this->load->view('beban_transaksi/beban_transaksi_add',$data);
+			
+		}else{	
+			$this->beban_transaksi->insert($data);
+			
+			$this->session->set_flashdata('message', 'Data Golongan Berhasil disimpan.');
+			redirect('beban_transaksi');
+		}
+		
+		$this->close();
+	}
+
 	function update($id)
 	{
+		if ($this->can_update() == FALSE){
+			redirect('auth/failed');
+		}
 		
+		$this->open();		
+		$data['result'] 		= $this->beban_transaksi->getItemById($id);		
+		$data['id'] = $data['result']->row()->id;
+		$data['beban'] = $data['result']->row()->beban;
+		$data['pembayaran'] = $data['result']->row()->pembayaran;
+		
+		$this->load->view('beban_transaksi/beban_transaksi_edit', $data);
+		
+		$this->close();
+	}
+
+	function process_update()
+	{
+
+		if ($this->can_update() == FALSE){
+			redirect('auth/failed');
+		}
+		
+		$this->open();
+
+		$id =  $_POST['id'];
+		$data['pembayaran'] =  $_POST['pembayaran'];
+		$data['beban'] = $_POST['beban'];
+
+		$this->form_validation->set_rules('id', 'id', 'required');
+		$this->form_validation->set_rules('pembayaran', 'pembayaran', 'required');
+		$this->form_validation->set_rules('beban', 'beban', 'required');
+		
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		
+		
+		$this->form_validation->set_message('required', 'Field harus diisi!');
+		
+		
+		if ($this->form_validation->run() == FALSE){
+			
+			$this->load->view('beban_transaksi/beban_transaksi_edit',$data);
+			
+		}else{	
+			$this->beban_transaksi->update($id, $data);
+			$this->session->set_flashdata('message', 'Data Berhasil diupdate.');
+			redirect('beban_transaksi');
+		}
+		
+		$this->close();
+	}
+
+	function delete($id)
+	{
+		if ($this->can_delete() == FALSE){
+			redirect('auth/failed');
+		}
+		
+		$this->beban_transaksi->delete($id);
+		$this->session->set_flashdata('message', 'Data Cabang Berhasil dihapus.');
+		redirect('beban_transaksi');
 	}
 }
