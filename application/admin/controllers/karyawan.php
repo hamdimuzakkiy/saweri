@@ -145,6 +145,10 @@ class karyawan extends My_Controller
 			$data_user['password'] = md5($this->input->post('password'));
 			$data_user['level_id'] = $this->input->post('level_id');
 			
+                        if(sizeof($this->karyawan->CheckUsername($data_user['username'])->result())==1){
+                            $this->load->view('karyawan/karyawan_add',$data);
+                            return;
+                        }
 			$this->users->insert($data_user);
 			
 			$this->session->set_flashdata('message', 'Data Karyawan Berhasil disimpan.');
@@ -329,7 +333,7 @@ class karyawan extends My_Controller
 		
 		
 	}
-	
+        
 	function report_excel(){
 		header("Content-type: application/x-msdownload");
 		header("Content-Disposition: attachment; filename=rekap_penjualan_periode.xls");

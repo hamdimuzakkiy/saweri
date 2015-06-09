@@ -40,6 +40,11 @@ class mdl_karyawan extends CI_Model{
 		return $this->db->get();
 	}
 
+        function CheckUsername($username){
+            $this->db->flush_cache();
+            $this->db->where("username",$username);
+            return $this->db->get("users");
+        }
 	function insert($data)
 	{
 		$this->db->flush_cache();
