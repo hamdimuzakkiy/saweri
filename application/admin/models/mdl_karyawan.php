@@ -71,15 +71,16 @@ class mdl_karyawan extends CI_Model{
 	}
 	
 	// ngambil id otomatis
-	function get_idkaryawan(){
-		$this->db->flush_cache();
-		$query1 = $this->db->query("SHOW TABLE STATUS LIKE 'karyawan'");
+	function get_idkaryawan($id){
+                $str = $id."-".substr(2,2,date('Y')).date('mdy');
+                $this->db->flush_cache();
+                $query1 = $this->db->query("Select 0 FROM karyawan WHERE kode_karyawan LIKE "."\""."%".$str."\"");
 		
 		// ngambil no autoincrement dan akhirnya jadi-> '000x'
-		$tmp_no = $query1->row()->Auto_increment;
-		$no = str_pad($tmp_no, 4, '0', STR_PAD_LEFT);
-		
-		return 'SG-'.$no.substr(date('Y'),2,2).date('md');
+		$tmp_no = $query1->num_rows()+1;
+		$no = str_pad($tmp_no, 3, '0', STR_PAD_LEFT);
+                $str = $str."-".$no;
+		return $str;
 		
 	}
 	

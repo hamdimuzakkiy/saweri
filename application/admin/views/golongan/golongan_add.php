@@ -27,7 +27,15 @@
 			<h1>Setup > Tambah Data Golongan</h1>
 			
 			<fieldset>
-
+                                <div class="columns">
+					<p class="colx2-left">
+						<label for="complex-en-url">ID Golongan (*) :</label>
+						<span class="relative">
+							<input type="text" name="id_golongan" id="golongan">
+						</span>
+					</p>
+				</div>
+                            
 				<div class="columns">
 					<p class="colx2-left">
 						<label for="complex-en-url">Golongan (*) :</label>

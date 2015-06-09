@@ -14,8 +14,8 @@ class karyawan extends My_Controller
 		
 	}
 	
-	function cokot(){
-		echo $this->karyawan->get_idkaryawan();
+	function cokot($id){
+		return $this->karyawan->get_idkaryawan($id);
 	}
 	
 	function index()
@@ -82,8 +82,8 @@ class karyawan extends My_Controller
 		
 		/*$data['id_karyawan'] = $this->input->post('id_karyawan'); */
 		$data['id_cabang'] = $this->input->post('id_cabang');
-		$data['kode_karyawan'] = $this->input->post('kode_karyawan');
-		$data['nama'] = $this->input->post('nama');
+		//$data['kode_karyawan'] = $this->input->post('kode_karyawan');
+                $data['nama'] = $this->input->post('nama');
 		$data['alamat'] = $this->input->post('alamat');
 		$data['telp1'] = $this->input->post('telp1');
 		$data['jenis_pengenal'] = $this->input->post('jenis_pengenal');
@@ -99,7 +99,7 @@ class karyawan extends My_Controller
 		
 		
 		$this->form_validation->set_rules('id_cabang', 'ID Cabang', 'required');		
-		$this->form_validation->set_rules('kode_karyawan', 'Kode Karyawan', 'required');		
+		//$this->form_validation->set_rules('kode_karyawan', 'Kode Karyawan', 'required');		
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
 		$this->form_validation->set_rules('jenis_pengenal', 'Jenis Pengenal', 'required');
@@ -126,8 +126,9 @@ class karyawan extends My_Controller
 			$data_karyawan['id_karyawan'] = $this->input->post('id_karyawan');
 			$data_karyawan['userid'] = $this->input->post('userid');
 			$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
-			$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
-			$data_karyawan['nama'] = $this->input->post('nama');
+			//$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
+			$data_karyawan['kode_karyawan'] = $this->cokot($data_karyawan['id_cabang']);
+                        $data_karyawan['nama'] = $this->input->post('nama');
 			$data_karyawan['alamat'] = $this->input->post('alamat');
 			$data_karyawan['jenis_pengenal'] = $this->input->post('jenis_pengenal');
 			$data_karyawan['no_pengenal'] = $this->input->post('no_pengenal');

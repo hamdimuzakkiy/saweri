@@ -26,7 +26,16 @@
 		?>
 			<h1>Setup > Tambah Data Kategori</h1>
 			
-			<fieldset>				
+			<fieldset>
+                                <div class="columns">
+					<p class="colx2-left">
+						<label for="complex-en-url">ID Kategori (*) :</label>
+						<span class="relative">
+							<input type="text" name="id_kategori" id="kategori">
+						</span>
+					</p>
+				</div>
+                            
 				<div class="columns">
 					<p class="colx2-left">
 						<label for="complex-en-url">Nama Kategori (*) :</label>
@@ -41,8 +50,8 @@
 						<label for="complex-en-url">Jenis Barang :</label>
 						<span class="relative">
 							<select name="jenis" id="jenis"class="seperempat-width">
-								<option value="BARANG">BARANG</option>
-								<option value="PULSA">PULSA</option>
+								<option value="1">Fisik</option>
+								<option value="2">Elektrik</option>
 							</select>
 						</span>
 					</p>

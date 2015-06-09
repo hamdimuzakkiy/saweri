@@ -53,12 +53,12 @@
 							</select>
 						</span>
 					</p>
-					<p class="colx3-center">
+					<!--<p class="colx3-center">
 						<label for="complex-en-url">Kode Karyawan (*) :</label>
 						<span class="relative">
-							<input type="text" name="kode_karyawan" id="kode_karyawan" readOnly="True" value="<?=$this->karyawan->get_idkaryawan()?>" class="duapertiga-width">
+							<input type="text" name="kode_karyawan" id="kode_karyawan" readOnly="True" value="<?php //=$this->karyawan->get_idkaryawan()?>" class="duapertiga-width">
 						</span>
-					</p>
+					</p>-->
 					<p class="colx3-right">
 						<label for="complex-en-url">Nama (*) :</label>
 						<span class="relative">
