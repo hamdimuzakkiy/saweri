@@ -16,7 +16,7 @@
 					
 					<li>
 						<img src="<?=base_url()?>asset/admin/images/icons/web-app/48/loading.png" width="48" height="48">
-						<a href="<?=base_url().'index.php/inventory_pusat/index/pusat'?>">Persediaan<br>
+						<a href="<?=base_url().'index.php/inventory_pusat'?>">Persediaan<br>
 						<small>Persediaan</small></a>
 					</li>
 					

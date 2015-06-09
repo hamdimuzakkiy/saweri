@@ -67,5 +67,89 @@ class posting_hutang extends My_Controller
 		$this->load->view('posting_hutang/posting_hutang_list.php', $data);
 		
 		$this->close();
-	}		function insert()	{		if ($this->can_insert() == FALSE){			redirect('auth/failed');		}						$this->open();				$data['id_barang'] = $this->input->post('id_barang');		$data['nama_barang'] = $this->input->post('nama_barang');		$data['id_jenis'] = $this->input->post('id_jenis');		$data['id_kategori'] = $this->input->post('id_kategori');		$data['id_satuan'] = $this->input->post('id_satuan');		$data['id_golongan'] = $this->input->post('id_golongan');		$data['hpp'] = $this->input->post('hpp');		$data['harga_toko'] = $this->input->post('harga_toko');		$data['harga_partai'] = $this->input->post('harga_partai');		$data['harga_cabang'] = $this->input->post('harga_cabang');				$data['is_hargatoko'] = $this->input->post('is_hargatoko');		$data['is_hargapartai'] = $this->input->post('is_hargapartai');		$data['is_hargajual'] = $this->input->post('is_hargajual');		$data['point_karyawan'] = $this->input->post('point_karyawan');		$data['point_member'] = $this->input->post('point_member');		$data['userid'] = get_userid();								$this->form_validation->set_rules('nama_barang', 'nama_barang', 'callback_cek_nama');		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');		$this->form_validation->set_rules('hpp', 'hpp', 'trim');		$this->form_validation->set_rules('harga_toko', 'harga_toko', 'trim|numeric');		$this->form_validation->set_rules('harga_partai', 'harga_partai', 'trim|numeric');		$this->form_validation->set_rules('harga_cabang', 'harga_cabang', 'trim|numeric');		$this->form_validation->set_rules('is_hargatoko', 'is_hargatoko', 'trim');		$this->form_validation->set_rules('is_hargapartai', 'is_hargapartai', 'trim');		$this->form_validation->set_rules('is_hargajual', 'is_hargajual', 'trim');		$this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');		$this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');						$this->form_validation->set_error_delimiters('<div class="error">', '</div>');						$this->form_validation->set_message('required', 'Field %s harus diisi!');		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');						if ($this->form_validation->run() == FALSE){						$this->load->view('posting_hutang/posting_hutang_add',$data);					}else{				$this->hutang->insert($data);						$this->session->set_flashdata('message', 'Data Penerimaan Kas Berhasil disimpan.');			redirect('posting_hutang');		}				$this->close();	}			function view_posting(){		$PO_NO=$this->input->post('PO_NO');		$JUMLAH=$this->input->post('JUMLAH');		$GLID=$this->input->post('GLID');		$KODE_PARTNER=$this->input->post('KODE_PARTNER');				$gen_glid=$this->hutang->get_glid();				$i=0;		foreach($PO_NO as $row){						if ($row['KODE_PO'] == true){				$data['ID'][] = $row['ID'];				$data['PO_NO'][] = $row['KODE_PO'];				$data['KODE_PO'][] = $row['KODE_PO'];				$data['GLID'][]	= $this->fungsi->gen_glid_counter('/',$gen_glid,$i);				$data['KODE_PARTNER'][] = $row['KODE_PARTNER'];				$data['NAMA_PARTNER'][] = $row['NAMA_PARTNER'];				$data['AKUNID'][] = $row['AKUNID_SELECT'];								$data['AKUNID_KAS'][] = $row['AKUNID_KAS'];								$data['KOUNIT'][] = $row['KOUNIT'];				$data['NAMA_KOUNIT'][] = $row['NAMA_KOUNIT'];				$data['TANGGAL'][] = $row['TANGGAL'];				$data['GLID_ANGSURAN'][] = $row['GLID_ANGSURAN'];				$data['ANGSURAN'][] = $row['ANGSURAN'];				$data['SISA'][] = $row['SISA'];				$data['JUMLAH'][] = $row['JUMLAH'];				//echo "KODE PARTNER : ".$row['KODE_PARTNER']."\n\n";				//echo "AKUN : ".$row['AKUNID']."\n\n";				$i=$i+1;			}		}				$this->load->view('posting_hutang/view_posting_preview', $data);	}		function posting(){		$PO_NO=$this->input->post('PO_NO');		$JUMLAH=$this->input->post('JUMLAH');		$GLID=$this->input->post('GLID');		$TANGGAL=$this->input->post('TANGGAL');		$KODE_PARTNER=$this->input->post('KODE_PARTNER');		$KET_TRANSASKSI=$this->input->post('KET_TRANSASKSI');		$AKUNID=$this->input->post('AKUNID');		$KOUNIT=$this->input->post('KOUNIT');				$i=0;		foreach($PO_NO as $row){						if ($row['KODE_PO'] == true){								$dataid['ID'] = $row['ID'];				$data['PO_NO'] = $row['KODE_PO'];				$data['GLID']	= $row['GLID'];				$data['GLID_ANGSURAN']	= $row['GLID_ANGSURAN'];				$data['PARTNERID'] = $row['KODE_PARTNER'];								$data['KOUNIT'] = $row['KOUNIT'];				$data['TANGGAL'] = $row['TANGGAL'];				$data['CDATE']=date('Y-m-d');				$data['CUID'] = get_userid();				$i=$i+1;				$this->hutang->insert_J($data);				$data_update=array('STATUS_POSTING'=>'1');				$this->hutang->update_posting($dataid['ID'],$data_update);								$detailJ_origin['CDATE']=date('Y-m-d');				$detailJ_origin["DEBET"]=$row['ANGSURAN'];				$detailJ_origin["AKUNID"]=$row['AKUNID'];				$detailJ_origin["KOUNIT"]=$row['KOUNIT'];				$detailJ_origin["GLID"]=$row['GLID'];				$detailJ_origin['CUID'] = get_userid();				$this->hutang->insert_detailJ($detailJ_origin);								$detailJ['CDATE']=date('Y-m-d');				$detailJ["KREDIT"]=$row['ANGSURAN'];				$detailJ["AKUNID"]=$row['AKUNID_KAS'];				$detailJ["KOUNIT"]=$row['KOUNIT'];				$detailJ["GLID"]=$row['GLID'];				$detailJ['CUID'] = get_userid();				$this->hutang->insert_detailJ($detailJ);				//$get_detail=$this->hutang->get_detail_penjualan($data['PO_NO']);							}		}				redirect('posting_hutang');	}
+	}
+        function insert(){
+            if ($this->can_insert() == FALSE){
+                redirect('auth/failed');
+            }						
+            $this->open();
+            $data['id_barang'] = $this->input->post('id_barang');
+            $data['nama_barang'] = $this->input->post('nama_barang');
+            $data['id_jenis'] = $this->input->post('id_jenis');
+            $data['id_kategori'] = $this->input->post('id_kategori');
+            $data['id_satuan'] = $this->input->post('id_satuan');
+            $data['id_golongan'] = $this->input->post('id_golongan');
+            $data['hpp'] = $this->input->post('hpp');
+            $data['harga_toko'] = $this->input->post('harga_toko');
+            $data['harga_partai'] = $this->input->post('harga_partai');
+            $data['harga_cabang'] = $this->input->post('harga_cabang');
+            $data['is_hargatoko'] = $this->input->post('is_hargatoko');
+            $data['is_hargapartai'] = $this->input->post('is_hargapartai');
+            $data['is_hargajual'] = $this->input->post('is_hargajual');
+            $data['point_karyawan'] = $this->input->post('point_karyawan');
+            $data['point_member'] = $this->input->post('point_member');
+            $data['userid'] = get_userid();
+            $this->form_validation->set_rules('nama_barang', 'nama_barang', 'callback_cek_nama');
+            $this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');
+            $this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');
+            $this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');
+            $this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');
+            $this->form_validation->set_rules('hpp', 'hpp', 'trim');
+            $this->form_validation->set_rules('harga_toko', 'harga_toko', 'trim|numeric');
+            $this->form_validation->set_rules('harga_partai', 'harga_partai', 'trim|numeric');	
+            $this->form_validation->set_rules('harga_cabang', 'harga_cabang', 'trim|numeric');	
+            $this->form_validation->set_rules('is_hargatoko', 'is_hargatoko', 'trim');	
+            $this->form_validation->set_rules('is_hargapartai', 'is_hargapartai', 'trim');	
+            $this->form_validation->set_rules('is_hargajual', 'is_hargajual', 'trim');	
+            $this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');	
+            $this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');	
+            $this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
+            $this->form_validation->set_message('required', 'Field %s harus diisi!');		
+            $this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');	
+            if ($this->form_validation->run() == FALSE){						
+                $this->load->view('posting_hutang/posting_hutang_add',$data);		
+                }
+            else{	
+                $this->hutang->insert($data);		
+                $this->session->set_flashdata('message', 'Data Penerimaan Kas Berhasil disimpan.');	
+                redirect('posting_hutang');		
+                }				
+            $this->close();	}
+            
+            function view_posting(){	
+                $PO_NO=$this->input->post('PO_NO');	
+                $JUMLAH=$this->input->post('JUMLAH');	
+                $GLID=$this->input->post('GLID');	
+                $KODE_PARTNER=$this->input->post('KODE_PARTNER');	
+                $gen_glid=$this->hutang->get_glid();			
+                $i=0;		
+                foreach($PO_NO as $row){	
+                    if ($row['KODE_PO'] == true){	
+                        $data['ID'][] = $row['ID'];		
+                        $data['PO_NO'][] = $row['KODE_PO'];		
+                        $data['KODE_PO'][] = $row['KODE_PO'];		
+                        $data['GLID'][]	= $this->fungsi->gen_glid_counter('/',$gen_glid,$i);	
+                        $data['KODE_PARTNER'][] = $row['KODE_PARTNER'];			
+                        $data['NAMA_PARTNER'][] = $row['NAMA_PARTNER'];			
+                        $data['AKUNID'][] = $row['AKUNID_SELECT'];			
+                        $data['AKUNID_KAS'][] = $row['AKUNID_KAS'];			
+                        $data['KOUNIT'][] = $row['KOUNIT'];			
+                        $data['NAMA_KOUNIT'][] = $row['NAMA_KOUNIT'];			
+                        $data['TANGGAL'][] = $row['TANGGAL'];			
+                        $data['GLID_ANGSURAN'][] = $row['GLID_ANGSURAN'];		
+                        $data['ANGSURAN'][] = $row['ANGSURAN'];			
+                        $data['SISA'][] = $row['SISA'];				
+                        $data['JUMLAH'][] = $row['JUMLAH'];		
+                        //echo "KODE PARTNER : ".$row['KODE_PARTNER']."\n\n";	
+                        //			//echo "AKUN : ".$row['AKUNID']."\n\n";	
+                        //						$i=$i+1;		
+                        //							}		
+                        //							}	
+                        //
+                        //
+                        //$this->load->view('posting_hutang/view_posting_preview', $data);	}
+                        //function posting(){		$PO_NO=$this->input->post('PO_NO');		$JUMLAH=$this->input->post('JUMLAH');		$GLID=$this->input->post('GLID');		$TANGGAL=$this->input->post('TANGGAL');		$KODE_PARTNER=$this->input->post('KODE_PARTNER');		$KET_TRANSASKSI=$this->input->post('KET_TRANSASKSI');		$AKUNID=$this->input->post('AKUNID');		$KOUNIT=$this->input->post('KOUNIT');				$i=0;		foreach($PO_NO as $row){						if ($row['KODE_PO'] == true){								$dataid['ID'] = $row['ID'];				$data['PO_NO'] = $row['KODE_PO'];				$data['GLID']	= $row['GLID'];				$data['GLID_ANGSURAN']	= $row['GLID_ANGSURAN'];				$data['PARTNERID'] = $row['KODE_PARTNER'];								$data['KOUNIT'] = $row['KOUNIT'];				$data['TANGGAL'] = $row['TANGGAL'];				$data['CDATE']=date('Y-m-d');				$data['CUID'] = get_userid();				$i=$i+1;				$this->hutang->insert_J($data);				$data_update=array('STATUS_POSTING'=>'1');				$this->hutang->update_posting($dataid['ID'],$data_update);								$detailJ_origin['CDATE']=date('Y-m-d');				$detailJ_origin["DEBET"]=$row['ANGSURAN'];				$detailJ_origin["AKUNID"]=$row['AKUNID'];				$detailJ_origin["KOUNIT"]=$row['KOUNIT'];				$detailJ_origin["GLID"]=$row['GLID'];				$detailJ_origin['CUID'] = get_userid();				$this->hutang->insert_detailJ($detailJ_origin);								$detailJ['CDATE']=date('Y-m-d');				$detailJ["KREDIT"]=$row['ANGSURAN'];				$detailJ["AKUNID"]=$row['AKUNID_KAS'];				$detailJ["KOUNIT"]=$row['KOUNIT'];				$detailJ["GLID"]=$row['GLID'];				$detailJ['CUID'] = get_userid();				$this->hutang->insert_detailJ($detailJ);				//$get_detail=$this->hutang->get_detail_penjualan($data['PO_NO']);							}		}				redirect('posting_hutang');	}
+            }
+            }
+        }
 }
