@@ -111,8 +111,9 @@ class retur_pembelian extends My_Controller
 					$_data['qty'] 					= $detail[$i]['qty'];					
 					$_data['tanggal'] 				= $data['tanggal'];
 					$_data['userid'] 				= $data['userid'];
-					
-					$this->retur_pembelian->insert($_data);
+					$tmp=$this->kode_trans->get_kd_awal('Return Pembelian');	
+					$kode=$tmp->row()->kd_trans;
+					$this->retur_pembelian->insert($_data,$kode);
 				}
 			}
 			

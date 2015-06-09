@@ -6,7 +6,7 @@ class terima_barang_retur extends My_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
+		$this->load->model('mdl_kode_trans', 'kode_trans');				
 		$this->load->model('mdl_terima_barang_retur', 'terima_barang_retur');
 		
 	}
@@ -95,8 +95,10 @@ class terima_barang_retur extends My_Controller
 			$this->load->view('terima_barang_retur/terima_barang_retur_add',$data);
 			
 		}else{
-			
-			$this->terima_barang_retur->insert($data);
+			$tmp=$this->kode_trans->get_kd_awal('Terima Barang Return');	
+			$kode=$tmp->row()->kd_trans;
+
+			$this->terima_barang_retur->insert($data,$kode);
 			$this->terima_barang_retur->update_sn($data,$datas);
 			# insert return pembelian
 			//$detail = $data['detail'];

@@ -80,7 +80,7 @@ class pembelian extends My_Controller
 		$data['glid'] = $this->input->post('glid');		
 
 		$sums = $this->input->post('sum');		
-		$data['result_trans']=$this->kode_trans->get_kd_awal('pembelian');		
+		$data['result_trans']=$this->kode_trans->get_kd_awal('pembelian');	
 		$data['kode_transaksi']=$data['result_trans']->row()->kd_trans;
 
 

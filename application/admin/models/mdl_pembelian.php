@@ -100,7 +100,7 @@ class mdl_pembelian extends CI_Model{
 	function get_po($kd_awal)
 	{
 
-		$code_user = get_userid();
+		$code_user = get_userid();		
 		$code_user = str_pad($code_user, 3, '0', STR_PAD_LEFT);
 		
 		$this->db->flush_cache();

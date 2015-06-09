@@ -42,16 +42,16 @@ class mdl_retur_pembelian extends CI_Model{
 		return $this->db->get('retur_pembelian');
 	}
 
-	function insert($data)
+	function insert($data,$kode)
 	{
-		$data['id_retur_pembelian'] = $this->getID();
+		$data['id_retur_pembelian'] = $this->getID($kode);
 		$this->db->flush_cache();
 		$this->db->insert('retur_pembelian', $data);
 	}
 
-	function getID()
+	function getID($kode)
 	{
-		$kd_awal = 'RPB';
+		$kd_awal = $kode;
 		$code_user = get_userid();		
 		$code_user = str_pad($code_user, 3, '0', STR_PAD_LEFT);
 		
