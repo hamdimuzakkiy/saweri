@@ -94,6 +94,7 @@ class karyawan extends My_Controller
 		$data['password'] = $this->input->post('password');
 		$data['level_id'] = $this->input->post('level_id');
 		$data['userid'] = $this->input->post('userid');
+                $data['usernameValidation']=0;
 		
 		
 		
@@ -109,9 +110,7 @@ class karyawan extends My_Controller
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[confpassword]');
 		$this->form_validation->set_rules('confpassword', 'Password Confirmation', 'required');
 		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
 		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
@@ -119,9 +118,8 @@ class karyawan extends My_Controller
 		$this->form_validation->set_message('matches', 'Field Password harus sama dengan password confirmasi');
 		
 		
-		if ($this->form_validation->run() == FALSE){			
+		if ($this->form_validation->run() == FALSE){	
 			$this->load->view('karyawan/karyawan_add',$data);
-			
 		}else{	
 			
 			/*insert ke tabel karyawan */
@@ -146,6 +144,7 @@ class karyawan extends My_Controller
 			$data_user['level_id'] = $this->input->post('level_id');
 			
                         if(sizeof($this->karyawan->CheckUsername($data_user['username'])->result())==1){
+                            $data['usernameValidation']=1;
                             $this->load->view('karyawan/karyawan_add',$data);
                             return;
                         }

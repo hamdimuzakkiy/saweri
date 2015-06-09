@@ -54,8 +54,7 @@
 
 			//return true ; // why does this matter? ordinary buttons ignore return value
 
-	}
-		
+	}	
 </script>
 
 <section class="grid_12">

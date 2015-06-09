@@ -3,9 +3,14 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/karyawan'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
-
 	<?php 
 		if(validation_errors())
 		{
@@ -17,6 +22,9 @@
 	<?php
 		} 
 	?>
+<div id="username-error">
+    <h2>Username <?php echo $username; ?> telah ada. Silahkan cari username lain</h2>
+</div>
 
 <section class="grid_10">
 	<div class="block-border">
