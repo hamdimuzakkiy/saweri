@@ -120,7 +120,7 @@ class users_level extends My_Controller
 						$data[$field->name] = $data[$field->name].'0';
 					}
 					
-					/* update */
+					/* update */					
 					if($level[$field->name][3]){
 						$data[$field->name] = $data[$field->name].'1';
 					}else{
@@ -198,10 +198,7 @@ class users_level extends My_Controller
 					$level = $this->input->post('level');
 					$data[$field->name] = '';
 					
-
-								
-					print $field->name.'<br>';
-
+					//print $field->name."<br>";								
 					/* akses */					
 					if(isset($level[$field->name][0]) ){		
 						$data[$field->name] = $data[$field->name].'1';
@@ -224,7 +221,7 @@ class users_level extends My_Controller
 						$data[$field->name] = $data[$field->name].'0';
 					}
 					
-					/* update */
+					/* update */					
 					if(isset($level[$field->name][3])  ){
 						$data[$field->name] = $data[$field->name].'1';
 					}else{
@@ -237,16 +234,16 @@ class users_level extends My_Controller
 					}else{
 						$data[$field->name] = $data[$field->name].'0';
 					}
-					print $field->name.'<br>';	
+					//print $field->name.'<br>';	
 				}
 			}
 			
 			$this->users_level->update($data['level_id'], $data);
 			$this->session->set_flashdata('message', 'Data Berhasil diupdate.');
-			redirect('users_level');
+			//redirect('users_level');
 		}
 		
-		$this->close();
+		//$this->close();
 		
 	}
 	

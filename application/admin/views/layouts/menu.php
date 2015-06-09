@@ -55,6 +55,11 @@
 										}else{
 											echo '<li class="icon_blog">Satuan Barang</li>'; 
 										}
+										if ($privilage['beban_transaksi'][0] == 1){ 
+											echo '<li class="icon_blog">'.anchor('beban_transaksi','Beban Transaksi').'</li>'; 
+										}else{
+											echo '<li class="icon_blog">Beban Transaksi</li>'; 
+										}
 										if ($privilage['kabupaten'][0] == 1){ 
 											echo '<li class="icon_blog">'.anchor('kabupaten','Kabupaten').'</li>'; 
 										}else{

@@ -26,7 +26,7 @@ class MY_Controller extends CI_Controller{
 	}		
 	private function ambilheader()	
 	{	
-		$data['result'] 		= $this->setting_view->getItemById($id);				
+		$data['result'] = $this->setting_view->getItemById($id);				
 		$data['id'] = $id;		
 		$data['name'] = $data['result']->row()->name;		
 		$data['detail'] = $data['result']->row()->detail;		
@@ -38,7 +38,7 @@ class MY_Controller extends CI_Controller{
 	}
 	
 	function open()
-	{
+	{		
 		$data['privilage'] = $this->privilage_x;		
 		$id = "1";
 		$data['id'] = $id;

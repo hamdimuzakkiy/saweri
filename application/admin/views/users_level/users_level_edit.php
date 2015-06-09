@@ -193,7 +193,7 @@
 														else
 														{
 													?>
-													<input name="level[<?=$field->name?>][2]" type="checkbox"  value="1" />
+													<input name="level[<?=$field->name?>][3]" type="checkbox"  value="1" />
 													<?php } ?>
 												</td>
 
