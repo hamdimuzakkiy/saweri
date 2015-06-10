@@ -171,10 +171,10 @@
 							<?php 
 								if (form_error('hpp') != null)
 								{
-									echo '<input type="text" name="hpp" id="hpp" value="'.set_value('hpp').'" class="duapertiga-width" >';
+									echo '<input readonly type="text" name="hpp" id="hpp" value="'.set_value('final_hpp').'" class="duapertiga-width" >';
 								}else
 								{
-									echo '<input type="text" name="hpp" id="hpp" value="'.$hpp.'" class="duapertiga-width">';
+									echo '<input readonly type="text" name="hpp" id="hpp" value="'.$final_hpp.'" class="duapertiga-width">';
 								}
 							?>
 						</span>

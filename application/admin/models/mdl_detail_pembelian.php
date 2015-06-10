@@ -39,4 +39,12 @@ class mdl_detail_pembelian extends CI_Model{
 		$this->db->delete('detail_pembelian', array('id_detail_pembelian' => $id));
 	}
 	
+	function getHPP($id)
+	{
+		$this->db->flush_cache();
+		$this->db->select('SUM(harga) as total, count(harga) as jumlah');
+		$this->db->where('id_barang', $id);
+		$this->db->where('posisi_pelanggan', 0);
+		return $this->db->get('detail_pembelian');
+	}
 }

@@ -8,6 +8,7 @@ class barang_point extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_barang_point', 'barang_point');
+		$this->load->model('mdl_detail_pembelian', 'detail_pembelian');
 		
 	}
 	
@@ -74,21 +75,45 @@ class barang_point extends My_Controller
 		
 		$data['id_barang'] = $this->input->post('id_barang');
 		$data['nama_barang'] = $this->input->post('nama_barang');
-		$data['id_jenis'] = '3';
+		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
-		$data['id_golongan'] = $this->input->post('id_golongan');		
-		$data['point_barangpoint'] = $this->input->post('point_barangpoint');	
+		$data['id_golongan'] = $this->input->post('id_golongan');
+		$data['hpp'] = $this->input->post('hpp');
+		$data['harga_toko'] = $this->input->post('harga_toko');
+		$data['harga_partai'] = $this->input->post('harga_partai');
+		$data['harga_cabang'] = $this->input->post('harga_cabang');	
+		$data['point_karyawan'] = 0;
+		$data['point_member'] = 0;
+		$data['point_barangpoint'] = $this->input->post('point_barangpoint');
+		$data['tanggal'] = $this->input->post('tanggal');
+		$data['po_no'] = $this->input->post('po_no');
+		$data['is_hargatoko'] = $this->input->post('is_hargatoko');
+		$data['is_hargapartai'] = $this->input->post('is_hargapartai');
+		$data['is_hargajual'] = $this->input->post('is_hargajual');
+		$data['sn'] = $this->input->post('sn');
 		$data['userid'] = get_userid();
 		
 		
 		
-		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
+		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'callback_cek_nama');
+		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');
 		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');
 		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');
-		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');		
-		$this->form_validation->set_rules('point_barangpoint', 'point_barangpoint', 'required|numeric');
-		
+		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');
+		$this->form_validation->set_rules('hpp', 'hpp', 'trim');
+		$this->form_validation->set_rules('harga_toko', 'harga_toko', 'trim|numeric');
+		$this->form_validation->set_rules('harga_partai', 'harga_partai', 'trim|numeric');
+		$this->form_validation->set_rules('harga_cabang', 'harga_cabang', 'trim|numeric');
+		$this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');
+		$this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');
+		$this->form_validation->set_rules('point_barangpoint', 'point_barangpoint', 'trim|numeric');
+		$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|numeric');
+		$this->form_validation->set_rules('po_no', 'po_no', 'trim|numeric');
+		$this->form_validation->set_rules('is_hargatoko', 'is_hargatoko', 'trim');
+		$this->form_validation->set_rules('is_hargapartai', 'is_hargapartai', 'trim');
+		$this->form_validation->set_rules('is_hargajual', 'is_hargajual', 'trim');
+		$this->form_validation->set_rules('sn', 'sn', 'trim');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
@@ -121,15 +146,33 @@ class barang_point extends My_Controller
 		
 		$data['result'] 		= $this->barang_point->getItemById($id);
 		
+		$data['sn'] = $data['result']->row()->sn;
 		$data['id_barang'] = $id;
 		$data['nama_barang'] = $data['result']->row()->nama_barang;
 		$data['id_jenis'] = $data['result']->row()->id_jenis;
 		$data['id_kategori'] = $data['result']->row()->id_kategori;
 		$data['id_satuan'] = $data['result']->row()->id_satuan;
-		$data['id_golongan'] = $data['result']->row()->id_golongan;		
-		$data['point_barangpoint'] = $data['result']->row()->point_barangpoint;		
+		$data['id_golongan'] = $data['result']->row()->id_golongan;
+		$data['hpp'] = $data['result']->row()->hpp;
+		$data['harga_toko'] = $data['result']->row()->harga_toko;
+		$data['harga_partai'] = $data['result']->row()->harga_partai;
+		$data['harga_cabang'] = $data['result']->row()->harga_cabang;
+		$data['point_karyawan'] = $data['result']->row()->point_karyawan;
+		$data['point_member'] = $data['result']->row()->point_member;
+		$data['point_barangpoint'] = $data['result']->row()->point_barangpoint;
+		$data['tanggal'] = $data['result']->row()->tanggal;
+		$data['po_no'] = $data['result']->row()->po_no;
+		$data['is_hargatoko'] = $data['result']->row()->is_hargatoko;
+		$data['is_hargapartai'] = $data['result']->row()->is_hargapartai;
+		$data['is_hargajual'] = $data['result']->row()->is_hargajual;		
 		
-		
+		$res_hpp = $this->detail_pembelian->getHPP($id);
+
+		if ($res_hpp->row()->jumlah == 0)
+		$data['final_hpp'] = 0;
+		else
+		$data['final_hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
+
 		$this->load->view('barang_point/barang_point_edit', $data);
 		
 		$this->close();
@@ -146,7 +189,7 @@ class barang_point extends My_Controller
 		
 		$data['id_barang'] = $this->input->post('id_barang');
 		$data['nama_barang'] = $this->input->post('nama_barang');
-		$data['id_jenis'] = '3';
+		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
 		$data['id_golongan'] = $this->input->post('id_golongan');

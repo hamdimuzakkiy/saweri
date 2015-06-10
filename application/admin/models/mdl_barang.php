@@ -59,4 +59,5 @@ class mdl_barang extends CI_Model{
 		$this->db->delete('barang', array('id_barang' => $id));
 	}
 	
+	
 }

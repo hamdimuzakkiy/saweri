@@ -130,11 +130,11 @@
 										echo '<li class="icon_blog">Master Pelanggan</li>'; 
 									}													
 
-									if ($privilage['master_akun'][0] == 1){ 										
+									/*if ($privilage['master_akun'][0] == 1){ 										
 										echo '<li class="icon_blog">'.anchor('master_akun','Master Akun').'</li>'; 									}
 										else{										
 											echo '<li class="icon_blog">Master Akun</li>'; 									
-										}																		
+										}*/
 										if ($privilage['master_saldo_elektrik'][0] == 1){ 										
 											echo '<li class="icon_blog">'.anchor('master_saldo_elektrik','Master Saldo Elektrik').'</li>'; 									
 										}

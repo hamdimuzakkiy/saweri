@@ -33,7 +33,8 @@
 					<p class="colx2-left">
 						<label for="complex-en-url">Kode Supplier :</label>
 						<span class="relative">
-							<input type="text" name="kode_supplier" id="kode_supplier" readOnly="true" value="<?=$this->supplier->get_kode_supplier()?>" class="duapertiga-width">
+							<!--input type="text" name="kode_supplier" id="kode_supplier" readOnly="true" value="<?=$this->supplier->get_kode_supplier()?>" class="duapertiga-width"-->
+							<input type="text" name="kode_supplier" id="kode_supplier"   class="duapertiga-width">
 						</span>
 					</p>
 					<p class="colx2-right">

@@ -8,6 +8,7 @@ class barang extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_barang', 'barang');
+		$this->load->model('mdl_detail_pembelian','detail_pembelian');
 		
 	}
 	
@@ -185,6 +186,13 @@ class barang extends My_Controller
 		$data['is_hargapartai'] = $data['result']->row()->is_hargapartai;
 		$data['is_hargajual'] = $data['result']->row()->is_hargajual;		
 		
+		$res_hpp = $this->detail_pembelian->getHPP($id);
+
+		if ($res_hpp->row()->jumlah == 0)
+		$data['final_hpp'] = 0;
+		else
+		$data['final_hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
+
 		$this->load->view('barang/barang_edit', $data);
 		
 		$this->close();
