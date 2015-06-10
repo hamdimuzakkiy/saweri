@@ -118,11 +118,18 @@
 										echo '<li class="icon_blog">Master Cabang</li>'; 
 									}
 									
+									if ($privilage['member'][0] == 1){ 
+										echo '<li class="icon_blog">'.anchor('member','Master Member').'</li>'; 
+									}else{
+										echo '<li class="icon_blog">Master Member</li>'; 
+									}													
+
 									if ($privilage['pelanggan'][0] == 1){ 
 										echo '<li class="icon_blog">'.anchor('pelanggan','Master Pelanggan').'</li>'; 
 									}else{
 										echo '<li class="icon_blog">Master Pelanggan</li>'; 
-									}																		
+									}													
+
 									if ($privilage['master_akun'][0] == 1){ 										
 										echo '<li class="icon_blog">'.anchor('master_akun','Master Akun').'</li>'; 									}
 										else{										

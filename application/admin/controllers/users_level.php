@@ -240,10 +240,10 @@ class users_level extends My_Controller
 			
 			$this->users_level->update($data['level_id'], $data);
 			$this->session->set_flashdata('message', 'Data Berhasil diupdate.');
-			//redirect('users_level');
+			redirect('users_level');
 		}
 		
-		//$this->close();
+		$this->close();
 		
 	}
 	

@@ -40,11 +40,11 @@ class mdl_karyawan extends CI_Model{
 		return $this->db->get();
 	}
 
-        function CheckUsername($username){
-            $this->db->flush_cache();
-            $this->db->where("username",$username);
-            return $this->db->get("users");
-        }
+    function CheckUsername($username){
+        $this->db->flush_cache();
+        $this->db->where("username",$username);
+        return $this->db->get("users");
+    }
 	function insert($data)
 	{		
 		$this->db->flush_cache();
@@ -74,7 +74,7 @@ class mdl_karyawan extends CI_Model{
 	function get_idkaryawan($id){
                 $str = $id."-".substr(2,2,date('Y')).date('mdy');
                 $this->db->flush_cache();
-                $query1 = $this->db->query("Select 0 FROM karyawan WHERE kode_karyawan LIKE "."\""."%".$str."\"");
+                $query1 = $this->db->query("Select 0 FROM karyawan WHERE kode_karyawan LIKE "."\"".$str."%"."\"");
 		
 		// ngambil no autoincrement dan akhirnya jadi-> '000x'
 		$tmp_no = $query1->num_rows()+1;

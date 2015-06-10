@@ -1,6 +1,6 @@
 <?php if(!defined('BASEPATH')) exit('No direct script allowed');
 
-class mdl_pelanggan extends CI_Model{
+class mdl_member extends CI_Model{
 	
 	function __construct()
 	{
@@ -11,7 +11,7 @@ class mdl_pelanggan extends CI_Model{
 	{
 		$this->db->flush_cache();
 		$this->db->select('id_pelanggan, kode_pelanggan, nama, alamat, jenis_pengenal, no_pengenal, tgl_lahir, agama, pekerjaan, tel, saldo_piutang, point');
-		$this->db->where('status', "pelanggan");
+		$this->db->where('status', "member");
 		$this->db->from('pelanggan');
 		$this->db->order_by("pelanggan.nama", "asc");
 		$this->db->limit($num, $offset);
@@ -22,7 +22,7 @@ class mdl_pelanggan extends CI_Model{
 	{
 		$this->db->flush_cache();
 		$this->db->select('id_pelanggan, kode_pelanggan, nama, alamat, jenis_pengenal, no_pengenal, tgl_lahir, agama, pekerjaan, tel, saldo_piutang, point');
-		$this->db->where('status', "pelanggan");
+		$this->db->where('status', "member");
 		$this->db->from('pelanggan');
 		$this->db->order_by("pelanggan.nama", "asc");
 		return $this->db->count_all_results();
@@ -31,14 +31,15 @@ class mdl_pelanggan extends CI_Model{
 	function getItemById($id)
 	{
 		$this->db->flush_cache();
-		$this->db->where('id_pelanggan', $id);		
+		$this->db->where('id_pelanggan', $id);
+		$this->db->where('status', "member");
 		return $this->db->get('pelanggan');
 	}
 
 	function insert($data)
 	{
 		$this->db->flush_cache();
-		$data['status'] = "pelanggan";
+		$data['status'] = "member";
 		$this->db->insert('pelanggan', $data);
 	}
 	
@@ -46,6 +47,7 @@ class mdl_pelanggan extends CI_Model{
 	{
 		$this->db->flush_cache();
 		$this->db->where('id_pelanggan', $id);
+		$this->db->where('status', "member");
 		$this->db->update('pelanggan', $data);
 	}
 	

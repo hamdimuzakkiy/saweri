@@ -136,7 +136,7 @@ class karyawan extends My_Controller
 			$data_karyawan['status'] = $this->input->post('status');
 			$data_karyawan['telp1'] = $this->input->post('telp1');
 			
-			$this->karyawan->insert($data_karyawan);
+			
 			
 			/* insert ke tabel user */
 			$data_user['userid'] = $this->input->post('userid');
@@ -146,13 +146,16 @@ class karyawan extends My_Controller
 			
                         if(sizeof($this->karyawan->CheckUsername($data_user['username'])->result())==1){
                             $data['usernameValidation']=1;
-                            $this->load->view('karyawan/karyawan_add',$data);
-                            return;
+                            $this->load->view('karyawan/karyawan_add',$data);                            
+                            return 0;
                         }
-			$this->users->insert($data_user);
-			
-			$this->session->set_flashdata('message', 'Data Karyawan Berhasil disimpan.');
-			redirect('karyawan');
+                        else
+						{
+							$this->users->insert($data_user);
+							$this->karyawan->insert($data_karyawan);
+							$this->session->set_flashdata('message', 'Data Karyawan Berhasil disimpan.');
+							redirect('karyawan');
+						}
 		}
 		
 		$this->close();
