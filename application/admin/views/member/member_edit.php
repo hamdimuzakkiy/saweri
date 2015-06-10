@@ -51,7 +51,7 @@
 			$attributes = array('name' => 'form1', 'id' => 'form1', 'class'=>'block-content form');
 			echo form_open('member/process_update', $attributes);
 		?>
-			<h1>Master > Edit Data Pelanggan</h1>
+			<h1>Master > Edit Data Member</h1>
 			
 			<fieldset>
 				

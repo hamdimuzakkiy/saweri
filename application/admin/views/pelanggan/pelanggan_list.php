@@ -55,12 +55,12 @@
 						<th align="left" valign="top" scope="col">Kode Pelanggan</th>
 						<th align="left" valign="top" scope="col">Nama</th>
 						<th align="left" valign="top" scope="col">Alamat</th>
-						<th align="left" valign="top" scope="col">Jenis Pengenal</th>
+						<!--th align="left" valign="top" scope="col">Jenis Pengenal</th>
 						<th align="left" valign="top" scope="col">No Identitas</th>
 						<th align="left" valign="top" scope="col">Tgl Lahir</th>
 						<th align="left" valign="top" scope="col">Agama</th>
 						<th align="left" valign="top" scope="col">Pekerjaan</th>
-						<th align="left" valign="top" scope="col">Telepon</th>						
+						<th align="left" valign="top" scope="col">Telepon</th-->						
 						<th align="left" valign="top" scope="col">Saldo Piutang</th>
 						<th align="left" valign="top" scope="col">Poin Akhir</th>	
 						<th align="left" valign="top" scope="col">Aksi</th>
@@ -76,12 +76,12 @@
 						<td align="left" valign="top"><?=$row->kode_pelanggan?> </td>
 						<td align="left" valign="top"><?=$row->nama?> </td>
 						<td align="left" valign="top"><?=$row->alamat?> </td>
-						<td align="left" valign="top"><?=$row->jenis_pengenal?> </td>
+						<!--td align="left" valign="top"><?=$row->jenis_pengenal?> </td>
 						<td align="left" valign="top"><?=$row->no_pengenal?> </td>
 						<td align="left" valign="top"><?=$row->tgl_lahir?> </td>
 						<td align="left" valign="top"><?=$row->agama?> </td>
 						<td align="left" valign="top"><?=$row->pekerjaan?> </td>
-						<td align="left" valign="top"><?=$row->tel?> </td>
+						<td align="left" valign="top"><?=$row->tel?> </td-->
 						<td align="right" valign="top"><?=convert_rupiah_non_rp($row->saldo_piutang);?> </td>												<td align="right" valign="top"><?=$row->point;?> </td>
 						<td align="left" valign="top" class="table-actions">
 							<?php

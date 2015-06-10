@@ -30,7 +30,7 @@
 <section class="grid_12">
 	<div class="block-border">
 		<form class="block-content form" name="table_form" id="table_form" method="post" action="">
-			<h1>Master > Master Pelanggan</h1>
+			<h1>Master > Master Member</h1>
 			
 						<div class="block-controls">
 				

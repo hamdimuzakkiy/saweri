@@ -49,7 +49,7 @@
 			$attributes = array('name' => 'form1', 'id' => 'form1', 'class'=>'block-content form');
 			echo form_open('member/insert', $attributes);
 		?>
-			<h1>Master > Tambah Data Pelanggan</h1>
+			<h1>Master > Tambah Data Member</h1>
 			
 			<fieldset>
 				

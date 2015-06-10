@@ -74,59 +74,8 @@
 						<span class="relative">
 							<input type="text" name="alamat" id="alamat" value="<?=set_value('alamat')?>" class="setengah-width">
 						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">Tgl Lahir :</label>
-						<span class="relative">
-							<span class="input-type-text margin-right relative">
-								<input type="text" name="tgl_lahir" id="tgl_lahir" class="datepicker" value="<?=set_value('tgl_lahir')?>">
-								<img onclick="javascript:klick_tanggal()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16">
-							</span>
-						</span>
-					</p>
-				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Agama :</label>
-						<span class="relative">
-							<input type="text" name="agama" id="agama" value="<?=set_value('agama')?>" class="duapertiga-width">
-							<?=form_error('agama')?>
-						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">Pekerjaan :</label>
-						<span class="relative">
-							<input type="text" name="pekerjaan" id="pekerjaan" value="<?=set_value('pekerjaan')?>" class="duapertiga-width">
-						</span>
-					</p>
-				</div>
-				<div class="columns">					
-					<p class="colx2-left">
-						<label for="complex-en-url">Jenis Pengenal :</label>
-						<span class="relative">
-							<select name="jenis_pengenal"  id="jenis_pengenal"  class="duapertiga-width">
-										<option value="KTP (Kartu Tanda Penduduk)">KTP (Kartu Tanda Penduduk)</option>
-										<option value="KTM (Kartu Tanda Mahasiswa)">KTM (Kartu Tanda Mahasiswa)</option>
-										<option value="SIM (Surat Izin Mengemudi)">SIM (Surat Izin Mengemudi)</option>
-										<option value="Pasport">Pasport</option>
-							</select>
-						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">No Pengenal (*) :</label>
-						<span class="relative">
-							<input type="text" name="no_pengenal" id="no_pengenal" value="<?=set_value('no_pengenal')?>" class="duapertiga-width">
-						</span>
-					</p>
-				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Telepon :</label>
-						<span class="relative">
-							<input type="text" name="tel" id="tel" value="<?=set_value('tel')?>" class="duapertiga-width">
-						</span>
-					</p>
-				</div>
+					</p>					
+				</div>																
 				<div class="columns">	
 					<p class="colx2-left">
 						<label for="complex-en-url">Tanggal Saldo Piutang :</label>
@@ -169,27 +118,9 @@
 								?>
 							</select>
 						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">Point :</label>
-						<span class="relative">
-							<input type="text" name="point" id="point" value="<?=set_value('point')?>" class="duapertiga-width">
-						</span>
-					</p>
+					</p>					
 				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Expired :</label>
-						<span class="relative">
-							<span class="input-type-text margin-right relative">
-								<input type="text" name="expired" id="expired" class="datepicker" value="<?=set_value('expired')?>">
-								<img onclick="javascript:klick_expired()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16">
-							</span>
-						</span>
-						
-					</p>
-					
-					
+				<div class="columns">					
 					<p class="colx2-right">
 						<label for="complex-en-url">Max Piutang :</label>
 						<span class="relative">

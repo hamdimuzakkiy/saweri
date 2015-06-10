@@ -96,16 +96,16 @@ class pelanggan extends My_Controller
 		$this->form_validation->set_rules('kode_pelanggan', 'Kode Pelanggan', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
-		$this->form_validation->set_rules('tgl_lahir', 'Tgl Lahir', 'trim');
+		/*$this->form_validation->set_rules('tgl_lahir', 'Tgl Lahir', 'trim');
 		$this->form_validation->set_rules('agama', 'Agama', 'trim');
 		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim');
 		$this->form_validation->set_rules('jenis_pengenal', 'Jenis Pengenal', 'required');
 		$this->form_validation->set_rules('no_pengenal', 'No Pengenal', 'required|numeric');
-		$this->form_validation->set_rules('tel', 'Telepon', 'trim|numeric');
+		$this->form_validation->set_rules('tel', 'Telepon', 'trim|numeric');*/
 		$this->form_validation->set_rules('max_piutang', 'Max Piutang', 'trim|numeric');
 		$this->form_validation->set_rules('id_area', 'Max id_area', 'trim');
-		$this->form_validation->set_rules('point', 'Point', 'trim|numeric');
-		$this->form_validation->set_rules('expired', 'Expired', 'trim');				
+		//$this->form_validation->set_rules('point', 'Point', 'trim|numeric');
+		//$this->form_validation->set_rules('expired', 'Expired', 'trim');				
 		$this->form_validation->set_rules('tanggal_piutang', 'Tanggal Saldo Piutang', 'trim');
 		$this->form_validation->set_rules('saldo_piutang', 'Saldo Piutang', 'trim|numeric');
 		
@@ -145,16 +145,16 @@ class pelanggan extends My_Controller
 		$data['kode_pelanggan'] = $data['result']->row()->kode_pelanggan;
 		$data['nama'] = $data['result']->row()->nama;
 		$data['alamat'] = $data['result']->row()->alamat;
-		$data['tgl_lahir'] = $data['result']->row()->tgl_lahir;
+		/*$data['tgl_lahir'] = $data['result']->row()->tgl_lahir;
 		$data['agama'] = $data['result']->row()->agama;
 		$data['pekerjaan'] = $data['result']->row()->pekerjaan;
 		$data['jenis_pengenal'] = $data['result']->row()->jenis_pengenal;
 		$data['no_pengenal'] = $data['result']->row()->no_pengenal;
-		$data['tel'] = $data['result']->row()->tel;
+		$data['tel'] = $data['result']->row()->tel;*/
 		$data['max_piutang'] = $data['result']->row()->max_piutang;
 		$data['id_area'] = $data['result']->row()->id_area;
-		$data['point'] = $data['result']->row()->point;
-		$data['expired'] = $data['result']->row()->expired;
+		//$data['point'] = $data['result']->row()->point;
+		//$data['expired'] = $data['result']->row()->expired;
 		$data['saldo_piutang'] = $data['result']->row()->saldo_piutang;				
 		$data['tanggal_piutang'] = $data['result']->row()->tanggal_piutang;
 		

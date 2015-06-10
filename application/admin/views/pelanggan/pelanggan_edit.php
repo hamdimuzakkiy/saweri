@@ -101,103 +101,8 @@
 								}
 							?>
 						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">Tgl Lahir :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('tgl_lahir') != null)
-								{
-									echo '
-											<span class="input-type-text margin-right relative">
-												<input type="text" name="tgl_lahir" id="tgl_lahir" class="datepicker" value="'.set_value('tgl_lahir').'">
-												<img onclick="javascript:klick_tanggal()" src="'.base_url().'asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16">
-											</span>';
-								}else
-								{
-									echo '
-											<span class="input-type-text margin-right relative">
-												<input type="text" name="tgl_lahir" id="tgl_lahir" class="datepicker" value="'.$tgl_lahir.'">
-												<img onclick="javascript:klick_tanggal()" src="'.base_url().'asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16">
-											</span>';
-								}
-							?>
-						</span>
-					</p>
-				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Agama :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('agama') != null)
-								{
-									echo '<input type="text" name="agama" id="agama" value="'.set_value('agama').'" class="duapertiga-width">';
-								}else
-								{
-									echo '<input type="text" name="agama" id="agama" value="'.$agama.'" class="duapertiga-width">';
-								}
-							?>
-						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">Pekerjaan :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('pekerjaan') != null)
-								{
-									echo '<input type="text" name="pekerjaan" id="pekerjaan" value="'.set_value('pekerjaan').'" class="duapertiga-width">';
-								}else
-								{
-									echo '<input type="text" name="pekerjaan" id="pekerjaan" value="'.$pekerjaan.'" class="duapertiga-width">';
-								}
-							?>
-						</span>
-					</p>
-				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Jenis Pengenal :</label>
-						<span class="relative">
-							<select name="jenis_pengenal"  id="jenis_pengenal"  class="duapertiga-width">
-										<option value="KTP (Kartu Tanda Penduduk)">KTP (Kartu Tanda Penduduk)</option>
-										<option value="KTM (Kartu Tanda Mahasiswa)">KTM (Kartu Tanda Mahasiswa)</option>
-										<option value="SIM (Surat Izin Mengemudi)">SIM (Surat Izin Mengemudi)</option>
-										<option value="Pasport">Pasport</option>
-							</select>
-						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">No Pengenal (*) :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('no_pengenal') != null)
-								{
-									echo '<input type="text" name="no_pengenal" id="no_pengenal" value="'.set_value('no_pengenal').'" class="duapertiga-width">';
-								}else
-								{
-									echo '<input type="text" name="no_pengenal" id="no_pengenal" value="'.$no_pengenal.'" class="duapertiga-width">';
-								}
-							?>
-						</span>
-					</p>
-				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Telepon :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('tel') != null)
-								{
-									echo '<input type="text" name="tel" id="tel" value="'.set_value('tel').'" class="duapertiga-width">';
-								}else
-								{
-									echo '<input type="text" name="tel" id="tel" value="'.$tel.'" class="duapertiga-width">';
-								}
-							?>
-						</span>
-					</p>
-				</div>
+					</p>					
+				</div>															
 				<div class="columns">
 					<p class="colx2-left">
 						<label for="complex-en-url">Tanggal Saldo Piutang :</label>
@@ -222,15 +127,15 @@
 						</span>
 					</p>
 					<p class="colx2-right">
-						<label for="complex-en-url">Max Piutang :</label>
+						<label for="complex-en-url">Saldo Piutang :</label>
 						<span class="relative">
 							<?php 
-								if (form_error('max_piutang') != null)
+								if (form_error('saldo_piutang') != null)
 								{
-									echo '<input type="text" name="max_piutang" id="max_piutang" value="'.set_value('max_piutang').'" class="duapertiga-width">';
+									echo '<input type="text" name="saldo_piutang" id="saldo_piutang" value="'.set_value('saldo_piutang').'" class="duapertiga-width"  onkeyup="return cek();">';
 								}else
 								{
-									echo '<input type="text" name="max_piutang" id="max_piutang" value="'.$max_piutang.'" class="duapertiga-width">';
+									echo '<input type="text" name="saldo_piutang" id="saldo_piutang" value="'.$saldo_piutang.'" class="duapertiga-width"  onkeyup="return cek();">';
 								}
 							?>
 						</span>
@@ -248,7 +153,7 @@
 										foreach($query->result() as $row)
 										{
 											if($id_area == $row->id_area){
-												echo '<option value="'.$row->id_area.'" selected="selected">'.$row->id_area.' - '.$row->area.'</option>';
+												echo '<option value="'.$row->id_area.'" selected="selected">'.$row->area.'</option>';
 											}else{
 												echo '<option value="'.$row->id_area.'" >'.$row->area.'</option>';
 											}
@@ -257,55 +162,20 @@
 								?>
 							</select>
 						</span>
-					</p>
-					<p class="colx2-right">
-						<label for="complex-en-url">Point :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('point') != null)
-								{
-									echo '<input type="text" name="point" id="point" value="'.set_value('point').'" class="duapertiga-width">';
-								}else
-								{
-									echo '<input type="text" name="point" id="point" value="'.$point.'" class="duapertiga-width">';
-								}
-							?>
-						</span>
-					</p>
+					</p>					
 				</div>
-				<div class="columns">
-					<p class="colx2-left">
-						<label for="complex-en-url">Expired :</label>
-						<span class="relative">
-							<?php 
-								if (form_error('expired') != null)
-								{
-									echo '
-											<span class="input-type-text margin-right relative">
-												<input type="text" name="expired" id="expired" class="datepicker" value="'.set_value('expired').'">
-												<img onclick="javascript:klick_expired()" src="'.base_url().'asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16">
-											</span>';
-								}else
-								{
-									echo '
-											<span class="input-type-text margin-right relative">
-												<input type="text" name="expired" id="expired" class="datepicker" value="'.$expired.'">
-												<img onclick="javascript:klick_expired()" src="'.base_url().'asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16">
-											</span>';
-								}
-							?>
-						</span>
-					</p>
+				<div class="columns">					
 					<p class="colx2-right">
-						<label for="complex-en-url">Saldo Piutang :</label>
+						<label for="complex-en-url">Max Piutang :</label>
 						<span class="relative">
+							
 							<?php 
-								if (form_error('saldo_piutang') != null)
+								if (form_error('max_piutang') != null)
 								{
-									echo '<input type="text" name="saldo_piutang" id="saldo_piutang" value="'.set_value('saldo_piutang').'" class="duapertiga-width"  onkeyup="return cek();">';
+									echo '<input type="text" name="max_piutang" id="max_piutang" value="'.set_value('max_piutang').'" class="duapertiga-width">';
 								}else
 								{
-									echo '<input type="text" name="saldo_piutang" id="saldo_piutang" value="'.$saldo_piutang.'" class="duapertiga-width"  onkeyup="return cek();">';
+									echo '<input type="text" name="max_piutang" id="max_piutang" value="'.$max_piutang.'" class="duapertiga-width">';
 								}
 							?>
 						</span>
