@@ -71,7 +71,7 @@ class area extends My_Controller
 		
 		$this->open();
 	
-		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
+		//$data['id_kecamatan'] = $this->input->post('id_kecamatan');
 		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
 		$data['id_area'] = $this->input->post('id_area');
 		$data['area'] = $this->input->post('area');
@@ -132,7 +132,7 @@ class area extends My_Controller
 		$this->open();
 		
 		$data['result'] 		= $this->area->getItemById($id);
-		$data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
+		//$data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
 		$data['id_kabupaten'] = $data['result']->row()->id_kabupaten;
 		$data['id_area'] = $data['result']->row()->id_area;
 		$data['area'] = $data['result']->row()->area;
@@ -151,7 +151,7 @@ class area extends My_Controller
 		$this->open();
 		
 		
-		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
+		//$data['id_kecamatan'] = $this->input->post('id_kecamatan');
 		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
 		$data['id_area'] = $this->input->post('id_area');
 		$data['area'] = $this->input->post('area');

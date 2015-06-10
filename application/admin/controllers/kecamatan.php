@@ -120,7 +120,6 @@ class kecamatan extends My_Controller
 		}else{
 			return TRUE;
 		}
-		
 	}
 	
 	function update($id)
@@ -131,7 +130,7 @@ class kecamatan extends My_Controller
 		
 		$this->open();
 		
-		$data['result'] 		= $this->kecamatan->getItemById($id);
+		$data['result'] = $this->kecamatan->getItemById($id);
 		
 		$data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
 		$data['kecamatan'] = $data['result']->row()->kecamatan;
@@ -155,29 +154,29 @@ class kecamatan extends My_Controller
 		$data['kecamatan'] = $this->input->post('kecamatan');
 		$data['userid'] = get_userid();
 		
-		
-				
-		$this->form_validation->set_rules('kecamatan', 'kecamatan', 'callback_cek_nama|required');
-		
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
-		$this->form_validation->set_message('required', 'Field %s harus diisi!');
-		
-		
-		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('kecamatan/kecamatan_edit',$data);
-			
-		}else{
+               $hasil_kabupaten = $this->kecamatan->getKabupaten($data['id_kecamatan']);
+               //echo $hasil_kabupaten->row()->id_kabupaten;
+                
+               if($data['id_kabupaten']==$hasil_kabupaten->row()->id_kabupaten){
+                    $this->form_validation->set_rules('kecamatan', 'kecamatan', 'callback_cek_nama|required');
+                    $this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
+                    $this->form_validation->set_message('required', 'Field %s harus diisi!');
+                    if ($this->form_validation->run()==FALSE){
+			//$this->load->view('kecamatan/kecamatan_edit',$data);
+                        $this->update($data['id_kecamatan']);
+                    }
+                    else{
 			$this->kecamatan->update($data['id_kecamatan'], $data);
-			
+			$this->session->set_flashdata('message', 'Data kecamatan Berhasil diupdate.');
+			redirect('kecamatan');
+                    }
+               }
+                else{
+			$this->kecamatan->update($data['id_kecamatan'], $data);
 			$this->session->set_flashdata('message', 'Data kecamatan Berhasil diupdate.');
 			redirect('kecamatan');
 		}
-		
 		$this->close();
-		
 	}
 	
 	function delete($id)

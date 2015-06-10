@@ -1,7 +1,7 @@
 <section class="grid_12">
 	<div class="block-border">
 		<form class="block-content form" id="table_form" method="post" action="">
-			<h1>Pembelian > Data Retur Pembelian</h1>
+			<h1>SETUP > Beban Transaksi</h1>
 			
 			<div class="block-controls">
 				
@@ -21,9 +21,9 @@
 			
 				<thead>
 					<tr>
-						<th align="left" valign="top" scope="col">Pembayaran</th>
-						<th align="left" valign="top" scope="col">Beban</th>						
-						<th align="left" valign="top" scope="col">Aksi</th>						
+						<th align="center" valign="top" scope="col">Pembayaran</th>
+						<th align="center" valign="top" scope="col">Beban</th>						
+						<th align="center" valign="top" scope="col">Aksi</th>						
 					</tr>
 				</thead>
 				
@@ -31,9 +31,9 @@
 					
 					<?php foreach($results->result() as $row) {?>
 					<tr>
-						<td align="left" valign="top"><?=$row->pembayaran?> </td>
-						<td align="left" valign="top"><?=$row->beban?> </td>						
-						<td align="left" valign="top" class="table-actions">
+						<td align="center" valign="top"><?=$row->pembayaran?> </td>
+						<td align="center" valign="top"><?=$row->beban?> </td>						
+						<td align="center" valign="top" class="table-actions">
 							<?php
 								 if ($can_update == TRUE){
 									 echo anchor('beban_transaksi/update/'.$row->id, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));

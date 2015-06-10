@@ -203,7 +203,7 @@ class karyawan extends My_Controller
 				
 		$data['id_karyawan'] = $this->input->post('id_karyawan');
 		$data['id_cabang'] = $this->input->post('id_cabang');
-		$data['kode_karyawan'] = $this->input->post('kode_karyawan');
+		//$data['kode_karyawan'] = $this->input->post('kode_karyawan');
 		$data['nama'] = $this->input->post('nama');
 		$data['alamat'] = $this->input->post('alamat');
 		$data['telp1'] = $this->input->post('telp1');
@@ -220,7 +220,7 @@ class karyawan extends My_Controller
 		
 	
 		$this->form_validation->set_rules('id_cabang', 'ID Cabang', 'required');		
-		$this->form_validation->set_rules('kode_karyawan', 'Kode Karyawan', 'required');		
+		//$this->form_validation->set_rules('kode_karyawan', 'Kode Karyawan', 'required');		
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
 		$this->form_validation->set_rules('jenis_pengenal', 'Jenis Pengenal', 'required');
 		$this->form_validation->set_rules('no_pengenal', 'No Pengenal', 'required|numeric');
@@ -251,7 +251,8 @@ class karyawan extends My_Controller
 			$data_karyawan['id_karyawan'] = $this->input->post('id_karyawan');
 			$data_karyawan['userid'] = $this->input->post('userid');
 			$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
-			$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
+			//$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
+                        //$data_karyawan['kode_karyawan'] = $this->cokot($data_karyawan['id_cabang']);
 			$data_karyawan['nama'] = $this->input->post('nama');
 			$data_karyawan['alamat'] = $this->input->post('alamat');
 			$data_karyawan['jenis_pengenal'] = $this->input->post('jenis_pengenal');

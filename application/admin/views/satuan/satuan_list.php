@@ -50,9 +50,9 @@
 			
 				<thead>
 					<tr>
-						<th align="left" valign="top" scope="col">&nbsp;</th>
-						<th align="left" valign="top" scope="col">Nama Satuan</th>
-						<th align="left" valign="top" scope="col">Aksi</th>
+						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
+						<th align="center" valign="top" scope="col">Nama Satuan</th>
+						<th align="center" valign="top" scope="col">Aksi</th>
 					</tr>
 				</thead>
 				
@@ -60,10 +60,9 @@
 					
 					<?php foreach($results->result() as $row) {?>
 					<tr>
-						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_satuan?>" type="checkbox" /></td>
-						<td align="left" valign="top"><?=$row->satuan?> </td>
-		
-						<td align="left" valign="top" class="table-actions">
+						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_satuan?>" type="checkbox" /></td>-->
+						<td align="center" valign="top"><?=$row->satuan?> </td>		
+						<td align="center" valign="top" class="table-actions">
 							<?php
 								if ($can_update == TRUE){
 									echo anchor('satuan/update/'.$row->id_satuan, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
@@ -87,18 +86,18 @@
 			
 			<div class="block-footer">
 				
-				<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
+				<!--<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
 				<a href="javascript:void(0)" class="button" onClick="check_all(0)" >Select All</a> 
-				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>
+				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>-->
 				<span class="sep"></span>
 				<?=anchor('satuan/insert', 'Tambah Data', array('class'=>'button'))?>
 				<span class="sep"></span>
-				<select name="table-action" id="table-action" class="small">
+				<!--<select name="table-action" id="table-action" class="small">
 					<option value="">Aksi</option>
 					<option value="validate">Validasi</option>
 					<option value="delete">Hapus</option>
 				</select>
-				<button type="submit" class="small">Ok</button>
+				<button type="submit" class="small">Ok</button>-->
 			</div>
 				
 		</form>

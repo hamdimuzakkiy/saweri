@@ -53,10 +53,10 @@
 				<thead>
 					<tr>
 						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
-                                                <th align="left" valign="top" scope="col">ID Golongan</th>
-						<th align="left" valign="top" scope="col">Golongan</th>
-						<th align="left" valign="top" scope="col">Jenis</th>
-						<th align="left" valign="top" scope="col">Aksi</th>
+                                                <th align="center" valign="top" scope="col">ID Golongan</th>
+						<th align="center" valign="top" scope="col">Golongan</th>
+						<th align="center" valign="top" scope="col">Jenis</th>
+						<th align="center" valign="top" scope="col">Aksi</th>
 					</tr>
 				</thead>
 				
@@ -65,10 +65,10 @@
 					<?php foreach($results->result() as $row) {?>
 					<tr>
 						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_golongan?>" type="checkbox" /></td>-->
-						<td align="left" valign="top"><?=$row->id_golongan?> </td>
-                                                <td align="left" valign="top"><?=$row->golongan?> </td>
-						<td align="left" valign="top"><?=$row->jenis?> </td>
-						<td align="left" valign="top" class="table-actions">
+						<td align="center" valign="top"><?=$row->id_golongan?> </td>
+                                                <td align="center" valign="top"><?=$row->golongan?> </td>
+						<td align="center" valign="top"><?=$row->jenis?> </td>
+						<td align="center" valign="top" class="table-actions">
 							<?php
 								if ($can_update == TRUE){
 									echo anchor('golongan/update/'.$row->id_golongan, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));

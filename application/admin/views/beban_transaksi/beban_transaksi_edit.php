@@ -22,7 +22,7 @@
 			$attributes = array('name' => 'form1', 'id' => 'form1', 'class'=>'block-content form');
 			echo form_open('beban_transaksi/process_update', $attributes);
 		?>
-			<h1>Pembelian > Edit Data Retur Pembelian</h1>
+			<h1>SETUP > Beban Transaksi</h1>
 			
 			<fieldset class="grey-bg ">				
 				<div class="columns">

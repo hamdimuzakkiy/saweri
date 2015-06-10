@@ -11,12 +11,12 @@ class mdl_area extends CI_Model{
 	{
 		
 		$this->db->flush_cache();		
-		$this->db->order_by("kecamatan", "asc");
+		//$this->db->order_by("kecamatan", "asc");
 		$this->db->order_by("kabupaten", "asc");
-		$this->db->select('area.id_area, area.area, kecamatan.kecamatan, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
+		$this->db->select('area.id_area, area.area, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
 		$this->db->from('area');		
 		$this->db->join('pelanggan', 'pelanggan.id_area = area.id_area','left');		
-		$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
+		//$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
 		$this->db->join('kabupaten', 'area.id_kabupaten = kabupaten.id_kabupaten');				
 		$this->db->group_by('area.id_area');		
 		$this->db->limit($num, $offset);				
@@ -27,12 +27,12 @@ class mdl_area extends CI_Model{
 	{
 		
 		$this->db->flush_cache();		
-		$this->db->order_by("kecamatan", "asc");
+		//$this->db->order_by("kecamatan", "asc");
 		$this->db->order_by("kabupaten", "asc");
-		$this->db->select('area.id_area, area.area, kecamatan.kecamatan, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
+		$this->db->select('area.id_area, area.area, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
 		$this->db->from('area');		
 		$this->db->join('pelanggan', 'pelanggan.id_area = area.id_area','left');		
-		$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
+		//$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
 		$this->db->join('kabupaten', 'area.id_kabupaten = kabupaten.id_kabupaten');								
 		return $this->db->count_all_results();		
 	}

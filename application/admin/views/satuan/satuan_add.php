@@ -1,3 +1,10 @@
+<script type="text/javascript">
+	
+	function batal(){
+		document.location.href = '<?=base_url().'index.php/satuan'?>';
+	}
+	
+</script>
 <section class="grid_12">
 	<div class="block-border">
 		<?php
@@ -25,7 +32,7 @@
 				
 			<div id="tab-settings" class="tabs-content">
 					<button type="submit"><img src="<?=base_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16"> Simpan</button>
-					<button type="button" class="red">Batal</button> 					
+					<button type="button" class="red" onclick="javascript:batal();">Batal</button> 					
 			</div>
 			
 		</form>

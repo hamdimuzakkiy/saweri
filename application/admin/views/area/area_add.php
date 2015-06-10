@@ -48,7 +48,7 @@
 						</span>
 					</p>
 					
-					<p class="colx2-right">
+					<!--<p class="colx2-right">
 						<label for="complex-en-url">Kecamatan (*)  :</label>
 						<span class="relative">
 							<select name="id_kecamatan" id="id_kecamatan" >
@@ -64,11 +64,11 @@
 								?>
 							</select>
 						</span>
-					</p>
+					</p>-->
 				</div>
 				<div class="columns">	
 					<p class="colx2-left">
-						<label for="complex-en-url">Kode (*) :</label>
+						<label for="complex-en-url">Area (*) :</label>
 						<span class="relative">
 							<input type="text" name="area" id="area" value="<?=set_value('area')?>" >
 						</span>

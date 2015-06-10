@@ -52,7 +52,7 @@
 					</p>
 					
 					
-					<p class="colx2-right">
+					<!--<p class="colx2-right">
 						<label for="complex-en-url">Kecamatan (*)  :</label>
 						<span class="relative">
 							<select name="id_kecamatan" id="id_kecamatan" lass="seperempat-width" >
@@ -72,7 +72,7 @@
 								?>
 							</select>
 						</span>
-					</p>
+					</p>-->
 				</div>
 				<div class="columns">
 					<p class="colx2-left">

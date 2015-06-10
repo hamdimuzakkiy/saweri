@@ -49,6 +49,7 @@
 									</select>
 								</span>
 							</p>
+                                                        <!--
 							<p class="colx3-center">
 									<input type="hidden" name="id_karyawan" value="<?php echo $id_karyawan;?>">
 									<input type="hidden" name="test" value="<?php echo $id_karyawan;?>">
@@ -64,7 +65,7 @@
 											}
 										?>
 									</span>
-								</p>
+								</p>-->
 							<p class="colx3-right">
 								<label for="complex-en-url">Nama (*) :</label>
 								<span class="relative">

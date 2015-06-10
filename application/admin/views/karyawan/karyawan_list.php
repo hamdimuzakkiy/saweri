@@ -85,7 +85,7 @@
 			
 				<thead>
 					<tr>
-						<th align="left" valign="top" scope="col">&nbsp;</th>
+						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
 						<th align="left" valign="top" scope="col">Cabang</th>
 						<th align="left" valign="top" scope="col">Kode Karyawan</th>
 						<th align="left" valign="top" scope="col">Nama</th>
@@ -103,7 +103,7 @@
 					
 					<?php foreach($results->result() as $row){?>
 					<tr>
-						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_karyawan?>" type="checkbox" /></td>
+						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_karyawan?>" type="checkbox" /></td>-->
 						<td align="left" valign="top"><?=$row->nama_cabang?> </td>
 						<td align="left" valign="top"><?=$row->kode_karyawan?> </td>
 						<td align="left" valign="top"><?=$row->nama?> </td>
@@ -140,18 +140,18 @@
 			
 			<div class="block-footer">
 				
-				<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
+				<!--<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
 				<a href="javascript:void(0)" class="button" onClick="check_all(0)" >Select All</a> 
-				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>
+				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>-->
 				<span class="sep"></span>
 				<?=anchor('karyawan/insert', 'Tambah Data', array('class'=>'button'))?>
 				<span class="sep"></span>
-				<select name="table-action" id="table-action" class="small">
+				<!--<select name="table-action" id="table-action" class="small">
 					<option value="">Aksi</option>
 					<option value="validate">Validasi</option>
 					<option value="delete">Hapus</option>
 				</select>
-				<button type="submit" class="small">Ok</button>
+				<button type="submit" class="small">Ok</button>-->
 			</div>
 				
 		</form>
