@@ -154,7 +154,7 @@ class pelanggan extends My_Controller
 		$data['max_piutang'] = $data['result']->row()->max_piutang;
 		$data['id_area'] = $data['result']->row()->id_area;
 		//$data['point'] = $data['result']->row()->point;
-		//$data['expired'] = $data['result']->row()->expired;
+		$data['expired'] = $data['result']->row()->expired;
 		$data['saldo_piutang'] = $data['result']->row()->saldo_piutang;				
 		$data['tanggal_piutang'] = $data['result']->row()->tanggal_piutang;
 		
@@ -176,17 +176,17 @@ class pelanggan extends My_Controller
 		$data['id_pelanggan'] = $this->input->post('id_pelanggan');
 		$data['kode_pelanggan'] = $this->input->post('kode_pelanggan');
 		$data['nama'] = $this->input->post('nama');
-		$data['alamat'] = $this->input->post('alamat');
+		/*$data['alamat'] = $this->input->post('alamat');
 		$data['tgl_lahir'] = $this->input->post('tgl_lahir');
 		$data['agama'] = $this->input->post('agama');
 		$data['pekerjaan'] = $this->input->post('pekerjaan');
 		$data['jenis_pengenal'] = $this->input->post('jenis_pengenal');
 		$data['no_pengenal'] = $this->input->post('no_pengenal');
-		$data['tel'] = $this->input->post('tel');
+		$data['tel'] = $this->input->post('tel');*/
 		$data['max_piutang'] = $this->input->post('max_piutang');
 		$data['id_area'] = $this->input->post('id_area');
-		$data['point'] = $this->input->post('point');
-		$data['expired'] = $this->input->post('expired');
+		//$data['point'] = $this->input->post('point');
+		//$data['expired'] = $this->input->post('expired');
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');
 		$data['userid'] = get_userid();
 		$data['tanggal_piutang'] = $this->input->post('tanggal_piutang');
