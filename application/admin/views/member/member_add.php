@@ -89,7 +89,14 @@
 					<p class="colx2-left">
 						<label for="complex-en-url">Agama :</label>
 						<span class="relative">
-							<input type="text" name="agama" id="agama" value="<?=set_value('agama')?>" class="duapertiga-width">
+							<!--<input type="text" name="agama" id="agama" value="<?=set_value('agama')?>" class="duapertiga-width">-->
+                                                    <select name="agama" id="agama" class="duapertiga-width">
+                                                        <option value="Islam">Islam</option>
+                                                        <option value="Kristen">Kristen</option>
+                                                        <option value="Katolik">Katolik</option>
+                                                        <option value="Budha">Budha</option>
+                                                        <option value="Hindu">Hindu</option>
+                                                    </select>
 							<?=form_error('agama')?>
 						</span>
 					</p>

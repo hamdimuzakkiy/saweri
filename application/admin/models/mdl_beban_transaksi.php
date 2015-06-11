@@ -28,6 +28,13 @@ class mdl_beban_transaksi extends CI_Model{
 		return $this->db->get('beban_transaksi');
 	}
 
+        function getItemByName($id)
+	{
+		$this->db->flush_cache();
+		$this->db->where('pembayaran', $id);
+		return $this->db->get('beban_transaksi');
+	}
+        
 	function update($id,$data)
 	{
 		$this->db->flush_cache();

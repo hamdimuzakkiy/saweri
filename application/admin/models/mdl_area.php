@@ -11,12 +11,12 @@ class mdl_area extends CI_Model{
 	{
 		
 		$this->db->flush_cache();		
-		//$this->db->order_by("kecamatan", "asc");
+		$this->db->order_by("kecamatan", "asc");
 		$this->db->order_by("kabupaten", "asc");
-		$this->db->select('area.id_area, area.area, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
+		$this->db->select('area.id_area, kecamatan.kecamatan,area.area, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
 		$this->db->from('area');		
 		$this->db->join('pelanggan', 'pelanggan.id_area = area.id_area','left');		
-		//$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
+		$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
 		$this->db->join('kabupaten', 'area.id_kabupaten = kabupaten.id_kabupaten');				
 		$this->db->group_by('area.id_area');		
 		$this->db->limit($num, $offset);				
@@ -27,12 +27,12 @@ class mdl_area extends CI_Model{
 	{
 		
 		$this->db->flush_cache();		
-		//$this->db->order_by("kecamatan", "asc");
+		$this->db->order_by("kecamatan", "asc");
 		$this->db->order_by("kabupaten", "asc");
-		$this->db->select('area.id_area, area.area, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
+		$this->db->select('area.id_area, kecamatan.kecamatan,area.area, kabupaten.kabupaten, count(pelanggan.id_area) as jumlah_pelanggan');
 		$this->db->from('area');		
 		$this->db->join('pelanggan', 'pelanggan.id_area = area.id_area','left');		
-		//$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
+		$this->db->join('kecamatan', 'area.id_kecamatan = kecamatan.id_kecamatan');
 		$this->db->join('kabupaten', 'area.id_kabupaten = kabupaten.id_kabupaten');								
 		return $this->db->count_all_results();		
 	}
@@ -43,7 +43,14 @@ class mdl_area extends CI_Model{
 		$this->db->where('id_area', $id);
 		return $this->db->get('area');
 	}
-
+        
+        function getNama($id)
+	{
+		$this->db->flush_cache();
+		$this->db->where('area', $id);
+		return $this->db->get('area');
+	}
+        
 	function insert($data)
 	{
 		$this->db->flush_cache();
@@ -72,5 +79,15 @@ class mdl_area extends CI_Model{
 		
 		return $this->db->get();
 	}
+        
+        function checkArea($nama_area,$id_kabupaten,$id_kecamatan){
+            $this->db->flush_cache();
+            $this->db->select("*");
+            //$this->db->from("area");
+            $this->db->where("id_kabupaten",$id_kabupaten);
+            $this->db->where("id_kecamatan",$id_kecamatan);
+            $this->db->where("area",$nama_area);
+            return $this->db->get("area");
+        }
 	
 }

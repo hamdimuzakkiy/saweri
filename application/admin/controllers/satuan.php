@@ -70,34 +70,30 @@ class satuan extends My_Controller
 		if ($this->can_insert() == FALSE){
 			redirect('auth/failed');
 		}
-		
 		$this->open();
-		
+                
 		$data['id_satuan'] = $this->input->post('id_satuan');
 		$data['satuan'] = $this->input->post('satuan');
 		$data['userid'] = get_userid();
 		
-		
-		
 		$this->form_validation->set_rules('satuan', 'satuan', 'required');
-		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
+                $checker = $this->checkName($data['satuan']);
 		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('satuan/satuan_add',$data);
-			
-		}else{	
+                    $data['usernameValidation']=0;
+                    $this->load->view('satuan/satuan_add',$data);
+		}
+                else if($checker==FALSE){
+                    $data['usernameValidation']=1;
+                    $this->load->view('satuan/satuan_add',$data);
+                }
+                else{	
 			$this->satuan->insert($data);
 			$this->session->set_flashdata('message', 'Data Satuan Barang Berhasil disimpan.');
 			redirect('satuan');
 		}
-		
 		$this->close();
 	}
 	
@@ -113,6 +109,7 @@ class satuan extends My_Controller
 		
 		$data['id_satuan'] = $id;
 		$data['satuan'] = $data['result']->row()->satuan;
+                $data['usernameValidation'] = 0;
 		
 		
 		$this->load->view('satuan/satuan_edit', $data);
@@ -125,30 +122,26 @@ class satuan extends My_Controller
 		if ($this->can_update() == FALSE){
 			redirect('auth/failed');
 		}
-		
 		$this->open();
-		
-		
 		$data['id_satuan'] = $this->input->post('id_satuan');
 		$data['satuan'] = $this->input->post('satuan');
 		$data['userid'] = get_userid();
 		
-		
-		
 		$this->form_validation->set_rules('satuan', 'satuan', 'required');
-		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
-		
-		
+                
+                $checker = $this->checkName($data['satuan']);
+                
 		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('satuan/satuan_edit',$data);
-			
-		}else{	
+                        $data['usernameValidation']=0;
+			$this->load->view('satuan/satuan_edit',$data);	
+		}
+                else if($checker==FALSE){
+                    $data['usernameValidation']=1;
+                    $this->load->view('satuan/satuan_add',$data);
+                }
+                else{	
 			$this->satuan->update($data['id_satuan'], $data);
 			$this->session->set_flashdata('message', 'Data Satuan Barang Berhasil diupdate.');
 			redirect('satuan');
@@ -168,5 +161,10 @@ class satuan extends My_Controller
 		$this->session->set_flashdata('message', 'Data Satuan Barang Berhasil dihapus.');
 		redirect('satuan');
 	}
-	
+        
+	function checkName($name){
+            $result = $this->satuan->getItemByName($name);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

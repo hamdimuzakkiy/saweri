@@ -3,7 +3,13 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/area'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Area telah ada.</h2>
+</div>
 <section class="grid_8">
 	<div class="block-border">
 		<?php
@@ -31,16 +39,23 @@
 				
 				<div class="columns">
 				<p class="colx2-left">
-						<label for="complex-en-url">Kabupaten (*)  :</label>
+						<label for="complex-en-url">Kabupaten - Kecamatan (*)  :</label>
 						<span class="relative">
-							<select name="id_kabupaten" id="id_kabupaten" >
+							<select name="id_kecamatan" id="id_kecamatan" >
 								<?php
 									$query = $this->db->get('kabupaten');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-											echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
+                                                                                    $this->db->flush_cache();
+                                                                                    $this->db->select("*");
+                                                                                    $this->db->where("id_kabupaten",$row->id_kabupaten);
+                                                                                    $query1 = $this->db->get('kecamatan');
+                                                                                    if($query1->num_rows() > 0)
+                                                                                    foreach ($query1->result() as $row1){
+                                                                                        echo '<option value="'.$row1->id_kecamatan.'">'.$row->kabupaten." - ".$row1->kecamatan.'</option>';
+                                                                                    }
 										}
 									}
 								?>

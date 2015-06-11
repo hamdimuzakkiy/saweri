@@ -3,8 +3,17 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/satuan'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
+<div id="username-error">
+    <h2>Satuan Sudah Tersedia</h2>
+</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php

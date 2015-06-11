@@ -51,8 +51,13 @@
 						<label for="complex-en-url">Jenis Barang :</label>
 						<span class="relative">
 							<select name="jenis" id="jenis"class="seperempat-width">
-								<option value="BARANG">BARANG</option>
-								<option value="PULSA">PULSA</option>
+                                                            <?php 
+                                                            $query = $this->db->get('jenis');
+                                                            if($query->num_rows() > 0)
+                                                            foreach ($query->result() as $jenis){ 
+                                                                ?>
+								<option value="<?php echo $jenis->id_jenis ?>"><?php echo $jenis->jenis; ?></option>
+                                                            <?php } ?>
 							</select>
 						</span>
 					</p>

@@ -1,9 +1,15 @@
 <script type="text/javascript">
 	
 	function batal(){
-		document.location.href = '<?=base_url().'index.php/area'?>';
+            document.location.href = '<?php echo base_url().'index.php/area'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Area sudah ada.</h2>
+</div>
 <section class="grid_8">
 	<div class="block-border">
 		<?php
@@ -32,18 +40,24 @@
 				<p class="colx2-left">
 						<label for="complex-en-url">Kabupaten (*)  :</label>
 						<span class="relative">
-							<select name="id_kabupaten" id="id_kabupaten" >
+							<select name="id_kecamatan" id="id_kecamatan" >
 								<?php
 									$query = $this->db->get('kabupaten');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-											if($id_kabupaten == $row->id_kabupaten){
-												echo '<option value="'.$row->id_kabupaten.'" selected="selected">'.$row->kabupaten.'</option>';
-											}else{
-												echo '<option value="'.$row->id_kabupaten.'" >'.$row->kabupaten.'</option>';
-											}
+                                                                                    $this->db->flush_cache();
+                                                                                    $this->db->select("*");
+                                                                                    $this->db->where("id_kabupaten",$row->id_kabupaten);
+                                                                                    $query1 = $this->db->get('kecamatan');
+                                                                                    if($query1->num_rows() > 0)
+                                                                                    foreach ($query1->result() as $row1){
+                                                                                        if($id_kecamatan==$row1->id_kecamatan){
+                                                                                            echo '<option value="'.$row1->id_kecamatan.'"selected>'.$row->kabupaten." - ".$row1->kecamatan.'</option>';
+                                                                                        }
+                                                                                        else echo '<option value="'.$row1->id_kecamatan.'">'.$row->kabupaten." - ".$row1->kecamatan.'</option>';
+                                                                                    }
 										}
 									}
 								?>

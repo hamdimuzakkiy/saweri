@@ -132,11 +132,25 @@
 							<?php 
 								if (form_error('agama') != null)
 								{
-									echo '<input type="text" name="agama" id="agama" value="'.set_value('agama').'" class="duapertiga-width">';
+									//echo '<input type="text" name="agama" id="agama" value="'.set_value('agama').'" class="duapertiga-width">';
+                                                                                echo '<select name="agama" id="agama" class="duapertiga-width">
+                                                                                        <option value="Islam">Islam</option>
+                                                                                        <option value="Kristen">Kristen</option>
+                                                                                        <option value="Katolik">Katolik</option>
+                                                                                        <option value="Budha">Budha</option>
+                                                                                        <option value="Hindu">Hindu</option>
+                                                                                      </select>';
 								}else
 								{
-									echo '<input type="text" name="agama" id="agama" value="'.$agama.'" class="duapertiga-width">';
-								}
+									//echo '<input type="text" name="agama" id="agama" value="'.$agama.'" class="duapertiga-width">';
+                                                                        echo '<select name="agama" id="agama" class="duapertiga-width">
+                                                                                        <option value="Islam">Islam</option>
+                                                                                        <option value="Kristen">Kristen</option>
+                                                                                        <option value="Katolik">Katolik</option>
+                                                                                        <option value="Budha">Budha</option>
+                                                                                        <option value="Hindu">Hindu</option>
+                                                                                      </select>';
+                                                                }
 							?>
 						</span>
 					</p>

@@ -20,7 +20,13 @@ class mdl_satuan extends CI_Model{
 		$this->db->where('id_satuan', $id);
 		return $this->db->get('satuan');
 	}
-
+        
+        function getItemByName($id)
+	{
+		$this->db->flush_cache();
+		$this->db->where('satuan', $id);
+		return $this->db->get('satuan');
+	}
 	function insert($data)
 	{
 		$this->db->flush_cache();

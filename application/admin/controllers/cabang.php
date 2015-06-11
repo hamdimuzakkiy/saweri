@@ -84,7 +84,7 @@ class cabang extends My_Controller
 		
 		
 		
-		$this->form_validation->set_rules('kode_cabang', 'Kode Cabang', 'required|numeric');
+		$this->form_validation->set_rules('kode_cabang', 'Kode Cabang', 'required');
 		$this->form_validation->set_rules('nama_cabang', 'Nama Cabang', 'callback_cek_nama|required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
 		$this->form_validation->set_rules('telepon', 'telepon', 'trim|numeric');

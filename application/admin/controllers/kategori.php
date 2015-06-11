@@ -8,7 +8,6 @@ class kategori extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_kategori', 'kategori');
-		
 	}
 	
 	function index()
@@ -53,12 +52,7 @@ class kategori extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
-		
 		$data['results'] = $this->kategori->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
 		$this->load->view('kategori/kategori_list', $data);
 		
 		$this->close();
@@ -76,24 +70,25 @@ class kategori extends My_Controller
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['kategori'] = $this->input->post('kategori');		
 		$data['jenis'] = $this->input->post('jenis');
-		
-		
-		$this->form_validation->set_rules('kategori', 'kategori', 'callback_cek_nama|required');
-		
-		
+
+                $checker = $this->checkID($data['id_kategori']);
+                
+		//$this->form_validation->set_rules('kategori', 'kategori', 'callback_cek_nama|required');
+                $this->form_validation->set_rules('id_kategori', 'ID Kategori', 'required');
+                $this->form_validation->set_rules('kategori', 'Kategori', 'required');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
 		if ($this->form_validation->run() == FALSE){
-			
+                        $data['usernameValidation']=0;
 			$this->load->view('kategori/kategori_add',$data);
-			
-		}else{	
+		}
+                else if($checker==FALSE){
+                    $data['usernameValidation']=1;
+                    $this->load->view('kategori/kategori_add',$data);
+                }
+                else{	
 			$this->kategori->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data Kategori Berhasil disimpan.');
 			redirect('kategori');
 		}
@@ -184,4 +179,9 @@ class kategori extends My_Controller
 		redirect('kategori');
 	}
 	
+        function checkID($id){
+            $result = $this->kategori->getItemByID($id);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

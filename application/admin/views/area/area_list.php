@@ -53,7 +53,8 @@
 				<thead>
 					<tr>
 						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
-						<th align="center" valign="top" scope="col">Kabupaten</th>
+                                                <th align="center" valign="top" scope="col">Kabupaten</th>
+                                                <th align="center" valign="top" scope="col">Kecamatan</th>
 						<th align="center" valign="top" scope="col">Area </th>
 						<th align="center" valign="top" scope="col">Jumlah Pelanggan </th>
 						<th align="center" valign="top" scope="col">Aksi</th>
@@ -66,7 +67,8 @@
 					<tr>
 						
 						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_area?>" type="checkbox" /></td>-->
-						<td align="center" valign="top"><?=$row->kabupaten?> </td>												
+						<td align="center" valign="top"><?=$row->kabupaten?> </td>
+                                                <td align="center" valign="top"><?=$row->kecamatan?> </td>												
 						<td align="center" valign="top"><?=$row->area?> </td>
 						<td align="center" valign="top"><?=$row->jumlah_pelanggan?> </td>
 		

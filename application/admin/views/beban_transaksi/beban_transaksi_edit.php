@@ -44,7 +44,7 @@
 						<label for="complex-en-url">Beban (*) :</label>
 						<span class="relative">
 							<?php 
-								print '<input type="text" name="beban" id="qty" value="'.$beban.'" class="duapertiga-width" >%';
+								print '<input type="text" name="beban" id="qty" value="'.$beban.'" class="duapertiga-width">%';
 							?>
 						</span>
 					</p>

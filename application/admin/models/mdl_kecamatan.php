@@ -32,6 +32,12 @@ class mdl_kecamatan extends CI_Model{
 		$this->db->where('id_kecamatan', $id);
 		return $this->db->get('kecamatan');
 	}
+        function getNama($nama,$id_kabupaten){
+            $this->db->flush_cache();
+            $this->db->where('kecamatan', $nama);
+            $this->db->where('id_kabupaten',$id_kabupaten);
+            return $this->db->get('kecamatan');
+        }
         
         function getKabupaten($id){
 		$this->db->flush_cache();

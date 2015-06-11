@@ -72,7 +72,7 @@ class mdl_karyawan extends CI_Model{
 	
 	// ngambil id otomatis
 	function get_idkaryawan($id){
-                $str = $id."-".substr(2,2,date('Y')).date('mdy');
+                $str = $id."-".substr(2,2,date('Y')).date('dmy');
                 $this->db->flush_cache();
                 $query1 = $this->db->query("Select 0 FROM karyawan WHERE kode_karyawan LIKE "."\"".$str."%"."\"");
 		

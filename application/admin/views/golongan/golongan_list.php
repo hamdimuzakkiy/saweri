@@ -66,7 +66,7 @@
 					<tr>
 						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_golongan?>" type="checkbox" /></td>-->
 						<td align="center" valign="top"><?=$row->id_golongan?> </td>
-                                                <td align="center" valign="top"><?=$row->golongan?> </td>
+                                                <td align="left" valign="top"><?=$row->golongan?> </td>
 						<td align="center" valign="top"><?=$row->jenis?> </td>
 						<td align="center" valign="top" class="table-actions">
 							<?php

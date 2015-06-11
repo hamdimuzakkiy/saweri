@@ -3,8 +3,17 @@
 	function batal(){
 		document.location.href = '<?php echo base_url().'index.php/satuan'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
+<div id="username-error">
+    <h2>Satuan Sudah Tersedia</h2>
+</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php
@@ -23,7 +32,7 @@
 							<?php
 								if (form_error('satuan') != null)
 								{
-									echo '<input type="text" name="satuan" id="satuan" value="'.set_value('satuan').'" class="setengah-width">';
+									echo '<input type="text" name="satuan" id="satuan" value="'.set_value('satuan').'" class="setengah-width" readonly>';
 									echo form_error('satuan');
 								}else
 								{

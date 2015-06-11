@@ -77,22 +77,24 @@ class golongan extends My_Controller
 		$data['golongan'] = $this->input->post('golongan');		
 		$data['jenis'] = $this->input->post('jenis');
 		
-		$this->form_validation->set_rules('golongan', 'golongan', 'callback_cek_nama|required');
-		
-		
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
+                $checker = $this->checkID($data['id_golongan']);
+                
+		//$this->form_validation->set_rules('golongan', 'golongan', 'callback_cek_nama|required');
+		$this->form_validation->set_rules('id_golongan', 'ID Golongan', 'required');
+                $this->form_validation->set_rules('golongan', 'Golongan', 'required');
+                $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
 		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('golongan/golongan_add',$data);
-			
-		}else{	
+                        $data['usernameValidation']=0;
+			$this->load->view('golongan/golongan_add',$data);	
+		}
+                else if($checker==FALSE){
+                    $data['usernameValidation']=1;
+                    $this->load->view('golongan/golongan_add',$data);
+                }
+                else{	
 			$this->golongan->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data Golongan Berhasil disimpan.');
 			redirect('golongan');
 		}
@@ -186,5 +188,9 @@ class golongan extends My_Controller
 		$this->session->set_flashdata('message', 'Data Golongan Barang Berhasil dihapus.');
 		redirect('golongan');
 	}
-	
+	function checkID($id){
+            $result = $this->golongan->getItemByID($id);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

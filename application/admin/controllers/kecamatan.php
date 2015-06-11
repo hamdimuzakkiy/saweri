@@ -77,24 +77,22 @@ class kecamatan extends My_Controller
 		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
 		$data['kecamatan'] = $this->input->post('kecamatan');
 		$data['userid'] = get_userid();
-		
-		
-				
-		$this->form_validation->set_rules('kecamatan', 'kecamatan', 'callback_cek_nama|required');
-		
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
+			
+		$this->form_validation->set_rules('kecamatan', 'kecamatan', 'required');
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
+                $checker = $this->checkNama($data['kecamatan'],$data['id_kabupaten']);
 		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('kecamatan/kecamatan_add',$data);
-			
-		}else{	
+                    $data['usernameValidation'] = 0;
+                    $this->load->view('kecamatan/kecamatan_add',$data);
+		}
+                else if($checker==FALSE){
+                    $data['usernameValidation'] = 1;
+                    $this->load->view('kecamatan/kecamatan_add',$data);
+                }
+                else{	
 			$this->kecamatan->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data kecamatan Berhasil disimpan.');
 			redirect('kecamatan');
 		}
@@ -155,15 +153,22 @@ class kecamatan extends My_Controller
 		$data['userid'] = get_userid();
 		
                $hasil_kabupaten = $this->kecamatan->getKabupaten($data['id_kecamatan']);
-               //echo $hasil_kabupaten->row()->id_kabupaten;
-                
+               $checker = $this->checkNama($data['kecamatan'],$data['id_kabupaten']);
+               
                if($data['id_kabupaten']==$hasil_kabupaten->row()->id_kabupaten){
-                    $this->form_validation->set_rules('kecamatan', 'kecamatan', 'callback_cek_nama|required');
+                    $this->form_validation->set_rules('kecamatan', 'kecamatan', 'required');
                     $this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
                     $this->form_validation->set_message('required', 'Field %s harus diisi!');
+                    
                     if ($this->form_validation->run()==FALSE){
 			//$this->load->view('kecamatan/kecamatan_edit',$data);
-                        $this->update($data['id_kecamatan']);
+                        //$this->update($data['id_kecamatan']);
+                        $data['usernameValidation'] = 0;
+                        $this->load->view('kecamatan/kecamatan_edit',$data);
+                    }
+                    else if($checker==FALSE){
+                    $data['usernameValidation'] = 1;
+                    $this->load->view('kecamatan/kecamatan_add',$data);
                     }
                     else{
 			$this->kecamatan->update($data['id_kecamatan'], $data);
@@ -189,5 +194,10 @@ class kecamatan extends My_Controller
 		$this->session->set_flashdata('message', 'Data kecamatan Berhasil dihapus.');
 		redirect('kecamatan');
 	}
+        function checkNama($nama,$id_kabupaten){
+            $result = $this->kecamatan->getNama($nama,$id_kabupaten);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }
 	

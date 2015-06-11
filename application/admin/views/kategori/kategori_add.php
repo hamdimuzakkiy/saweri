@@ -3,7 +3,13 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/kategori'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>ID telah ada telah ada. Silahkan cari ID lain</h2>
+</div>
 <section class="grid_8">
 	<div class="block-border">
 		<?php
@@ -50,8 +58,13 @@
 						<label for="complex-en-url">Jenis Barang :</label>
 						<span class="relative">
 							<select name="jenis" id="jenis"class="seperempat-width">
-								<option value="1">Fisik</option>
-								<option value="2">Elektrik</option>
+                                                            <?php 
+                                                            $query = $this->db->get('jenis');
+                                                            if($query->num_rows() > 0)
+                                                            foreach ($query->result() as $jenis){ 
+                                                                ?>
+								<option value="<?php echo $jenis->id_jenis ?>"><?php echo $jenis->jenis; ?></option>
+                                                            <?php } ?>
 							</select>
 						</span>
 					</p>

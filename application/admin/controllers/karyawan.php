@@ -9,12 +9,14 @@ class karyawan extends My_Controller
 		
 		$this->load->model('mdl_karyawan', 'karyawan');
 		$this->load->model('mdl_users', 'users');
+                $this->load->model('mdl_cabang', 'cabang');
 		$this->load->library('pdf');
 		//$this->load->library('fungsi');
 		
 	}
 	
 	function cokot($id){
+                echo $this->karyawan->get_idkaryawan($id);
 		return $this->karyawan->get_idkaryawan($id);
 	}
 	
@@ -77,7 +79,6 @@ class karyawan extends My_Controller
 		if ($this->can_insert() == FALSE){
 			redirect('auth/failed');
 		}
-		
 		$this->open();
 		
 		/*$data['id_karyawan'] = $this->input->post('id_karyawan'); */
@@ -120,14 +121,19 @@ class karyawan extends My_Controller
 		
 		if ($this->form_validation->run() == FALSE){	
 			$this->load->view('karyawan/karyawan_add',$data);
-		}else{	
-			
+		}
+                else{	
 			/*insert ke tabel karyawan */
 			$data_karyawan['id_karyawan'] = $this->input->post('id_karyawan');
 			$data_karyawan['userid'] = $this->input->post('userid');
 			$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
 			//$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
-			$data_karyawan['kode_karyawan'] = $this->cokot($data_karyawan['id_cabang']);
+                        $data1 = $this->cabang->getItemByID($data_karyawan['id_cabang']);
+                        
+                        foreach ($data1->result() as $temp){
+                            $kode_karyawan = $temp->kode_cabang;
+                        }
+			$data_karyawan['kode_karyawan'] = $this->cokot($kode_karyawan);
                         $data_karyawan['nama'] = $this->input->post('nama');
 			$data_karyawan['alamat'] = $this->input->post('alamat');
 			$data_karyawan['jenis_pengenal'] = $this->input->post('jenis_pengenal');
@@ -135,8 +141,6 @@ class karyawan extends My_Controller
 			$data_karyawan['point'] = $this->input->post('point');
 			$data_karyawan['status'] = $this->input->post('status');
 			$data_karyawan['telp1'] = $this->input->post('telp1');
-			
-			
 			
 			/* insert ke tabel user */
 			$data_user['userid'] = $this->input->post('userid');
@@ -149,15 +153,13 @@ class karyawan extends My_Controller
                             $this->load->view('karyawan/karyawan_add',$data);                            
                             return 0;
                         }
-                        else
-						{
-							$this->users->insert($data_user);
-							$this->karyawan->insert($data_karyawan);
-							$this->session->set_flashdata('message', 'Data Karyawan Berhasil disimpan.');
-							redirect('karyawan');
-						}
+                        else{
+                            $this->users->insert($data_user);
+                            $this->karyawan->insert($data_karyawan);
+                            $this->session->set_flashdata('message', 'Data Karyawan Berhasil disimpan.');
+                            redirect('karyawan');
+			}
 		}
-		
 		$this->close();
 	}
 	

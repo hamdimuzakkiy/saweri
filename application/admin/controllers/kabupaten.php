@@ -72,32 +72,23 @@ class kabupaten extends My_Controller
 		}
 		
 		$this->open();
-		
 		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
 		$data['kabupaten'] = $this->input->post('kabupaten');
 		$data['userid'] = get_userid();
 		
-		
-		
-		$this->form_validation->set_rules('kabupaten', 'kabupaten', 'callback_cek_nama|required');
-		
+		$this->form_validation->set_rules('kabupaten', 'kabupaten', 'callback_cek_nama|required');	
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('kabupaten/kabupaten_add',$data);
-			
-		}else{	
+		}
+                else{	
 			$this->kabupaten->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data kabupaten Berhasil disimpan.');
 			redirect('kabupaten');
 		}
-		
+
 		$this->close();
 	}
 	

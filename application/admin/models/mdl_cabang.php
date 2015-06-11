@@ -27,6 +27,7 @@ class mdl_cabang extends CI_Model{
 	function getItemById($id)
 	{
 		$this->db->flush_cache();
+                //$this->db->select('*');
 		$this->db->where('id_cabang', $id);
 		return $this->db->get('cabang');
 	}

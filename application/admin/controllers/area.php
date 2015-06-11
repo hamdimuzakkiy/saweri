@@ -8,6 +8,8 @@ class area extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_area', 'area');
+                $this->load->model('mdl_kecamatan', 'kecamatan');
+                $this->load->model('mdl_kabupaten', 'kabupaten');
 		
 	}
 	
@@ -68,37 +70,35 @@ class area extends My_Controller
 		if ($this->can_insert() == FALSE){
 			redirect('auth/failed');
 		}
-		
 		$this->open();
 	
-		//$data['id_kecamatan'] = $this->input->post('id_kecamatan');
-		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
+		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
 		$data['id_area'] = $this->input->post('id_area');
 		$data['area'] = $this->input->post('area');
 		$data['userid'] = get_userid();
 		
-		
-		
 		$this->form_validation->set_rules('area', 'area', 'required');
-		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field harus diisi!');
-		
-		
+                
+
 		if ($this->form_validation->run() == FALSE){
-			
+                        $data['usernameValidation'] = 0;
 			$this->load->view('area/area_add',$data);
-			
-		}else{	
-			$this->area->insert($data);
-			
-			$this->session->set_flashdata('message', 'Data Area Berhasil disimpan.');
-			redirect('area');
 		}
-		
+                else{	
+                        $data['id_kabupaten'] = $this->checkKabupaten($data['id_kecamatan']);
+			$checker = $this->checkArea($data['area'],$data['id_kabupaten'],$data['id_kecamatan']);
+                        if($checker==FALSE){
+                            $data['usernameValidation'] = 1;
+                            $this->load->view('area/area_add',$data);
+                        }
+                        else{
+                            $this->area->insert($data);
+                            $this->session->set_flashdata('message', 'Data Area Berhasil disimpan.');
+                            redirect('area');
+                        }
+		}
 		$this->close();
 	}
 	
@@ -136,6 +136,8 @@ class area extends My_Controller
 		$data['id_kabupaten'] = $data['result']->row()->id_kabupaten;
 		$data['id_area'] = $data['result']->row()->id_area;
 		$data['area'] = $data['result']->row()->area;
+                $data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
+                $data['usernameValidation'] = 0;
 		
 		$this->load->view('area/area_edit', $data);
 		
@@ -149,38 +151,34 @@ class area extends My_Controller
 		}
 		
 		$this->open();
-		
-		
-		//$data['id_kecamatan'] = $this->input->post('id_kecamatan');
-		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
+		//$data['id_kabupaten'] = $this->input->post('id_kabupaten');
 		$data['id_area'] = $this->input->post('id_area');
 		$data['area'] = $this->input->post('area');
+                $data['id_kecamatan'] = $this->input->post('id_kecamatan');
 		$data['userid'] = get_userid();
 		
-		
-			
 		$this->form_validation->set_rules('area', 'area', 'required');
-		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field harus diisi!');
-		
-		
+                
 		if ($this->form_validation->run() == FALSE){
-			
+                        $data['usernameValidation'] = 0;
 			$this->load->view('area/area_edit',$data);
-			
-		}else{
-			$this->area->update($data['id_area'], $data);
-			
-			$this->session->set_flashdata('message', 'Data Area Berhasil diupdate.');
-			redirect('area');
 		}
-		
+                else{
+                        $data['id_kabupaten'] = $this->checkKabupaten($data['id_kecamatan']);
+                        $checker = $this->checkArea($data['area'],$data['id_kabupaten'],$data['id_kecamatan']);
+                        if($checker==FALSE){
+                            $data['usernameValidation'] = 1;
+                            $this->load->view('area/area_add',$data);
+                        }
+                        else{
+                            $this->area->update($data['id_area'], $data);
+                            $this->session->set_flashdata('message', 'Data Area Berhasil diupdate.');
+                            redirect('area');
+                        }
+		}
 		$this->close();
-		
 	}
 	
 	function delete($id)
@@ -193,5 +191,23 @@ class area extends My_Controller
 		$this->session->set_flashdata('message', 'Data Area Berhasil dihapus.');
 		redirect('area');
 	}
+        
+        function checkKabupaten($id_kecamatan){
+            $kbptn = $this->kecamatan->getKabupaten($id_kecamatan);
+            $kbptn = $kbptn->first_row();
+            return $id_kbptn = $kbptn->id_kabupaten;
+        }
+        
+        function checkArea($nama_area,$id_kabupaten,$id_kecamatan){
+            $area = $this->area->getNama($nama_area);
+            if($area->num_rows()==0){
+                return TRUE;
+            }
+            else{
+                $checker = $this->area->checkArea($nama_area,$id_kabupaten,$id_kecamatan);
+                if($checker->num_rows()==0)return TRUE;
+                else return FALSE;
+            }
+        }
 }
 	

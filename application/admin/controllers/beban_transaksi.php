@@ -15,7 +15,6 @@ class beban_transaksi extends My_Controller
 	
 	function index()
 	{
-
 		$data['can_view'] 	= $this->can_view();
 		$data['can_insert'] = $this->can_insert();
 		$data['can_update'] = $this->can_update();
@@ -25,8 +24,6 @@ class beban_transaksi extends My_Controller
 
 		$config['base_url'] = base_url().'index.php/beban_transaksi/index/';
 		$config['total_rows'] = sizeof($this->beban_transaksi->count()->result());
-
-		
 
 		$config['per_page'] = '50';
 		$config['num_links'] = '10';
@@ -78,25 +75,23 @@ class beban_transaksi extends My_Controller
 		$data['beban'] = $this->input->post('beban');
 		
 		$this->form_validation->set_rules('pembayaran', 'pembayaran', 'callback_cek_nama|required');
-		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
-		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('beban_transaksi/beban_transaksi_add',$data);
-			
-		}else{	
+                $checker = $this->checkName($data['pembayaran']);
+		if ($this->form_validation->run() == FALSE){	
+                    $data['usernameValidation'] = 0;
+                    $this->load->view('beban_transaksi/beban_transaksi_add',$data);			
+		}
+                else if ($checker == FALSE){			
+                    $data['usernameValidation'] = 1;
+                    $this->load->view('beban_transaksi/beban_transaksi_add',$data);			
+		}
+                else{	
 			$this->beban_transaksi->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data Golongan Berhasil disimpan.');
 			redirect('beban_transaksi');
 		}
-		
 		$this->close();
 	}
 
@@ -133,23 +128,16 @@ class beban_transaksi extends My_Controller
 		$this->form_validation->set_rules('id', 'id', 'required');
 		$this->form_validation->set_rules('pembayaran', 'pembayaran', 'required');
 		$this->form_validation->set_rules('beban', 'beban', 'required');
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field harus diisi!');
 		
-		
 		if ($this->form_validation->run() == FALSE){
-			
-			$this->load->view('beban_transaksi/beban_transaksi_edit',$data);
-			
+			$this->load->view('beban_transaksi/beban_transaksi_edit',$data);	
 		}else{	
 			$this->beban_transaksi->update($id, $data);
 			$this->session->set_flashdata('message', 'Data Berhasil diupdate.');
 			redirect('beban_transaksi');
 		}
-		
 		$this->close();
 	}
 
@@ -163,4 +151,9 @@ class beban_transaksi extends My_Controller
 		$this->session->set_flashdata('message', 'Data Cabang Berhasil dihapus.');
 		redirect('beban_transaksi');
 	}
+        function checkName($name){
+            $result = $this->beban_transaksi->getItemByName($name);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

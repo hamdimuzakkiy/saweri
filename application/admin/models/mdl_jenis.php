@@ -39,5 +39,4 @@ class mdl_jenis extends CI_Model{
 		$this->db->flush_cache();
 		$this->db->delete('jenis', array('id_jenis' => $id));
 	}
-	
 }
