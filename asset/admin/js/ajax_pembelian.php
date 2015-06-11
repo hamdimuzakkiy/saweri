@@ -3,9 +3,8 @@
 	include('convert_rupiah.php');
 	
 	# memasukan detail barang ke list detail di form add barang
-	function add_detail_3($jum,$diskon) // pas add
-	{		
-		print "<br><br><br><br>hamdi";
+	function add_detail_3($jum,$diskon,$beban_transaksi) // pas add
+	{				
 		$data['detail_idbarang'] 		= $_POST['detail_idbarang'];
 		$data['detail_namabarang'] 		= $_POST['detail_namabarang'];
 		$data['detail_harga']	 		= $_POST['detail_harga'];				$data['detail_idjenis']	 		= $_POST['detail_idjenis'];
@@ -166,7 +165,7 @@
 						<td style = 'border-color:white;'> </td>
 						<td style = 'border-color:white;'> <input type='hidden' id = 'sum_detail' value = ".$tot."></td>
 						<td>Harga Akhir</td>
-						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100))."
+						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100)+($sum*($beban_transaksi)/100))."
 						
 						</td>
 						<input type='hidden' id = 'sum' name='sum' value='".$sum."' />
@@ -175,7 +174,7 @@
 	}
 
 
-	function add_detail_1($diskon) // pas add
+	function add_detail_1($diskon,$beban_transaksi) // pas add
 	{
 
 		$data['detail_idbarang'] 		= $_POST['detail_idbarang'];
@@ -340,7 +339,7 @@
 						<td style = 'border-color:white;'> </td>
 						<td style = 'border-color:white;'><input type='hidden' id = 'sum_detail' value = ".$tot."></td>
 						<td>Harga Akhir</td>
-						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100))."
+						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100)+($sum*($beban_transaksi)/100))."
 						
 						</td>
 						<input type='hidden' id = 'sum' name='sum' value='".$sum."' />
@@ -440,7 +439,7 @@
 	 /*	} */
 	}
 	
-	function remove_detail($id,$diskon)
+	function remove_detail($id,$diskon,$beban_transaksi)
 	{
 		if (isset($_POST['detail']))
 		{
@@ -451,8 +450,7 @@
 			$sum = 0;
 			
 			for($x=0; $x<$count_detail; $x++)
-			{
-				//print '<br><br><br><br>'.$id.'=='.$x;
+			{			
 				if ($id != $x){
 					$sum = $sum + $detail[$x]['harga']*$detail[$x]['qty'];
 					$detail[$i]['nama_barang'] = $detail[$x]['nama_barang'];
@@ -472,7 +470,8 @@
 								<td>
 									'.$detail[$i]['nama_barang'].'
 									<input type="hidden" name="detail['.$i.'][nama_barang]" value="'.$detail[$i]['nama_barang'].'" />
-									<input type="hidden" name="detail['.$i.'][id_barang]" id="detail_idbarang'.$i.'" value="'.$detail[$i]['id_barang'].'" />									<input type="hidden" name="detail['.$i.'][id_jenis]" id="detail_idjenis'.$i.'" value="'.$detail[$i]['id_jenis'].'" />
+									<input type="hidden" name="detail['.$i.'][id_barang]" id="detail_idbarang'.$i.'" value="'.$detail[$i]['id_barang'].'" />
+									<input type="hidden" name="detail['.$i.'][id_jenis]" id="detail_idjenis'.$i.'" value="'.$detail[$i]['id_jenis'].'" />
 								</td>
 								<td>
 									'.convert_rupiah($detail[$i]['harga']).'
@@ -522,6 +521,7 @@
 
 				$tot = $count_detail-1;
 			}
+			if ($tot!=0){
 			print "
 					<tr>
 						<td style = 'border-color:white;'> </td>
@@ -559,12 +559,12 @@
 						<td style = 'border-color:white;'> </td>
 						<td style = 'border-color:white;'> <input type='hidden' id = 'sum_detail' value = ".$tot."></td>
 						<td>Harga Akhir</td>
-						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100))."
+						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100)+($sum*($beban_transaksi)/100))."
 						
-						</td>
-						<input type='hidden' id = 'sum' name='sum' value='".$sum."' />
+						</td>						
+						<input type='text' id = 'sum' name='sum' value='".$sum."' />
 					</tr>
-					";
+					";}
 		}
 	}
 	function add_detail_sn() // pas add hp sn	
@@ -679,27 +679,34 @@
 		}
 	$command = $_GET['command'];	
 	if($command == 'add_1')
-	{
-		add_detail_1($_POST['diskon']);
+	{		
+		$beban_transaksi  = explode('/', $_POST['beban_transaksi'])[1];
+		add_detail_1($_POST['diskon'],$beban_transaksi);
 	
 	}else if($command == 'add_2')
-	{
+	{		
+		
 		add_detail_2();
 	
-	}else if($command == 'remove')
+	}
+	else if($command == 'remove')
 	{
-
+		
 		$id = $_GET['id'];
-		remove_detail($id,$_POST['diskon']);
+		$beban_transaksi  = explode('/', $_POST['beban_transaksi'])[1];
+		remove_detail($id,$_POST['diskon'],$beban_transaksi);
 
 		
 	}else if($command == 'change_total')
 	{
 		echo convert_rupiah($_GET['total']);
-	}		else if($command == 'add_sn')	{		add_detail_sn();	}
+	}		
+	else if($command == 'add_sn')	
+		{		add_detail_sn();	}
 	else if($command == 'add_3')
 	{
-		add_detail_3($_POST['detail_qty'],$_POST['diskon']);
+		$beban_transaksi  = explode('/', $_POST['beban_transaksi'])[1];
+		add_detail_3($_POST['detail_qty'],$_POST['diskon'],$beban_transaksi);
 	}
 	else if ($command = 'convert')
 	{

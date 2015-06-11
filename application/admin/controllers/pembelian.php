@@ -86,13 +86,14 @@ class pembelian extends My_Controller
 
 		$data['id_coa'] = '5';
 		$data['userid'] = get_userid();		$data['glid'] 	= $this->hutang->get_glid();
-		$data['kas'] = $this->input->post('kas');
-		
+		$data['kas'] = $this->input->post('kas'); 
+		$data['kas'] = explode('/', $data['kas'])[0];
 
 		$data['jatuh_tempo'] = $this->input->post('pembelian_jatuh_tempo');
 		$data['nama_atm'] = $this->input->post('nama_atm');
 		$data['nomor_atm'] = $this->input->post('nomor_atm');
-
+		$data['id_beban_transaksi'] = explode('/', $this->input->post('beban_transaksi'))[0];		
+		
 
 		if ($data['cara_bayar'] == 2 && $data['jatuh_tempo'] == '')
 		{
@@ -100,9 +101,6 @@ class pembelian extends My_Controller
 			redirect('pembelian/insert');				
 		}
 		
-
-		
-
 		$this->form_validation->set_rules('po_no', 'po_no', 'required');
 		$this->form_validation->set_rules('id_supplier', 'id_supplier', 'required');
 		$this->form_validation->set_rules('id_cabang', 'id_cabang', 'required');
@@ -119,22 +117,20 @@ class pembelian extends My_Controller
 		}
 		//else if ()
 		else{			
-
+			$beban = explode('/', $this->input->post('beban_transaksi'))[1];
 			$get_kas_v2 = $this->pembelian->get_total_kas_v2($data['kas']);
-
+			
 			foreach ($get_kas_v2->result() as $row) {
 				$cur_saldo =  $row->saldo;
 
 			}
-				
-
-			if ($cur_saldo < $sums*(100-$data['diskon'])/100)
-			{
-				
+					
+			if ($cur_saldo < ($sums*(100-$data['diskon'])/100))
+			{				
 				$this->session->set_flashdata('message', 'Saldo Tidak Mencukupi!');
 					redirect('pembelian/insert');				
 			}
-
+			$pembelian['id_beban_transaksi'] = $data['id_beban_transaksi'];
 			$pembelian['id_pembelian'] 	= $data['id_pembelian'];			
 			$pembelian['po_no'] 		= $data['po_no'];			
 			$pembelian['id_supplier'] 	= $data['id_supplier'];

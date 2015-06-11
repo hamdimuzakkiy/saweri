@@ -4,40 +4,31 @@
 		
 		document.location.href = '<?php echo base_url().'index.php/pembelian'?>';
 	}
-	
-	$(function(){
-		$("#tanggal").datepicker({dateFormat: 'yy-mm-dd', yearRange: '2001:2021' });
-	})
-	function save_data(){
-		var jumlah = document.getElementById('sum_detail').value;
-		for (var i = 0; i < jumlah; i++) {
-			
-			if (document.getElementById('detail_sn'+i).value == '' && document.getElementById('detail_issn'+i).value == '1' && document.getElementById('sum_detail').hidden == false)
-			{				
-				alert('Ada Serial Number Yang Belum Terisi');
-				return false;
-			}
 
-		};
-		var isi = document.getElementById('detail').innerHTML;		var detail_jatuh_tempo_text = document.getElementById('detail_jatuh_tempo').value;		 		var obj_sn = document.getElementsByName("detail[id_barang]");		/* var obj_idbarang = document.getElementById("detail_idbarang0").value;		 var obj_idjenis = document.getElementById("detail_idjenis0").value;*/		/*		for (var j=0;j<counter_list;j++){							if ((document.getElementById("detail_sn" + j).value == '' ) && (obj_idjenis = document.getElementById("detail_idjenis"+ j).value=='4')){					alert("List No " + (parseInt(j)+1) + " SN tidak boleh kosong");					var sn_id = document.getElementById("detail_sn"+j).focus();										return ;				}					}*/
+	function tmp(cek)
+	{	
+		if (cek == true)
+		{
+			document.getElementById('atm').style.display = 'block';
+		}
+		else 
+		{
+			document.getElementById('atm').style.display = 'none';
+			document.getElementById('nama_atm').value = "";
+			document.getElementById('nomor_atm').value = "";
+		}
 
-		if( isi == false){
-			document.getElementById('alert_yanto').innerHTML = '<ul class="message error grid_12"><li>List data barang tidak boleh kosong</li><li class="close-bt"></li></ul><br>';
-			$('html, body').stop().animate({
-				scrollTop: 0
-			}, 700, 'easeInOutExpo');
-		}else{			
-				document.getElementById('alert_yanto').innerHTML = '';
-				
-				document.forms["form1"].submit(); 					
-		}		
 	}
 
-	function update_disc()
+	function update_card()
 	{
-		
+		var mCard = document.getElementById('beban_transaksi').value.split('/')[0];		
+		if (mCard != -1)			
+			tmp(true);
+		else
+			tmp(false);
 		var disc = document.getElementById('diskon').value;
-		//alert(disc);
+		var beban_transaksi = beban();
 		var jum = document.getElementById('sum').value;
 		//alert(jum);
 		jum = jum * disc/100;
@@ -53,7 +44,109 @@
 					}
 				});
 		var jum = document.getElementById('sum').value;
-		jum = (jum) * (100-disc)/100;		
+		jum = ((jum) * (100-disc)/100)+(jum*(beban_transaksi/100));		
+		$.ajax({
+					type: 'POST',
+					url: '<?=base_url().'asset/admin/js/ajax_pembelian.php?command=convert'?>',					
+					data: { sum : jum
+					},
+					success: function(data) {
+						$('#finall').html(data);
+
+					}
+				});
+		//document.getElementById('harga_diskon').innerHTML = convert_rupiah(jum);
+	}
+
+	function showKas()
+	{
+		var kas = document.getElementById('valKas').value;
+		kas = kas.split('/')[1];
+		document.getElementById('saldo').innerHTML = kas;
+	}
+
+	function getKas()
+	{
+		var kas = document.getElementById('valKas').value;		
+		kas = kas.split('/')[2];		
+		return kas;
+	}
+	$(function(){
+		$("#tanggal").datepicker({dateFormat: 'yy-mm-dd', yearRange: '2001:2021' });
+	})
+	function save_data(){
+
+		var disc = document.getElementById('diskon').value;				
+		var beban_transaksi = beban();
+		var jum = document.getElementById('sum').value;
+		
+		var total = ((jum) * (100-disc)/100)+(jum*(beban_transaksi/100));
+		var cara_bayar = document.getElementById('cara_bayar').value;
+		var saldo = parseInt(getKas());
+		
+		
+		if (saldo < total && cara_bayar == "Cash")
+		{
+			alert(saldo);
+			alert(total);
+
+			alert("Saldo Tidak Mencukupi");
+			return;
+		}
+
+		var jumlah = document.getElementById('sum_detail').value;		
+		for (var i = 0; i < jumlah; i++) {
+			
+			if (document.getElementById('detail_sn'+i).value == '' && document.getElementById('detail_issn'+i).value == '1' && document.getElementById('sum_detail').hidden == false)
+			{				
+				alert('Ada Serial Number Yang Belum Terisi');
+				return false;
+			}
+
+		};		
+		var isi = document.getElementById('detail').innerHTML;		
+		var detail_jatuh_tempo_text = document.getElementById('detail_jatuh_tempo').value;		 		
+		var obj_sn = document.getElementsByName("detail[id_barang]");		
+		/* var obj_idbarang = document.getElementById("detail_idbarang0").value;		
+		 var obj_idjenis = document.getElementById("detail_idjenis0").value;*/		
+		 /*		for (var j=0;j<counter_list;j++){							
+		 	if ((document.getElementById("detail_sn" + j).value == '' ) && (obj_idjenis = document.getElementById("detail_idjenis"+ j).value=='4')){					
+		 	alert("List No " + (parseInt(j)+1) + " SN tidak boleh kosong");					
+		 	var sn_id = document.getElementById("detail_sn"+j).focus();										
+		 	return ;				}					}*/
+
+		if( isi == false){			
+			document.getElementById('alert_yanto').innerHTML = '<ul class="message error grid_12"><li>List data barang tidak boleh kosong</li><li class="close-bt"></li></ul><br>';
+			$('html, body').stop().animate({
+				scrollTop: 0
+			}, 700, 'easeInOutExpo');
+		}else{			
+				document.getElementById('alert_yanto').innerHTML = '';
+				
+				document.forms["form1"].submit(); 					
+		}		
+	}
+
+	function update_disc()
+	{		
+		var disc = document.getElementById('diskon').value;
+		var beban_transaksi = beban();
+		var jum = document.getElementById('sum').value;
+		//alert(jum);
+		jum = jum * disc/100;
+
+		$.ajax({
+					type: 'POST',
+					url: '<?=base_url().'asset/admin/js/ajax_pembelian.php?command=convert'?>',					
+					data: { sum : jum
+					},
+					success: function(data) {
+						$('#harga_diskon').html(data);
+
+					}
+				});
+		var jum = document.getElementById('sum').value;
+		jum = ((jum) * (100-disc)/100)+(jum*(beban_transaksi/100));		
 		$.ajax({
 					type: 'POST',
 					url: '<?=base_url().'asset/admin/js/ajax_pembelian.php?command=convert'?>',					
@@ -77,14 +170,33 @@
 			document.getElementById('atm').style.display = 'none';
 	}
 
+	function beban()
+	{		
+		var beban = document.getElementById('beban_transaksi').value;
+		beban = beban.split('/')[1];
+		return beban;
+	}
 
 	function hutang()
 	{
 		var cek = document.getElementById('cara_bayar').value;
-		if (cek =='2')	
-			document.getElementById('pembelian_jatuh_tempo').style.display = 'block';				
-		else 
+		if (cek =='Custom')	
+		{
+			document.getElementById('pembelian_jatuh_tempo').style.display = 'block';
+			document.getElementById('kas').style.display = 'none';
+		}
+		else if (cek =='7' || cek =='21' || cek =='14' || cek =='28')	
+		{
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'none';
+			document.getElementById('kas').style.display = 'none';
+			document.getElementById('pembelian_jatuh_tempoInp').value = cek;
+		}		
+		else 
+		{
+			document.getElementById('pembelian_jatuh_tempo').style.display = 'none';
+			document.getElementById('kas').style.display = 'block';
+			document.getElementById('pembelian_jatuh_tempoInp').value = '';
+		}
 	}
 </script>
 
@@ -258,60 +370,86 @@
 					<p class="colx3-center">
 						<label for="complex-en-url">Diskon (%) :</label>
 						<span class="relative">
-							<input type="text" onchange="javascript:update_disc();" name="diskon" id="diskon" />
+							<input type="number" onchange="javascript:update_disc();" name="diskon" id="diskon">
 						</span>
 					</p>
-					<p class="colx3-center">
-						<label for="complex-en-url">M Card :</label>
-						<span class="relative">
-							<input type="checkbox" onclick="javascript:ATM();" id = "cek_atm"><br>
-						</span>
-					</p>
+					
 				</div>				
 				<div class="columns">												
 					<p class="colx3-left">						
 						<label for="complex-en-url">Cara Bayar :</label>						
 						<span class="relative">
 							<select name="cara_bayar" id="cara_bayar" onchange = "javascript:hutang();">								
-							<option value="1">Tunai</option>								
-							<option value="2">Hutang</option>							
+							<option value="Cash">Cash</option>								
+							<option value="7">1 Minggu</option>
+							<option value="14">2 Minggu</option>
+							<option value="21">3 Minggu</option>
+							<option value="28">4 Minggu</option>
+							<option value="Custom">Custom</option>
 						</select>						
 					</span>			
+
+					<span id="kas">
+					<label for="complex-en-url" >Kas :</label>						
+						<span class="relative">
+							<select id = "valKas" name="kas" onchange = "javascript:showKas();">
+							<?php
+								$this->db->flush_cache();
+								$query = $this->db->get('kas');
+								$flag = false;
+								foreach($query->result() as $row)
+								{
+									if ($flag == false)
+									{
+										$initKas = convert_rupiah($row->saldo);
+										$flag = true;
+									}
+									echo '<option value="'.$row->kode.'/'.convert_rupiah($row->saldo).'/'.$row->saldo.'">'.$row->nama.'</option>';
+								}
+							?>							
+							</select>
+							<span id = "saldo"><?php print $initKas; ?></span>
+						</span>					
+					</span>
+
+
 					<span style = "display:none;" id="pembelian_jatuh_tempo">
 					<label for="complex-en-url" >Jatuh Tempo :</label>
 						<span class="relative">							
-							<input type="text" name="pembelian_jatuh_tempo"  /> 
+							<input type="text" name="pembelian_jatuh_tempo" id="pembelian_jatuh_tempoInp"   />  Hari
 						</span>
 					</span>		
 				</p>				
-				<p class="colx3-center">						
-						<label for="complex-en-url">Kas :</label>						
-						<span class="relative">
-							<select name="kas" required>							
-							<?php
-
-								$this->db->flush_cache();
-								$query = $this->db->get('kas');
-								
-								foreach($query->result() as $row)
-								{
-									echo '<option value="'.$row->kode.'">'.$row->nama.'<span class="colx3-right">-</span>'.convert_rupiah($row->saldo).'</option>';
-								}
-
-							?>							
-						</select>						
-					</span>					
-				</p>															
-
+				
 					<p class="colx3-right" style = "display:none;" id = "atm">						
 						<label for="complex-en-url">Nama Pengguna</label>						
 						<span class="relative">							
-							<input type = "text" name = "nama_atm">							
+							<input type = "text" id = "nama_atm" name = "nama_atm" required>
 						</span>					
 						<label for="complex-en-url">Nomor ATM</label>						
 						<span class="relative">							
-							<input type = "text" name = "nomor_atm">							
+							<input type = "text" id = "nomor_atm" name = "nomor_atm" required>							
 						</span>					
+				</p>				
+				<p class="colx3-center">
+					<label for="complex-en-url">M Card :</label>
+					<span class="relative">
+						<!--input type="checkbox" onclick="javascript:ATM();" id = "cek_atm"><br-->
+						<select id = "beban_transaksi" name="beban_transaksi" onchange = "javascript:update_card();">
+							<option value = "-1/0">Uang Pas</option>
+							<?php
+
+								$this->db->flush_cache();
+								$query = $this->db->get('beban_transaksi');
+								
+								foreach($query->result() as $row)
+								{
+									echo '<option value="'.$row->id.'/'.$row->beban.'">'.$row->pembayaran.'</option>';
+								}
+
+							?>		
+						</select>
+					</span>
 				</p>
 			</div>
 
