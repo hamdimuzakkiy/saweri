@@ -91,16 +91,12 @@ class cabang extends My_Controller
 		$this->form_validation->set_rules('max_piutang', 'max_piutang', 'trim|numeric');
 		$this->form_validation->set_rules('saldo_piutang', 'saldo_piutang', 'trim|numeric');
 		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
 		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('cabang/cabang_add',$data);
 			
 		}else{	
@@ -177,7 +173,7 @@ class cabang extends My_Controller
 		$data['userid'] = get_userid();
 		
 		
-		$this->form_validation->set_rules('kode_cabang', 'Kode Cabang', 'required|numeric');
+		$this->form_validation->set_rules('kode_cabang', 'Kode Cabang', 'required');
 		$this->form_validation->set_rules('nama_cabang', 'Nama Cabang', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
 		$this->form_validation->set_rules('telepon', 'telepon', 'trim|numeric');
@@ -193,7 +189,6 @@ class cabang extends My_Controller
 		
 		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('cabang/cabang_edit',$data);
 			
 		}else{	

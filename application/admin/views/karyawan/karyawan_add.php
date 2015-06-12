@@ -46,7 +46,12 @@
 									{
 										foreach($query->result() as $row)
 										{
-											echo '<option value="'.$row->id_cabang.'">'.$row->nama_cabang.'</option>';
+                                                                                    if($row->id_cabang == set_value('id_cabang')){
+                                                                                        echo '<option value="'.$row->id_cabang.'" selected>'.$row->nama_cabang.'</option>';
+                                                                                    }
+                                                                                    else{
+                                                                                        echo '<option value="'.$row->id_cabang.'">'.$row->nama_cabang.'</option>';
+                                                                                    }
 										}
 									}
 								?>

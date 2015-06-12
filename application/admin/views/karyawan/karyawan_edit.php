@@ -38,7 +38,7 @@
 												foreach($query->result() as $row)
 												{
 													if($id_cabang == $row->id_cabang){
-														echo '<option value="'.$row->id_cabang.'" selected="selected">'.$row->nama_cabang.'</option>';
+														echo '<option value="'.$row->id_cabang.'" selected>'.$row->nama_cabang.'</option>';
 													}else{
 														echo '<option value="'.$row->id_cabang.'" >'.$row->nama_cabang.'</option>';
 													}
@@ -174,11 +174,11 @@
 									<?php 
 										if (form_error('username') != null)
 										{
-											echo '<input type="text" name="username" id="username" value="'.set_value('username').'" class="duapertiga-width">';
+											echo '<input type="text" name="username" id="username" value="'.set_value('username').'" class="duapertiga-width" readonly>';
 											echo form_error('username');
 										}else
 										{
-											echo '<input type="text" name="username" id="username" value="'.$username.'" class="duapertiga-width">';
+											echo '<input type="text" name="username" id="username" value="'.$username.'" class="duapertiga-width" readonly>';
 										}
 									?>
 								</span>
