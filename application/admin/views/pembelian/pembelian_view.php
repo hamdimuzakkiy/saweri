@@ -22,9 +22,9 @@
 </tr>
 <tr>
 	<td>Kode Kas</td>
-	<td><?php
-		print $i->nama_kas;
-		 ?></td>
+	<td><?php		
+		print $i->nama_kas;			
+	?></td>
 </tr>
 <tr>
 	<td>Rupiah</td>

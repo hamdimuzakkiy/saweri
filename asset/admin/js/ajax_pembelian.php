@@ -4,7 +4,7 @@
 	
 	# memasukan detail barang ke list detail di form add barang
 	function add_detail_3($jum,$diskon,$beban_transaksi) // pas add
-	{				
+	{						
 		$data['detail_idbarang'] 		= $_POST['detail_idbarang'];
 		$data['detail_namabarang'] 		= $_POST['detail_namabarang'];
 		$data['detail_harga']	 		= $_POST['detail_harga'];				$data['detail_idjenis']	 		= $_POST['detail_idjenis'];
@@ -18,7 +18,7 @@
 		$i=0;
 		$sum = 0;
 		//print_r($detail);
-		$max = 0;
+		$max = -1;
 		$cd = 0;
 		if (isset($_POST['detail']))
 		{
@@ -78,11 +78,10 @@
 						</tr>';
 			}
 			
-		}
-		
+		}		
 		$xx=0;		
 		$tot = $cd+$jum;
-		for($xx=0; $xx < $jum; $xx++){ 
+		for($xx=0; $xx < $jum; $xx++){ 			
 			$sum = $sum + ($data['detail_harga'] * $data['detail_qty']);
 			$tmp = $max + $xx+1;			
 			echo '
@@ -448,9 +447,12 @@
 			
 			$i=0;
 			$sum = 0;
-			
+			//print "<br><br><br><br><br>";
 			for($x=0; $x<$count_detail; $x++)
 			{			
+
+				//print $id.' - '.$x;
+				//print '<br>';				
 				if ($id != $x){
 					$sum = $sum + $detail[$x]['harga']*$detail[$x]['qty'];
 					$detail[$i]['nama_barang'] = $detail[$x]['nama_barang'];
@@ -562,7 +564,7 @@
 						<td id = 'finall'>".convert_rupiah(($sum*(100-$diskon)/100)+($sum*($beban_transaksi)/100))."
 						
 						</td>						
-						<input type='text' id = 'sum' name='sum' value='".$sum."' />
+						<input type='hidden' id = 'sum' name='sum' value='".$sum."' />
 					</tr>
 					";}
 		}

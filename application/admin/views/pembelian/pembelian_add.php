@@ -75,7 +75,7 @@
 		$("#tanggal").datepicker({dateFormat: 'yy-mm-dd', yearRange: '2001:2021' });
 	})
 	function save_data(){
-
+		
 		var disc = document.getElementById('diskon').value;				
 		var beban_transaksi = beban();
 		var jum = document.getElementById('sum').value;
@@ -84,12 +84,22 @@
 		var cara_bayar = document.getElementById('cara_bayar').value;
 		var saldo = parseInt(getKas());
 		
-		
-		if (saldo < total && cara_bayar == "Cash")
-		{
-			alert(saldo);
-			alert(total);
+		var jatuh_temp = document.getElementById('pembelian_jatuh_tempoInp').value;
 
+		
+		if (cara_bayar == 'Custom' &&  jatuh_temp == '')
+		{
+			alert('Isi Jatuh Tempo');
+			return;
+		}
+
+
+		var Mcard = document.getElementById('beban_transaksi').value.split('/')[0];
+		var nama_atm = document.getElementById('nama_atm').value;
+		var nomor_atm = document.getElementById('nomor_atm').value;		
+
+		if (saldo < total && cara_bayar == "Cash")
+		{			
 			alert("Saldo Tidak Mencukupi");
 			return;
 		}
@@ -104,7 +114,8 @@
 			}
 
 		};		
-		var isi = document.getElementById('detail').innerHTML;		
+		
+		var isi = document.getElementById('detail').innerHTML;				
 		var detail_jatuh_tempo_text = document.getElementById('detail_jatuh_tempo').value;		 		
 		var obj_sn = document.getElementsByName("detail[id_barang]");		
 		/* var obj_idbarang = document.getElementById("detail_idbarang0").value;		
@@ -179,23 +190,27 @@
 
 	function hutang()
 	{
+
+
 		var cek = document.getElementById('cara_bayar').value;
 		if (cek =='Custom')	
-		{
+		{		
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'block';
-			document.getElementById('kas').style.display = 'none';
+			document.getElementById('kas').style.display = 'none';						
 		}
 		else if (cek =='7' || cek =='21' || cek =='14' || cek =='28')	
 		{
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'none';
 			document.getElementById('kas').style.display = 'none';
 			document.getElementById('pembelian_jatuh_tempoInp').value = cek;
+			
 		}		
 		else 
 		{
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'none';
 			document.getElementById('kas').style.display = 'block';
 			document.getElementById('pembelian_jatuh_tempoInp').value = '';
+			
 		}
 	}
 </script>
@@ -435,7 +450,7 @@
 					<label for="complex-en-url">M Card :</label>
 					<span class="relative">
 						<!--input type="checkbox" onclick="javascript:ATM();" id = "cek_atm"><br-->
-						<select id = "beban_transaksi" name="beban_transaksi" onchange = "javascript:update_card();">
+						<select id = "beban_transaksi" name="beban_transaksi" onchange = "javascript:update_card();" >
 							<option value = "-1/0">Uang Pas</option>
 							<?php
 
@@ -559,6 +574,6 @@
 		
 		
 	</div>
-	
-	
+
 </section>
+

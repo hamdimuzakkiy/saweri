@@ -74,33 +74,38 @@ class pembelian extends My_Controller
 		$data['po_no'] = $this->input->post('po_no');
 		$data['id_supplier'] = $this->input->post('id_supplier');
 		$data['id_cabang'] = $this->input->post('id_cabang');
-		$data['diskon'] = $this->input->post('diskon');
-		$data['tanggal'] = $this->input->post('tanggal');				
-		$data['cara_bayar'] = $this->input->post('cara_bayar');		
+		$data['tanggal'] = $this->input->post('tanggal');						
 		$data['glid'] = $this->input->post('glid');		
-
 		$sums = $this->input->post('sum');		
 		$data['result_trans']=$this->kode_trans->get_kd_awal('pembelian');	
 		$data['kode_transaksi']=$data['result_trans']->row()->kd_trans;
-
-
 		$data['id_coa'] = '5';
 		$data['userid'] = get_userid();		$data['glid'] 	= $this->hutang->get_glid();
-		$data['kas'] = $this->input->post('kas'); 
-		$data['kas'] = explode('/', $data['kas'])[0];
 
+		$data['diskon'] = $this->input->post('diskon'); // diskon
+
+		$data['kas'] = $this->input->post('kas'); // kas
+		$data['kas'] = explode('/', $data['kas'])[0];
+	
+		$data['cara_bayar'] = $this->input->post('cara_bayar'); // cara bayar
 		$data['jatuh_tempo'] = $this->input->post('pembelian_jatuh_tempo');
-		$data['nama_atm'] = $this->input->post('nama_atm');
+
+		$data['nama_atm'] = $this->input->post('nama_atm'); //M card
 		$data['nomor_atm'] = $this->input->post('nomor_atm');
 		$data['id_beban_transaksi'] = explode('/', $this->input->post('beban_transaksi'))[0];		
-		
 
-		if ($data['cara_bayar'] == 2 && $data['jatuh_tempo'] == '')
+		if ($data['cara_bayar'] != 'Cash')
 		{
-			$this->session->set_flashdata('message', 'Field Jatuh Tempo harus diisi!'); 					
-			redirect('pembelian/insert');				
+			$data['kas'] = '';
+			$data['id_beban_transaksi'] = -1;
 		}
-		
+
+		if ($data['id_beban_transaksi'] == -1)
+		{
+			$data['nama_atm'] = '';
+			$data['nomor_atm'] = '';
+		}
+
 		$this->form_validation->set_rules('po_no', 'po_no', 'required');
 		$this->form_validation->set_rules('id_supplier', 'id_supplier', 'required');
 		$this->form_validation->set_rules('id_cabang', 'id_cabang', 'required');
@@ -110,26 +115,34 @@ class pembelian extends My_Controller
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 			
 
-
-		if ($this->form_validation->run() == FALSE){			
-		$data['total_kas'] = $this->pembelian->get_total_kas();
-		$this->load->view('pembelian/pembelian_add',$data);		
-		}
-		//else if ()
-		else{			
+		if ($this->form_validation->run() == FALSE)
+		{
+			$data['total_kas'] = $this->pembelian->get_total_kas();
+			$this->load->view('pembelian/pembelian_add',$data);		
+		}		
+		else
+		{	
 			$beban = explode('/', $this->input->post('beban_transaksi'))[1];
+			if ($data['id_beban_transaksi'] == -1)
+				$beban = 0;
 			$get_kas_v2 = $this->pembelian->get_total_kas_v2($data['kas']);
 			
-			foreach ($get_kas_v2->result() as $row) {
+			foreach ($get_kas_v2->result() as $row) 
+			{
 				$cur_saldo =  $row->saldo;
+			}
+			
+			if ($data['kas'] == '')
+			{
 
 			}
-					
-			if ($cur_saldo < ($sums*(100-$data['diskon'])/100))
+			else if ($cur_saldo < (($sums*(100-$data['diskon'])/100)+$sums*($beban/100)))
 			{				
 				$this->session->set_flashdata('message', 'Saldo Tidak Mencukupi!');
-					redirect('pembelian/insert');				
+				redirect('pembelian/insert');				
 			}
+
+			$pembelian['beban_transaksi'] = $beban;
 			$pembelian['id_beban_transaksi'] = $data['id_beban_transaksi'];
 			$pembelian['id_pembelian'] 	= $data['id_pembelian'];			
 			$pembelian['po_no'] 		= $data['po_no'];			
@@ -157,18 +170,7 @@ class pembelian extends My_Controller
 							$a = $detail[$i]['id_barang'];				
 				$query = "SELECT id_kategori FROM barang where id_barang = '". $a ."'";				
 				$result = mysql_query($query);				
-				$hasil = mysql_fetch_array($result);												
-				if ((($hasil['id_kategori'] == '3')or ($hasil['id_kategori'] == '4') or ($hasil['id_kategori'] == '5') or ($hasil['id_kategori'] == '6') or ($hasil['id_kategori'] == '7'))&& ($detail[$i]['sn']=='')) 				
-				{ 					
-					$this->session->set_flashdata('message', 'Field Serial Number harus diisi!'); 					
-					redirect('pembelian/insert');				
-				}				
-				/*else if (($data['cara_bayar'] == '2')&&($detail[$i]['jatuh_tempo']==''))				
-				{ 					
-					$this->session->set_flashdata('message', 'Field Jatuh Tempo harus diisi!'); 					
-					redirect('pembelian/insert');				
-				}*/			
-				else				
+				$hasil = mysql_fetch_array($result);																				
 				{					
 					$qty_pembelian = $detail[$i]['qty'];											
 					for ($j=0;$j<$qty_pembelian;$j++)
