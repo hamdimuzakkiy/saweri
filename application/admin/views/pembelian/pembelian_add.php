@@ -352,29 +352,17 @@
 				<div class="columns">
 					<p class="colx3-left">
 						<label for="complex-en-url">Supplier :</label>
-						<span class="relative">
+						<span class="relative">							
 							<select name="id_supplier" id="id_supplier" >
 								<?php
-									if(get_kodecabang() == '001'){
+
+									{
 										$query = $this->db->get('supplier');
 										if($query->num_rows() > 0)
 										{
 											foreach($query->result() as $row)
 											{
 												echo '<option value="'.$row->id_supplier.'">'.$row->kode_supplier.'-'.$row->nama.'</option>';
-											}
-										}
-									}else{
-										$this->db->flush_cache();
-										$this->db->from('cabang');
-										$this->db->where('kode_cabang', '001');
-										$query = $this->db->get();
-										
-										if($query->num_rows() > 0)
-										{
-											foreach($query->result() as $row)
-											{
-												echo '<option value="'.$row->id_cabang.'">'.$row->kode_cabang.'-'.$row->nama_cabang.'</option>';
 											}
 										}
 									}
