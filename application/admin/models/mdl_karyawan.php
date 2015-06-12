@@ -28,6 +28,13 @@ class mdl_karyawan extends CI_Model{
 		$this->db->join('users','users.userid = karyawan.userid');
 		return $this->db->count_all_results();
 	}
+
+	function getItemByUserId($id)
+	{
+		$this->db->flush_cache();
+		$this->db->where('userid', $id);
+		return $this->db->get('karyawan');
+	}
 	
 	function getItemById($id)
 	{

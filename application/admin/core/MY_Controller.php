@@ -60,8 +60,8 @@ class MY_Controller extends CI_Controller{
 	}
 
 	function getIdCabang()
-	{
-		$res = $this->karyawan->getItemById($this->session->userdata('userid'));
+	{			
+		$res = $this->karyawan->getItemByUserId($this->session->userdata('userid'));
 
 		foreach ($res->result() as $row) {
 			$data['idCabang'] = $row->id_cabang;
