@@ -5,12 +5,8 @@ class perusahaan extends My_Controller
 	
 	function __construct()
 	{
-		parent::__construct();
-		
-		$this->load->model('mdl_karyawan', 'karyawan');
-		$this->load->model('mdl_users', 'users');
-                $this->load->model('mdl_cabang', 'cabang');
-		$this->load->library('pdf');
+		parent::__construct();		
+        $this->load->model('mdl_cabang', 'cabang');		
 		//$this->load->library('fungsi');
 		
 	}
@@ -24,41 +20,54 @@ class perusahaan extends My_Controller
 		
 		$this->open();
 		
-                //$this->getIDCabang();
-		$config['base_url'] = base_url().'index.php/karyawan/index/';
-		$config['total_rows'] = $this->karyawan->countallItem('perusahaan');
-		$config['per_page'] = '10';
-		$config['num_links'] = '5';
-		$config['uri_segment'] = '3';
+        $idCabang = $this->getIdCabang();
+        $data['results'] = $this->cabang->getItemById($idCabang);
+
+        $this->load->view('perusahaan/perusahaan_list', $data);
+	}
+
+	function update()
+	{
+		if ($this->can_update() == FALSE){
+			redirect('auth/failed');
+		}
 		
-		$config['full_tag_open'] = '';
-		$config['full_tag_close'] = '';
+		$this->open();
+		$idCabang = $this->getIdCabang();
+		$data['idCabang'] = $idCabang;
+        $results = $this->cabang->getItemById($idCabang);
+
+        foreach ($results->result() as $row) {
+        	$data['perusahaan'] = $row->perusahaan;
+        	$data['alamat'] = $row->alamat;
+        }
+
+        $this->load->view('perusahaan/perusahaan_edit', $data);
+	}
+
+	function process_update()
+	{
+		$this->open();
+		$data['perusahaan'] = $this->input->post('perusahaan');
+		$data['alamat'] = $this->input->post('alamat');
+
+		$this->form_validation->set_rules('alamat', 'Alamat', 'required');
+		$this->form_validation->set_rules('perusahaan', 'Nama Perusahaan', 'required');
+				
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		$config['num_tag_open'] = '<li>';
-		$config['num_tag_close'] = '</li>';
-		
-		$config['cur_tag_open'] = '<li><a href="javascript:void(0)" class="current">';
-		$config['cur_tag_close'] = '</a></li>';
-		
-		$config['prev_link'] = 'Prev';
-		$config['prev_tag_open'] = '<li>';
-		$config['prev_tag_close'] = '</li>';
-		
-		$config['next_link'] = 'Next';
-		$config['next_tag_open'] = '<li>';
-		$config['next_tag_close'] = '</li>';
-		
-		$config['last_link'] = 'Last';
-		$config['last_tag_open'] = '<li>';
-		$config['last_tag_close'] = '</li>';
-		
-		$config['first_link'] = 'First';
-		$config['first_tag_open'] = '<li>';
-		$config['first_tag_close'] = '</li>';
-		
-		$this->pagination->initialize($config);		
-		$data['results'] = $this->karyawan->getItem($config['per_page'], $this->uri->segment(3));
-		$this->load->view('perusahaan/perusahaan_list', $data);
+		$this->form_validation->set_message('required', 'Field %s harus diisi!');		
+
+		if ($this->form_validation->run() == FALSE)
+		$this->load->view('perusahaan/perusahaan_edit',$data);
+		else
+		{	
+			$idCabang = $this->getIdCabang();
+			$this->cabang->update($idCabang,$data);
+			$this->session->set_flashdata('message', 'Data Perusahaan Berhasil diupdate.');			
+			redirect('perusahaan');
+		}
 		$this->close();
+
 	}
 }

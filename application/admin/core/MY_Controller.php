@@ -7,7 +7,9 @@ class MY_Controller extends CI_Controller{
 	public function __construct()
 	{		
 		parent::__construct();
-		$this->output->enable_profiler(false);		$this->load->model('mdl_setting_view', 'setting_view');
+		$this->output->enable_profiler(false);		
+		$this->load->model('mdl_setting_view', 'setting_view');
+		$this->load->model('mdl_karyawan', 'karyawan');
 		
 		// jika belum login
 		if (is_login() == FALSE){					
@@ -27,7 +29,7 @@ class MY_Controller extends CI_Controller{
 	private function ambilheader()	
 	{	
 		$data['result'] = $this->setting_view->getItemById($id);				
-		$data['id'] = $id;		
+	 	$data['id'] = $id;		
 		$data['name'] = $data['result']->row()->name;		
 		$data['detail'] = $data['result']->row()->detail;		
 		$data['judul'] = $data['result']->row()->judul;		
@@ -42,7 +44,7 @@ class MY_Controller extends CI_Controller{
 		$data['privilage'] = $this->privilage_x;		
 		$id = "1";
 		$data['id'] = $id;
-		$data['resultheader'] = $this->setting_view->getItemById($id);					
+		$data['resultheader'] = $this->setting_view->getItemById($id);
 		$data['name'] = $data['resultheader']->row()->name;		
 		$data['detail'] = $data['resultheader']->row()->detail;		
 		$data['judul'] = $data['resultheader']->row()->judul;		
@@ -50,8 +52,21 @@ class MY_Controller extends CI_Controller{
 		$data['gambar2'] = $data['resultheader']->row()->name_gambar2 ;		
 		$data['header1'] = $data['resultheader']->row()->name_header1 ;		
 		$data['header2'] = $data['resultheader']->row()->name_header2 ;		
+	
+		
+
 		$this->load->view('layouts/header');
 		$this->load->view('layouts/menu', $data);
+	}
+
+	function getIdCabang()
+	{
+		$res = $this->karyawan->getItemById($this->session->userdata('userid'));
+
+		foreach ($res->result() as $row) {
+			$data['idCabang'] = $row->id_cabang;
+		}
+		return $data['idCabang'];
 	}
 	
 	function close()
@@ -62,7 +77,8 @@ class MY_Controller extends CI_Controller{
 	function set_privilage(){
 		// cek user				
 
-		$row = $this->session->userdata('userlevel');				
+		$row = $this->session->userdata('userlevel');
+
 		# set privilage
 		# init privilage
 		//$privilage[''][0] = '';
