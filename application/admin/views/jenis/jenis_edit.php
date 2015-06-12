@@ -3,7 +3,13 @@
 	function batal(){
 		document.location.href = '<?php echo base_url().'index.php/jenis'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Jenis Barang Sudah ada</h2>
+</div>
 <section class="grid_8">
 	<div class="block-border">
 		<?php
@@ -53,7 +61,7 @@
 			</fieldset>
 				
 			<div id="tab-settings" class="tabs-content">
-					<button type="submit"><img src="<?phpbase_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16"> Simpan</button>
+					<button type="submit"><img src="<?php echo base_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16"> Simpan</button>
 					<button type="button" onclick="javascript:batal();" class="red">Batal</button> 					
 			</div>
 			

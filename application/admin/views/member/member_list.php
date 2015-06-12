@@ -50,7 +50,7 @@
 			
 				<thead>
 					<tr>
-						<th align="left" valign="top" scope="col">&nbsp;</th>
+						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
 						<!--<th align="left" valign="top" scope="col">Cabang</th>-->
 						<th align="left" valign="top" scope="col">Kode Pelanggan</th>
 						<th align="left" valign="top" scope="col">Nama</th>
@@ -71,7 +71,7 @@
 					
 					<?php foreach($results->result() as $row) {?>
 					<tr>
-						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_pelanggan?>" type="checkbox" /></td>
+						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_pelanggan?>" type="checkbox" /></td>-->
 						<!--<td align="left" valign="top"><?=$row->nama_cabang?> </td>-->
 						<td align="left" valign="top"><?=$row->kode_pelanggan?> </td>
 						<td align="left" valign="top"><?=$row->nama?> </td>

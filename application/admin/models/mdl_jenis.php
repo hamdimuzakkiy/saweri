@@ -20,7 +20,14 @@ class mdl_jenis extends CI_Model{
 		$this->db->where('id_jenis', $id);
 		return $this->db->get('jenis');
 	}
-
+        
+        function getItemByName($name)
+	{
+		$this->db->flush_cache();
+		$this->db->where('jenis', $name);
+		return $this->db->get('jenis');
+	}
+        
 	function insert($data)
 	{
 		$this->db->flush_cache();

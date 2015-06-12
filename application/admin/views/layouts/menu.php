@@ -76,7 +76,35 @@
 											echo '<li class="icon_blog">Area / Wilayah</li>'; 
 										}																				
 										if ($privilage['setting_kode_trans'][0] == 1){ 										
-										echo '<li class="icon_blog">'.anchor('setting_kode_trans','Atur Kode Transaksi').'</li>'; 										}else{											echo '<li class="icon_blog">Atur Kode Transaksi</li>'; 										}																				if ($privilage['setting_laporan'][0] == 1){ 										echo '<li class="icon_blog">'.anchor('setting_laporan','Setup Footer Laporan').'</li>'; 										}else{											echo '<li class="icon_blog">Setup Footer Laporan</li>'; 										}																														if ($privilage['setting_view'][0] == 1){ 											echo '<li class="icon_blog">'.anchor('setting_view','Setup Dashboard').'</li>'; 										}else{											echo '<li class="icon_blog">Setup Dashboard</li>'; 										}																																								if ($privilage['setting_login'][0] == 1){ 										echo '<li class="icon_blog">'.anchor('setting_login','Setup Login').'</li>'; 										}else{										echo '<li class="icon_blog">Setup Login</li>'; 										}																				if ($privilage['internal_memo'][0] == 1){ 											echo '<li class="icon_blog">'.anchor('internal_memo','Internal Memo').'</li>'; 										}else{											echo '<li class="icon_blog">Internal Memo</li>'; 										}
+                                                                                        echo '<li class="icon_blog">'.anchor('setting_kode_trans','Atur Kode Transaksi').'</li>'; 
+                                                                                }else{
+                                                                                    echo '<li class="icon_blog">Atur Kode Transaksi</li>';
+                                                                                }	
+                                                                                if ($privilage['setting_laporan'][0] == 1){
+                                                                                    echo '<li class="icon_blog">'.anchor('setting_laporan','Setup Footer Laporan').'</li>'; 
+                                                                                }else{	
+                                                                                    echo '<li class="icon_blog">Setup Footer Laporan</li>'; 
+                                                                                    }					
+                                                                                if ($privilage['setting_view'][0] == 1){ 
+                                                                                    echo '<li class="icon_blog">'.anchor('setting_view','Setup Dashboard').'</li>';
+                                                                                    }else{
+                                                                                        echo '<li class="icon_blog">Setup Dashboard</li>'; 
+                                                                                        }			
+                                                                                if ($privilage['setting_login'][0] == 1){ 
+                                                                                    echo '<li class="icon_blog">'.anchor('setting_login','Setup Login').'</li>'; 
+                                                                                }else{	
+                                                                                    echo '<li class="icon_blog">Setup Login</li>'; 	
+                                                                                    }	
+                                                                                if ($privilage['internal_memo'][0] == 1){ 
+                                                                                    echo '<li class="icon_blog">'.anchor('internal_memo','Internal Memo').'</li>'; 
+                                                                                }else{	
+                                                                                    echo '<li class="icon_blog">Internal Memo</li>'; 	
+                                                                                    }
+                                                                                if ($privilage['perusahaan'][0] == 1){ 
+                                                                                    echo '<li class="icon_blog">'.anchor('perusahaan','Setup Perusahaan').'</li>'; 
+                                                                                }else{	
+                                                                                    echo '<li class="icon_blog">Setup Perusahaan</li>'; 	
+                                                                                    }    
 									?>
 								</ul>
 							</div>

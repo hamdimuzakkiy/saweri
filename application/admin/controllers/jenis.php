@@ -80,15 +80,8 @@ class jenis extends My_Controller
 		
 		
 		$this->form_validation->set_rules('jenis', 'jenis', 'callback_cek_nama|required');
-		
-		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
-		
-		
 		if ($this->form_validation->run() == FALSE){
 			
 			$this->load->view('jenis/jenis_add',$data);
@@ -132,10 +125,9 @@ class jenis extends My_Controller
 		
 		$this->open();
 		
-		$data['result'] 		= $this->jenis->getItemById($id);
-		
+		$data['result']= $this->jenis->getItemById($id);
 		$data['id_jenis'] = $id;
-
+                $data['usernameValidation'] = 0;
 
 		
 		$this->load->view('jenis/jenis_edit', $data);
@@ -151,33 +143,27 @@ class jenis extends My_Controller
 		
 		$this->open();
 		
-		
 		$data['id_jenis'] = $this->input->post('id_jenis');
-
 		$data['jenis'] = $this->input->post('jenis');		
-
 		$data['userid'] = get_userid();
-		
-		
-		
-		$this->form_validation->set_rules('jenis', 'jenis', 'callback_cek_nama|required');
-		
-		
-		
+                
+		$this->form_validation->set_rules('jenis', 'jenis', 'required');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
-		
-		
 
+                $checker = $this->checkNama($data['jenis']);
 		if ($this->form_validation->run() == FALSE){
-			
+                        $data['usernameValidation'] = 0;
+                        $data['result']= $this->jenis->getItemById($data['id_jenis']);
 			$this->load->view('jenis/jenis_edit',$data);
-			
-		}else{	
+		}
+                else if ($checker==FALSE){
+			$data['usernameValidation'] = 1;
+                        $data['result']= $this->jenis->getItemById($data['id_jenis']);
+                        $this->load->view('jenis/jenis_edit',$data);
+		}
+                else{	
 			$this->jenis->update($data['id_jenis'], $data);
-			
 			$this->session->set_flashdata('message', 'Data Jenis Barang Berhasil diupdate.');
 			redirect('jenis');
 		}
@@ -196,5 +182,10 @@ class jenis extends My_Controller
 		$this->session->set_flashdata('message', 'Data Jenis Barang Berhasil dihapus.');
 		redirect('jenis');
 	}
-	
+        
+	function checkNama($nama){
+            $result = $this->jenis->getItemByName($nama);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

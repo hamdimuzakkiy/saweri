@@ -204,7 +204,7 @@ class karyawan extends My_Controller
 		$this->open();
 				
 		$data['id_karyawan'] = $this->input->post('id_karyawan');
-		$data['id_cabang'] = $this->input->post('id_cabang');
+		//$data['id_cabang'] = $this->input->post('id_cabang');
 		//$data['kode_karyawan'] = $this->input->post('kode_karyawan');
 		$data['nama'] = $this->input->post('nama');
 		$data['alamat'] = $this->input->post('alamat');
@@ -220,8 +220,7 @@ class karyawan extends My_Controller
 		$data['userid'] = $this->input->post('userid');
 		
 		
-	
-		$this->form_validation->set_rules('id_cabang', 'ID Cabang', 'required');		
+		//$this->form_validation->set_rules('id_cabang', 'ID Cabang', 'required');		
 		//$this->form_validation->set_rules('kode_karyawan', 'Kode Karyawan', 'required');		
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
 		$this->form_validation->set_rules('jenis_pengenal', 'Jenis Pengenal', 'required');
@@ -231,20 +230,16 @@ class karyawan extends My_Controller
 		$this->form_validation->set_rules('username', 'Username', 'required|alpha_dash');
 		$this->form_validation->set_rules('password', 'Password', 'required|matches[confpassword]');
 		$this->form_validation->set_rules('confpassword', 'Password Confirmation', 'required');
-		
-		
+				
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
-		$this->form_validation->set_message('alpha', 'Field %s harus diisi hanya dengan huruf!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		$this->form_validation->set_message('alpha_dash', 'Field %s harus diisi hanya dengan karakter, angka, underscore, titik!');
 		$this->form_validation->set_message('matches', 'Field Password harus sama dengan password confirmasi');
 		
 		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('karyawan/karyawan_edit',$data);
 			
 		}else{				
@@ -252,7 +247,7 @@ class karyawan extends My_Controller
 			/* update ke tabel karyawan */
 			$data_karyawan['id_karyawan'] = $this->input->post('id_karyawan');
 			$data_karyawan['userid'] = $this->input->post('userid');
-			$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
+			//$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
 			//$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
                         //$data_karyawan['kode_karyawan'] = $this->cokot($data_karyawan['id_cabang']);
 			$data_karyawan['nama'] = $this->input->post('nama');
@@ -268,10 +263,17 @@ class karyawan extends My_Controller
 			/* insert ke tabel user */
 			$data_user['userid'] = $this->input->post('userid');
 			$data_user['username'] = $this->input->post('username');
-			$data_user['password'] = $this->input->post('password');
+			$user_password = $this->input->post('password');
 			$data_user['level_id'] = $this->input->post('level_id');
 			
-			$this->users->update($data_user['userid'], $data_user);
+                        $checker = $this->checkPass($data_user['username'],$user_password);
+                        if($checker==TRUE){
+                            $data_user['password']=  md5($data_user['password']);
+                            $this->users->update($data_user['userid'], $data_user);
+                        }
+                        else{
+                            $this->users->update($data_user['userid'], $data_user);
+                        }
 			
 			$this->session->set_flashdata('message', 'Data Karyawan Berhasil diupdate.');			
 			redirect('karyawan');
@@ -353,4 +355,9 @@ class karyawan extends My_Controller
 		$html=$this->load->view('karyawan/karyawan_report_pdf', $data, true);
 		$this->pdf->pdf_create($html, 'karyawan_report_pdf','letter','landscape');
 	}
+        function checkPass($username,$password){
+            $result = $this->users->checkPass($username,$password);
+            if($result->num_rows==0)return TRUE;
+            else return FALSE;
+        }
 }

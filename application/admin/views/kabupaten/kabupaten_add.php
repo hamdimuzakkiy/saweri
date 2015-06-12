@@ -1,7 +1,7 @@
 <script type="text/javascript">
 	
 	function batal(){
-		document.location.href = '<?=base_url().'index.php/'?>';
+		document.location.href = '<?=base_url().'index.php/kabupaten'?>';
 	}
 	
 </script>

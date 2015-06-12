@@ -68,7 +68,7 @@
 			</fieldset>
 				
 			<div id="tab-settings" class="tabs-content">
-					<button type="submit"><img src="<?php base_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16"> Simpan</button>
+					<button type="submit"><img src="<?php echo base_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16"> Simpan</button>
 					<button type="button" onclick="javascript:batal();" class="red">Batal</button> 				
 			</div>
 			

@@ -30,7 +30,13 @@ class mdl_users extends CI_Model{
 		$this->db->flush_cache();
 		$this->db->insert('users', $data);
 	}
-	
+        
+	function checkPass($username,$password){
+        $this->db->flush_cache();
+        $this->db->where("username",$username);
+        $this->db->where("password",$password);
+        return $this->db->get("users");
+        }
 	function update($id, $data)
 	{
 		$this->db->flush_cache();

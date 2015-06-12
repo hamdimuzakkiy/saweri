@@ -5,13 +5,12 @@
 	}
 	
 </script>
-
 	<?php 
 		if(validation_errors())
 		{
 	?>
 			<ul class="message error grid_12">
-				<li><?php=validation_errors()?></li>
+				<li><?=validation_errors()?></li>
 				<li class="close-bt"></li>
 			</ul>	
 	<?php
@@ -31,7 +30,7 @@
 							<p class="colx3-left">
 								<label for="complex-en-url">Cabang :</label>
 								<span class="relative">
-									<select name="id_cabang" id="id_cabang" class="duapertiga-width">
+                                                                    <select name="id_cabang" id="id_cabang" class="duapertiga-width" disabled>
 										<?php
 											$query = $this->db->get('cabang');
 											if($query->num_rows() > 0)
@@ -192,7 +191,7 @@
 											if (form_error('password') != null)
 											{
 												echo '<input type="password" name="password" id="password" value="'.set_value('password').'" class="duapertiga-width">';
-												echo form_error('password');
+												//echo form_error('password');
 											}else
 											{
 												echo '<input type="password" name="password" id="password" value="'.$password.'" class="duapertiga-width">';

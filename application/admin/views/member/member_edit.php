@@ -325,7 +325,36 @@
 						</span>
 					</p>
 				</div>
-				
+				<div class="columns">
+					<p class="colx2-left">
+						<label for="complex-en-url">ID Kartu :</label>
+						<span class="relative">
+							<?php 
+								if (form_error('point') != null)
+								{
+									echo '<input type="text" name="id_kartu" id="id_kartu" value="'.set_value('id_kartu').'" class="duapertiga-width">';
+								}else
+								{
+									echo '<input type="text" name="id_kartu" id="id_kartu" value="'.$id_kartu.'" class="duapertiga-width">';
+								}
+							?>
+						</span>
+					</p>
+					<p class="colx2-right">
+						<label for="complex-en-url">No Kartu :</label>
+						<span class="relative">
+							<?php 
+								if (form_error('point') != null)
+								{
+									echo '<input type="text" name="no_kartu" id="no_kartu" value="'.set_value('no_kartu').'" class="duapertiga-width">';
+								}else
+								{
+									echo '<input type="text" name="no_kartu" id="no_kartu" value="'.$no_kartu.'" class="duapertiga-width">';
+								}
+							?>
+						</span>
+					</p>
+				</div>
 				<p><i> Field yang diberi tanda (*) harus di isi ! </i></p>		
 				
 			</fieldset>

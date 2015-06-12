@@ -90,9 +90,10 @@ class member extends My_Controller
 		$data['expired'] = $this->input->post('expired');
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');				
 		$data['tanggal_piutang'] = $this->input->post('tanggal_piutang');
+                $data['id_kartu'] = $this->input->post('id_kartu');
+                $data['no_kartu'] = $this->input->post('no_kartu');
 		$data['userid'] = get_userid();
 				
-		
 		
 		$this->form_validation->set_rules('kode_pelanggan', 'Kode Pelanggan', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -109,26 +110,22 @@ class member extends My_Controller
 		$this->form_validation->set_rules('expired', 'Expired', 'trim');				
 		$this->form_validation->set_rules('tanggal_piutang', 'Tanggal Saldo Piutang', 'trim');
 		$this->form_validation->set_rules('saldo_piutang', 'Saldo Piutang', 'trim|numeric');
-		
+                $this->form_validation->set_rules('id_kartu', 'ID Kartu', 'required');
+                $this->form_validation->set_rules('no_kartu', 'No Kartu', 'required');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
 		if ($this->form_validation->run() == FALSE){			
 			$data['get_date_now'] = date('Y-m-d');
-			
 			$this->load->view('member/member_add',$data);
-			
-		}else{	
+		}
+                else{	
 			$this->member->insert($data);
 			$this->session->set_flashdata('message', 'Data Pelanggan Berhasil disimpan.');
 			redirect('member');
 		}
-		
 		$this->close();
 	}
 	
@@ -158,10 +155,10 @@ class member extends My_Controller
 		$data['expired'] = $data['result']->row()->expired;
 		$data['saldo_piutang'] = $data['result']->row()->saldo_piutang;				
 		$data['tanggal_piutang'] = $data['result']->row()->tanggal_piutang;
-		
+                $data['id_kartu'] = $data['result']->row()->id_kartu;				
+		$data['no_kartu'] = $data['result']->row()->no_kartu;
 		
 		$this->load->view('member/member_edit', $data);
-		
 		$this->close();
 	}
 	
@@ -172,7 +169,6 @@ class member extends My_Controller
 		}
 		
 		$this->open();
-		
 		
 		$data['id_pelanggan'] = $this->input->post('id_pelanggan');
 		$data['kode_pelanggan'] = $this->input->post('kode_pelanggan');
@@ -191,7 +187,8 @@ class member extends My_Controller
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');
 		$data['userid'] = get_userid();
 		$data['tanggal_piutang'] = $this->input->post('tanggal_piutang');
-		
+		$data['id_kartu'] = $this->input->post('id_kartu');
+		$data['no_kartu'] = $this->input->post('no_kartu');
 		
 		$this->form_validation->set_rules('kode_pelanggan', 'Kode Pelanggan', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -207,27 +204,21 @@ class member extends My_Controller
 		$this->form_validation->set_rules('point', 'Point', 'trim|numeric');
 		$this->form_validation->set_rules('expired', 'Expired', 'trim');
 		$this->form_validation->set_rules('saldo_piutang', 'Saldo Piutang', 'trim|numeric');
+		$this->form_validation->set_rules('id_kartu', 'ID Kartu', 'required');
+                $this->form_validation->set_rules('no_kartu', 'No Kartu', 'required');
 		
-		
-		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
-		if ($this->form_validation->run() == FALSE){
-			
+		if ($this->form_validation->run() == FALSE){			
 			$this->load->view('member/member_edit',$data);
-			
 		}else{	
 			$this->member->update($data['id_pelanggan'], $data);
 			$this->session->set_flashdata('message', 'Data Pelanggan Berhasil diupdate.');
 			redirect('member');
 		}
-		
-		$this->close();
-		
+		$this->close();	
 	}
 	
 	function delete($id)
