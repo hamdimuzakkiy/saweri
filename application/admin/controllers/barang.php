@@ -70,8 +70,7 @@ class barang extends My_Controller
 		if ($this->can_insert() == FALSE){
 			redirect('auth/failed');
 		}
-		
-		
+				
 		$this->open();
 		
 		$data['id_barang'] = $this->input->post('id_barang');
@@ -93,6 +92,7 @@ class barang extends My_Controller
 		$data['is_hargapartai'] = $this->input->post('is_hargapartai');
 		$data['is_hargajual'] = $this->input->post('is_hargajual');
 		$data['sn'] = $this->input->post('sn');
+		//$data['jumlah_barang'] = 
 		$data['userid'] = get_userid();
 				
 		
