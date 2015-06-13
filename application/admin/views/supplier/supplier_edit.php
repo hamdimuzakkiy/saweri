@@ -45,10 +45,10 @@
 							<?php 
 								if (form_error('kode_supplier') != null)
 								{
-									echo '<input type="text" name="kode_supplier" id="kode_supplier"  value="'.set_value('kode_supplier').'" class="duapertiga-width">';
+									echo '<input type="text" name="kode_supplier" id="kode_supplier"  value="'.set_value('kode_supplier').'" class="duapertiga-width" readonly>';
 								}else
 								{
-									echo '<input type="text" name="kode_supplier" id="kode_supplier"  value="'.$kode_supplier.'" class="duapertiga-width">';
+									echo '<input type="text" name="kode_supplier" id="kode_supplier"  value="'.$kode_supplier.'" class="duapertiga-width" readonly>';
 								}
 							?>
 						</span>

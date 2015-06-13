@@ -179,7 +179,7 @@ class supplier extends My_Controller
 		$this->form_validation->set_message('alpha', 'Field %s harus diisi hanya dengan huruf!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		$checker = $this->checkID($data['kode_supplier']);
+		$checker = TRUE;//$this->checkID($data['kode_supplier']);
                 
 		if ($this->form_validation->run() == FALSE){
                         $data['usernameValidation']=0;
