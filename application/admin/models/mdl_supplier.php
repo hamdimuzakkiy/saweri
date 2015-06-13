@@ -31,7 +31,12 @@ class mdl_supplier extends CI_Model{
 		$this->db->where('id_supplier', $id);
 		return $this->db->get('supplier');
 	}
-
+        function getItemByKode($id)
+	{
+		$this->db->flush_cache();
+		$this->db->where('kode_supplier', $id);
+		return $this->db->get('supplier');
+	}
 	function insert($data)
 	{
 		$this->db->flush_cache();

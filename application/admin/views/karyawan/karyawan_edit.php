@@ -30,7 +30,7 @@
 							<p class="colx3-left">
 								<label for="complex-en-url">Cabang :</label>
 								<span class="relative">
-                                                                    <select name="id_cabang" id="id_cabang" class="duapertiga-width" disabled>
+                                                                    <select name="id_cabang" id="id_cabang" class="duapertiga-width">
 										<?php
 											$query = $this->db->get('cabang');
 											if($query->num_rows() > 0)

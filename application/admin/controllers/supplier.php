@@ -77,7 +77,30 @@ class supplier extends My_Controller
 		$data['alamat'] = $this->input->post('alamat');
 		$data['telpon'] = $this->input->post('telpon');
 		$data['saldo_hutang'] = $this->input->post('saldo_hutang');
-		$data['userid'] = get_userid();		$glid = $this->hutang->get_glid();		$data_j['GLID']	= $glid;		$data_j['KOUNIT'] = $data['kode_supplier'];		$data_j['KETERANGAN'] = 'Saldo Hutang';		$data_j['TANGGAL'] = date('Y-m-d');		$data_j['CDATE']=date('Y-m-d');		$data_j['CUID'] = get_userid();		$this->hutang->insert_J($data_j);				$detailJ_origin['CDATE']=date('Y-m-d');		$detailJ_origin["DEBET"]=$data['saldo_hutang'];		$detailJ_origin["AKUNID"]='21200';		$detailJ_origin["KOUNIT"]=$data['kode_supplier'];		$detailJ_origin["GLID"]= $glid;		$detailJ_origin['CUID'] = get_userid();		$this->hutang->insert_detailJ($detailJ_origin);				$detailJ['CDATE']=date('Y-m-d');		$detailJ["KREDIT"]=$data['saldo_hutang'];		$detailJ["AKUNID"]='44500';		$detailJ["KOUNIT"]=$data['kode_supplier'];		$detailJ["GLID"]= $glid;		$detailJ['CUID'] = get_userid();		$this->hutang->insert_detailJ($detailJ);
+		$data['userid'] = get_userid();		
+                $glid = $this->hutang->get_glid();
+                
+                $data_j['GLID']	= $glid;
+                $data_j['KOUNIT'] = $data['kode_supplier'];
+                $data_j['KETERANGAN'] = 'Saldo Hutang';
+                $data_j['TANGGAL'] = date('Y-m-d');
+                $data_j['CDATE']=date('Y-m-d');
+                $data_j['CUID'] = get_userid();
+                $this->hutang->insert_J($data_j);
+                $detailJ_origin['CDATE']=date('Y-m-d');
+                $detailJ_origin["DEBET"]=$data['saldo_hutang'];
+                $detailJ_origin["AKUNID"]='21200';
+                $detailJ_origin["KOUNIT"]=$data['kode_supplier'];
+                $detailJ_origin["GLID"]= $glid;	
+                $detailJ_origin['CUID'] = get_userid();	
+                $this->hutang->insert_detailJ($detailJ_origin);	
+                $detailJ['CDATE']=date('Y-m-d');
+                $detailJ["KREDIT"]=$data['saldo_hutang'];
+                $detailJ["AKUNID"]='44500';
+                $detailJ["KOUNIT"]=$data['kode_supplier'];
+                $detailJ["GLID"]= $glid;
+                $detailJ['CUID'] = get_userid();
+                $this->hutang->insert_detailJ($detailJ);
 		
 		
 		$this->form_validation->set_rules('kode_supplier', 'Kode Supplier', 'required');
@@ -87,18 +110,21 @@ class supplier extends My_Controller
 		$this->form_validation->set_rules('saldo_hutang', 'saldo_hutang', 'trim|numeric');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('alpha', 'Field %s harus diisi hanya dengan huruf!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
+		$checker = $this->checkID($data['kode_supplier']);
+                
 		if ($this->form_validation->run() == FALSE){
-			
+			$data['usernameValidation'] = 0;
 			$this->load->view('supplier/supplier_add',$data);
-			
-		}else{	
+		}
+                else if($checker==FALSE){
+                        $data['usernameValidation'] = 1;
+			$this->load->view('supplier/supplier_add',$data);
+                }
+                else{	
 			$this->supplier->insert($data);
 			$this->session->set_flashdata('message', 'Data Supplier Berhasil disimpan.');
 			redirect('supplier');
@@ -114,16 +140,15 @@ class supplier extends My_Controller
 		}
 		
 		$this->open();
-		
 		$data['result'] 		= $this->supplier->getItemById($id);
-		
 		$data['id_supplier'] = $id;
 		$data['kode_supplier'] = $data['result']->row()->kode_supplier;
 		$data['nama'] = $data['result']->row()->nama;
 		$data['alamat'] = $data['result']->row()->alamat;
 		$data['telpon'] = $data['result']->row()->telpon;
 		$data['saldo_hutang'] = $data['result']->row()->saldo_hutang;
-		$data['userid'] = $data['result']->row()->userid;						
+		$data['userid'] = $data['result']->row()->userid;
+                $data['usernameValidation']=0;
 		$this->load->view('supplier/supplier_edit', $data);
 		$this->close();
 	}
@@ -135,8 +160,6 @@ class supplier extends My_Controller
 		}
 		
 		$this->open();
-		
-		
 		$data['id_supplier'] = $this->input->post('id_supplier');
 		$data['kode_supplier'] = $this->input->post('kode_supplier');
 		$data['nama'] = $this->input->post('nama');
@@ -145,8 +168,6 @@ class supplier extends My_Controller
 		$data['saldo_hutang'] = $this->input->post('saldo_hutang');
 		$data['userid'] = get_userid();
 		
-		
-		
 		$this->form_validation->set_rules('kode_supplier', 'Kode Supplier', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
@@ -154,16 +175,21 @@ class supplier extends My_Controller
 		$this->form_validation->set_rules('saldo_hutang', 'saldo_hutang', 'trim|numeric');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('alpha', 'Field %s harus diisi hanya dengan huruf!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
+		$checker = $this->checkID($data['kode_supplier']);
+                
 		if ($this->form_validation->run() == FALSE){
+                        $data['usernameValidation']=0;
 			$this->load->view('supplier/supplier_edit',$data);
-		}else{
+		}
+                else if($checker==FALSE){
+                        $data['usernameValidation'] = 1;
+			$this->load->view('supplier/supplier_add',$data);
+                }
+                else{
 			$this->supplier->update($data['id_supplier'], $data);
 			$this->session->set_flashdata('message', 'Data Supplier Berhasil diupdate.');
 			redirect('supplier');
@@ -183,5 +209,9 @@ class supplier extends My_Controller
 		$this->session->set_flashdata('message', 'Data Supplier Berhasil dihapus.');
 		redirect('supplier');
 	}
-	
+        function checkID($id){
+            $result = $this->supplier->getItemByKode($id);
+            if($result->num_rows==0)return TRUE;
+            else return FALSE;
+        }
 }

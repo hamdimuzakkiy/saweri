@@ -35,7 +35,15 @@ class mdl_member extends CI_Model{
 		$this->db->where('status', "member");
 		return $this->db->get('pelanggan');
 	}
-
+        
+        function getItemByKode($kode)
+	{
+		$this->db->flush_cache();
+		$this->db->where('kode_pelanggan', $kode);
+		$this->db->where('status', "member");
+		return $this->db->get('pelanggan');
+	}
+        
 	function insert($data)
 	{
 		$this->db->flush_cache();

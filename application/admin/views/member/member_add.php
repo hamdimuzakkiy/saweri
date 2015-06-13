@@ -28,7 +28,13 @@
 		var tanggal = document.getElementById("expired");
 		tanggal.focus();
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -42,7 +48,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Kode Member telah tersedia. Silahkan cari kode lain</h2>
+</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php
@@ -122,7 +130,7 @@
 					<p class="colx2-right">
 						<label for="complex-en-url">No Pengenal (*) :</label>
 						<span class="relative">
-							<input type="text" name="no_pengenal" id="no_pengenal" value="<?=set_value('no_pengenal')?>" class="duapertiga-width">
+							<input type="password" name="no_pengenal" id="no_pengenal" value="<?=set_value('no_pengenal')?>" class="duapertiga-width">
 						</span>
 					</p>
 				</div>
@@ -161,16 +169,28 @@
 				
 				<div class="columns">
 					<p class="colx2-left">
-						<label for="complex-en-url">Area :</label>
+						<label for="complex-en-url">Kabupaten - Kecamatan - Area :</label>
 						<span class="relative">
-							<select name="id_area" id="id_area"class="seperempat-width">
+							<select name="id_area" id="id_area"class="seperempat-width" style="width: 50%;">
 								<?php
 									$query = $this->db->get('area');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-											echo '<option value="'.$row->id_area.'">'.$row->area.'</option>';
+                                                                                        $this->db->flush_cache();
+                                                                                        $this->db->select('*');
+                                                                                        $this->db->where("id_kecamatan",$row->id_kecamatan);
+                                                                                        $query1 = $this->db->get('kecamatan');
+                                                                                        
+                                                                                        $this->db->flush_cache();
+                                                                                        $this->db->select('*');
+                                                                                        $this->db->where("id_kabupaten",$row->id_kabupaten);
+                                                                                        $query2 = $this->db->get('kabupaten');
+                                                                                        
+                                                                                        if($query1->num_rows() > 0 || $query2->num_rows() > 0)
+                                                                                            foreach ($query1->result() as $rows_kec)foreach ($query2->result() as $rows_kab)
+                                                                                                echo '<option value="'.$row->id_area.'">'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
 										}
 									}
 								?>
@@ -209,7 +229,7 @@
 					<p class="colx2-left">
 						<label for="complex-en-url">ID Kartu :</label>
 						<span class="relative">
-							<input type="text" name="id_kartu" id="id_kartu" value="<?=set_value('id_kartu')?>" class="duapertiga-width">
+							<input type="password" name="id_kartu" id="id_kartu" value="<?=set_value('id_kartu')?>" class="duapertiga-width">
 						</span>
 					</p>
 					

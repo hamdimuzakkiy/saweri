@@ -40,7 +40,7 @@
 									echo '<input type="text" name="kode_cabang" id="kode_cabang" value="'.set_value('kode_cabang').'" class="duapertiga-width">';
 								}else
 								{
-									echo '<input type="text" name="kode_cabang" id="kode_cabang" value="'.$kode_cabang.'" class="duapertiga-width">';
+									echo '<input type="text" name="kode_cabang" id="kode_cabang" value="'.$kode_cabang.'" class="duapertiga-width" readonly>';
 								}
 							?>
 						</span>
