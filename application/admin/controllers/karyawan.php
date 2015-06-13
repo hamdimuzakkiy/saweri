@@ -97,8 +97,6 @@ class karyawan extends My_Controller
 		$data['userid'] = $this->input->post('userid');
                 $data['usernameValidation']=0;
 		
-		
-		
 		$this->form_validation->set_rules('id_cabang', 'ID Cabang', 'required');		
 		//$this->form_validation->set_rules('kode_karyawan', 'Kode Karyawan', 'required');		
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
@@ -112,7 +110,6 @@ class karyawan extends My_Controller
 		$this->form_validation->set_rules('confpassword', 'Password Confirmation', 'required');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		$this->form_validation->set_message('alpha_dash', 'Field %s harus diisi hanya dengan karakter, angka, underscore, titik!');
@@ -204,7 +201,7 @@ class karyawan extends My_Controller
 		$this->open();
 				
 		$data['id_karyawan'] = $this->input->post('id_karyawan');
-		//$data['id_cabang'] = $this->input->post('id_cabang');
+		$data['id_cabang'] = $this->input->post('id_cabang');
 		//$data['kode_karyawan'] = $this->input->post('kode_karyawan');
 		$data['nama'] = $this->input->post('nama');
 		$data['alamat'] = $this->input->post('alamat');
@@ -247,7 +244,7 @@ class karyawan extends My_Controller
 			/* update ke tabel karyawan */
 			$data_karyawan['id_karyawan'] = $this->input->post('id_karyawan');
 			$data_karyawan['userid'] = $this->input->post('userid');
-			//$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
+			$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
 			//$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
                         //$data_karyawan['kode_karyawan'] = $this->cokot($data_karyawan['id_cabang']);
 			$data_karyawan['nama'] = $this->input->post('nama');

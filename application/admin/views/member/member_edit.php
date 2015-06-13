@@ -187,10 +187,10 @@
 							<?php 
 								if (form_error('no_pengenal') != null)
 								{
-									echo '<input type="text" name="no_pengenal" id="no_pengenal" value="'.set_value('no_pengenal').'" class="duapertiga-width">';
+									echo '<input type="password" name="no_pengenal" id="no_pengenal" value="'.set_value('no_pengenal').'" class="duapertiga-width">';
 								}else
 								{
-									echo '<input type="text" name="no_pengenal" id="no_pengenal" value="'.$no_pengenal.'" class="duapertiga-width">';
+									echo '<input type="password" name="no_pengenal" id="no_pengenal" value="'.$no_pengenal.'" class="duapertiga-width" readonly>';
 								}
 							?>
 						</span>
@@ -252,20 +252,28 @@
 				</div>
 				<div class="columns">
 					<p class="colx2-left">
-						<label for="complex-en-url">Area :</label>
+						<label for="complex-en-url">Kabupaten - Kecamatan - Area :</label>
 						<span class="relative">
-							<select name="id_area" id="id_area" class="seperempat-width">
+							<select name="id_area" id="id_area"class="seperempat-width" style="width: 50%;">
 								<?php
 									$query = $this->db->get('area');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-											if($id_area == $row->id_area){
-												echo '<option value="'.$row->id_area.'" selected="selected">'.$row->id_area.' - '.$row->area.'</option>';
-											}else{
-												echo '<option value="'.$row->id_area.'" >'.$row->area.'</option>';
-											}
+                                                                                        $this->db->flush_cache();
+                                                                                        $this->db->select('*');
+                                                                                        $this->db->where("id_kecamatan",$row->id_kecamatan);
+                                                                                        $query1 = $this->db->get('kecamatan');
+                                                                                        
+                                                                                        $this->db->flush_cache();
+                                                                                        $this->db->select('*');
+                                                                                        $this->db->where("id_kabupaten",$row->id_kabupaten);
+                                                                                        $query2 = $this->db->get('kabupaten');
+                                                                                        
+                                                                                        if($query1->num_rows() > 0 || $query2->num_rows() > 0)
+                                                                                            foreach ($query1->result() as $rows_kec)foreach ($query2->result() as $rows_kab)
+                                                                                                echo '<option value="'.$row->id_area.'">'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
 										}
 									}
 								?>
@@ -332,10 +340,10 @@
 							<?php 
 								if (form_error('point') != null)
 								{
-									echo '<input type="text" name="id_kartu" id="id_kartu" value="'.set_value('id_kartu').'" class="duapertiga-width">';
+									echo '<input type="password" name="id_kartu" id="id_kartu" value="'.set_value('id_kartu').'" class="duapertiga-width">';
 								}else
 								{
-									echo '<input type="text" name="id_kartu" id="id_kartu" value="'.$id_kartu.'" class="duapertiga-width">';
+									echo '<input type="password" name="id_kartu" id="id_kartu" value="'.$id_kartu.'" class="duapertiga-width" readonly>';
 								}
 							?>
 						</span>
@@ -349,7 +357,7 @@
 									echo '<input type="text" name="no_kartu" id="no_kartu" value="'.set_value('no_kartu').'" class="duapertiga-width">';
 								}else
 								{
-									echo '<input type="text" name="no_kartu" id="no_kartu" value="'.$no_kartu.'" class="duapertiga-width">';
+									echo '<input type="text" name="no_kartu" id="no_kartu" value="'.$no_kartu.'" class="duapertiga-width" readonly>';
 								}
 							?>
 						</span>

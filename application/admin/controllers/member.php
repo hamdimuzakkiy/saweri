@@ -20,7 +20,6 @@ class member extends My_Controller
 		
 		$this->open();
 		
-		
 		$config['base_url'] = base_url().'index.php/member/index/';
 		$config['total_rows'] = $this->member->getallItem('pelanggan');
 		$config['per_page'] = '10';
@@ -53,12 +52,7 @@ class member extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
-		
 		$data['results'] = $this->member->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
 		$this->load->view('member/member_list', $data);
 		
 		$this->close();
@@ -67,7 +61,6 @@ class member extends My_Controller
 	
 	function insert()
 	{
-
 		if ($this->can_insert() == FALSE){
 			redirect('auth/failed');
 		}
@@ -94,7 +87,6 @@ class member extends My_Controller
                 $data['no_kartu'] = $this->input->post('no_kartu');
 		$data['userid'] = get_userid();
 				
-		
 		$this->form_validation->set_rules('kode_pelanggan', 'Kode Pelanggan', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
@@ -117,8 +109,16 @@ class member extends My_Controller
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
+                $checker = $this->checkMemberID($data['kode_pelanggan']);
+                
 		if ($this->form_validation->run() == FALSE){			
-			$data['get_date_now'] = date('Y-m-d');
+			$data['usernameValidation']=0;
+                        $data['get_date_now'] = date('Y-m-d');
+			$this->load->view('member/member_add',$data);
+		}
+                else if($checker == FALSE){			
+			$data['usernameValidation']=1;
+                        $data['get_date_now'] = date('Y-m-d');
 			$this->load->view('member/member_add',$data);
 		}
                 else{	
@@ -136,7 +136,6 @@ class member extends My_Controller
 		}
 		
 		$this->open();
-		
 		$data['result'] 		= $this->member->getItemById($id);
 		
 		$data['id_pelanggan'] = $id;
@@ -226,10 +225,13 @@ class member extends My_Controller
 		if ($this->can_delete() == FALSE){
 			redirect('auth/failed');
 		}
-		
 		$this->member->delete($id);
 		$this->session->set_flashdata('message', 'Data Pelanggan Berhasil dihapus.');
 		redirect('member');
 	}
-	
+        function checkMemberID($id){
+            $result = $this->member->getItemByKode($id);
+            if($result->num_rows==0)return TRUE;
+            else return FALSE;
+        }
 }
