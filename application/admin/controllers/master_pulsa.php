@@ -8,7 +8,9 @@ class master_pulsa extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_master_pulsa', 'master_pulsa');
-		
+		$this->load->model('mdl_barang', 'barang');
+		$this->load->model('mdl_detail_pembelian','detail_pembelian');
+		$this->load->model('mdl_pembelian', 'pembelian');
 	}
 	
 	function index()
@@ -72,11 +74,42 @@ class master_pulsa extends My_Controller
 		}
 			
 		$this->open();		
-		/* Data*/		$data['id_pulsa'] = $this->input->post('id_pulsa');				$data['kode_pulsa'] = $this->input->post('kode_pulsa');		$data['nama_pulsa'] = $this->input->post('nama_pulsa');		$data['id_jenis'] = $this->input->post('id_jenis');		$data['id_kategori'] = $this->input->post('id_kategori');		$data['id_satuan'] = $this->input->post('id_satuan');				$data['id_saldo'] = $this->input->post('id_saldo');		$data['id_golongan'] = $this->input->post('id_golongan');		$hpp = $this->input->post('hpp');				$data['hpp']  = $hpp;		$data['harga_toko'] = $this->input->post('harga_toko');		$data['harga_partai'] = $this->input->post('harga_partai');		$data['harga_cabang'] = $this->input->post('harga_cabang');				$data['is_hargatoko'] = $this->input->post('is_hargatoko');		$data['is_hargapartai'] = $this->input->post('is_hargapartai');		$data['is_hargajual'] = $this->input->post('is_hargajual');		$data['point_karyawan'] = $this->input->post('point_karyawan');		$data['point_member'] = $this->input->post('point_member');		$data['userid'] = get_userid();
+		/* Data*/		
+		/*$data['id_pulsa'] = $this->input->post('id_pulsa');				
+		$data['kode_pulsa'] = $this->input->post('kode_pulsa');		
+		$data['nama_pulsa'] = $this->input->post('nama_pulsa');*/
+		$data['id_barang'] = $this->input->post('id_pulsa');				
+		$data['kode'] = $this->input->post('kode_pulsa');		
+		$data['nama_barang'] = $this->input->post('nama_pulsa');
+		$data['id_jenis'] = $this->input->post('id_jenis');		
+		$data['id_kategori'] = $this->input->post('id_kategori');		
+		$data['id_satuan'] = $this->input->post('id_satuan');				
+		$data['id_saldo'] = $this->input->post('id_saldo');		
+		$data['id_golongan'] = $this->input->post('id_golongan');		
+		$hpp = $this->input->post('hpp');				
+		$data['hpp']  = $hpp;		
+		$data['harga_toko'] = $this->input->post('harga_toko');		
+		$data['harga_partai'] = $this->input->post('harga_partai');		
+		$data['harga_cabang'] = $this->input->post('harga_cabang');				
+		$data['is_hargatoko'] = $this->input->post('is_hargatoko');		
+		$data['is_hargapartai'] = $this->input->post('is_hargapartai');		
+		$data['is_hargajual'] = $this->input->post('is_hargajual');		
+		$data['point_karyawan'] = $this->input->post('point_karyawan');		
+		$data['point_member'] = $this->input->post('point_member');		
+		$data['userid'] = get_userid();
 		
 		
 		/* set rules validation*/
-		$this->form_validation->set_rules('nama_pulsa', 'nama_pulsa', 'callback_cek_nama');				$this->form_validation->set_rules('kode_pulsa', 'kode_pulsa', 'required');		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');				$this->form_validation->set_rules('id_saldo','id_saldo', 'required');		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');		$this->form_validation->set_rules('hpp', 'hpp', 'trim');		$this->form_validation->set_rules('harga_toko', 'harga_toko', 'trim|numeric');		$this->form_validation->set_rules('harga_partai', 'harga_partai', 'trim|numeric');		$this->form_validation->set_rules('harga_cabang', 'harga_cabang', 'trim|numeric');		$this->form_validation->set_rules('is_hargatoko', 'is_hargatoko', 'trim');		$this->form_validation->set_rules('is_hargapartai', 'is_hargapartai', 'trim');		$this->form_validation->set_rules('is_hargajual', 'is_hargajual', 'trim');		$this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');		$this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');
+		$this->form_validation->set_rules('nama_pulsa', 'nama_pulsa', 'required');				
+		$this->form_validation->set_rules('kode_pulsa', 'kode_pulsa', 'required');		
+		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');		
+		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');		
+		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');				
+		$this->form_validation->set_rules('id_saldo','id_saldo', 'required');		
+		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');		
+		$this->form_validation->set_rules('hpp', 'hpp', 'trim');		
+		$this->form_validation->set_rules('harga_toko', 'harga_toko', 'trim|numeric');		
+		$this->form_validation->set_rules('harga_partai', 'harga_partai', 'trim|numeric');		$this->form_validation->set_rules('harga_cabang', 'harga_cabang', 'trim|numeric');		$this->form_validation->set_rules('is_hargatoko', 'is_hargatoko', 'trim');		$this->form_validation->set_rules('is_hargapartai', 'is_hargapartai', 'trim');		$this->form_validation->set_rules('is_hargajual', 'is_hargajual', 'trim');		$this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');		$this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
@@ -85,9 +118,10 @@ class master_pulsa extends My_Controller
 	
 		
 		if ($this->form_validation->run() == FALSE){
-									$data['id_pulsa'] = $this->input->post('id_pulsa');					
-									$data['kode_pulsa'] = $this->input->post('kode_pulsa');			
-									$data['nama_pulsa'] = $this->input->post('nama_pulsa');			
+									$data['id_barang'] = $this->input->post('id_pulsa');					
+									$data['kode'] = $this->input->post('kode_pulsa');			
+									//$data['nama_pulsa'] = $this->input->post('nama_pulsa');			
+									$data['nama_barang'] = $this->input->post('nama_pulsa');			
 									$data['id_jenis'] = $this->input->post('id_jenis');			
 									$data['id_kategori'] = $this->input->post('id_kategori');			
 									$data['id_satuan'] = $this->input->post('id_satuan');						
@@ -106,7 +140,7 @@ class master_pulsa extends My_Controller
 									$data['userid'] = get_userid();			
 			$this->load->view('master_pulsa/master_pulsa_add',$data);
 		}else{													
-		$data['id_pulsa'] = $this->input->post('id_pulsa');					
+		/*$data['id_pulsa'] = $this->input->post('id_pulsa');					
 		$data['kode_pulsa'] = $this->input->post('kode_pulsa');			
 		$data['nama_pulsa'] = $this->input->post('nama_pulsa');			
 		$data['id_jenis'] = $this->input->post('id_jenis');			
@@ -124,14 +158,53 @@ class master_pulsa extends My_Controller
 		$data['is_hargajual'] = $this->input->post('is_hargajual');			
 		$data['point_karyawan'] = $this->input->post('point_karyawan');			
 		
-		$data['point_member'] = $this->input->post('point_member');			
+		$data['point_member'] = $this->input->post('point_member');
+		$data['userid'] = get_userid();*/
+
+		$data['id_barang'] = $this->input->post('id_pulsa');					
+		$data['kode'] = $this->input->post('kode_pulsa');			
+		$data['nama_barang'] = $this->input->post('nama_pulsa');			
+		$data['id_jenis'] = $this->input->post('id_jenis');			
+		$data['id_kategori'] = $this->input->post('id_kategori');			
+		$data['id_satuan'] = $this->input->post('id_satuan');						
+		$data['id_saldo'] = $this->input->post('id_saldo');			
+		$data['id_golongan'] = $this->input->post('id_golongan');			
+		$hpp = $this->input->post('hpp');						
+		$data['hpp']  = $hpp;			
+		$data['harga_toko'] = $this->input->post('harga_toko');			
+		$data['harga_partai'] = $this->input->post('harga_partai');			
+		$data['harga_cabang'] = $this->input->post('harga_cabang');					
+		$data['is_hargatoko'] = $this->input->post('is_hargatoko');			
+		$data['is_hargapartai'] = $this->input->post('is_hargapartai');			
+		$data['is_hargajual'] = $this->input->post('is_hargajual');			
+		$data['point_karyawan'] = $this->input->post('point_karyawan');			
+		$jumlah_barang = $this->input->post('jumlah_barang');
+		$data['point_member'] = $this->input->post('point_member');
 		$data['userid'] = get_userid();
+
 						$saldo_elektrik 		= $this->master_pulsa->get_saldo_elektrik($data['id_saldo']);						
 						$v_saldo_saldo_elektrik = $saldo_elektrik->row()->saldo;						
-						$hasil_saldo_akhir = $v_saldo_saldo_elektrik - $hpp;						
-						$data_saldo['saldo'] = $hasil_saldo_akhir;						
-						$this->master_pulsa->insert($data);			
-						$this->master_pulsa->update_saldo_transaksi($data['id_saldo'], $data_saldo);			
+						$hasil_saldo_akhir 		= $v_saldo_saldo_elektrik - $hpp*$jumlah_barang;						
+						$data_saldo['saldo'] 	= $hasil_saldo_akhir;						
+						$this->barang->insert($data);
+						$max = $this->barang->getMax();			
+						foreach ($max->result() as $row) {
+							$maxId = $row->maxId;
+						}		
+
+						for ($i=0; $i < $jumlah_barang ; $i++) { 
+							
+							$data_['id_pembelian'] 		= 'Barang';
+							$data_['id_barang'] 		= $maxId;
+							$data_['harga'] 			= $data['hpp'];
+							$data_['qty'] 				= 1;				
+							$data_['total'] 			= $data['hpp'];
+							$data_['sn']	 			= 0;
+							$data_['posisi_pusat'] 		= 1;				
+							$this->pembelian->insert_detail($data_);
+						}				
+
+						$this->master_pulsa->update_saldo_transaksi($data['id_saldo'], $data_saldo);
 						$this->session->set_flashdata('message', 'Data Master Pulsa Berhasil disimpan.');			
 			redirect('master_pulsa');
 		}
