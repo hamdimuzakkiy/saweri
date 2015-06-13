@@ -10,6 +10,7 @@ class barang extends My_Controller
 		$this->load->model('mdl_barang', 'barang');
 		$this->load->model('mdl_pembelian', 'pembelian');
 		$this->load->model('mdl_detail_pembelian','detail_pembelian');
+
 		
 	}
 	
@@ -222,9 +223,21 @@ class barang extends My_Controller
 		}
 		
 		$this->open();
+
+
 				
 		$data['id_barang'] = $this->input->post('id_barang');
 		$data['nama_barang'] = $this->input->post('nama_barang');
+
+		$nama = $data['nama_barang'];
+
+		$index = sizeof(explode(' ', $nama));
+
+		if (strtolower(explode(' ', $nama)[$index-1]) == 'second')
+		{
+			$data['jenis_barang'] = "second";
+		}
+
 		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
