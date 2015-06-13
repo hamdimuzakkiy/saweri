@@ -58,6 +58,8 @@
 							?>
 						</span>
 					</p>
+				</div>
+					<div class="columns">
 					<p class="colx2-left">
 						<label for="complex-en-url">Master Saldo :</label>
 						<span class="relative">
@@ -132,7 +134,7 @@
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
-										{
+										{											
 											if($id_jenis == $row->id_jenis){
 												echo '<option value="'.$row->id_jenis.'" selected="selected">'.$row->jenis.'</option>';
 											}else{

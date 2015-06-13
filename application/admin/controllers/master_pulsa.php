@@ -240,7 +240,8 @@ class master_pulsa extends My_Controller
 			$data['nama_pulsa'] = $data['result']->row()->nama_barang;		
 			$data['id_pulsa'] = $data['result']->row()->id_barang;		
 			$data['id_kategori'] = $data['result']->row()->id_kategori;		
-			$data['id_satuan'] = $data['result']->row()->id_satuan;				
+			$data['id_satuan'] = $data['result']->row()->id_satuan;			
+			$data['id_jenis'] = $data['result']->row()->id_jenis;
 			$data['id_saldo']= $data['result']->row()->id_saldo;		
 			$data['id_golongan'] = $data['result']->row()->id_golongan;		
 			$data['hpp'] = $data['result']->row()->hpp;				
@@ -271,10 +272,10 @@ class master_pulsa extends My_Controller
 		redirect('auth/failed');		
 		}				
 		$this->open();				
-		$data['id_pulsa'] = $this->input->post('id_pulsa');				
-		$data['kode_pulsa'] = $this->input->post('kode_pulsa');		
-		$data['nama_pulsa'] = $this->input->post('nama_pulsa');		
-		$data['id_jenis'] = $this->input->post('id_jenis');		
+		$data['id_barang'] = $this->input->post('id_pulsa');				
+		$data['kode'] = $this->input->post('kode_pulsa');		
+		$data['nama_barang'] = $this->input->post('nama_pulsa');		
+		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');		
 		$data['id_satuan'] = $this->input->post('id_satuan');				
 		$data['id_saldo'] = $this->input->post('id_saldo');		
@@ -317,7 +318,7 @@ class master_pulsa extends My_Controller
 		$v_saldo_saldo_elektrik = $saldo_elektrik->row()->saldo;						
 		$hasil_saldo_akhir = $v_saldo_saldo_elektrik - $hpp;						
 		$data_saldo['saldo'] = $hasil_saldo_akhir; */						
-		$this->master_pulsa->update($data['id_pulsa'], $data);			
+		$this->master_pulsa->update($data['id_barang'], $data);			
 		$this->session->set_flashdata('message', 'Data Master Pulsa Berhasil diupdate.');			
 		redirect('master_pulsa');		
 		}				
