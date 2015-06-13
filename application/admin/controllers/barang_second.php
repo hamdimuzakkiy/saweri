@@ -61,4 +61,118 @@ class barang_second extends My_Controller
 		$this->close();
 	}
 
+	function update($id)
+	{
+		if ($this->can_update() == FALSE){
+			redirect('auth/failed');
+		}
+		
+		$this->open();
+
+		$data['result'] = $this->barang_second->getItemById($id);
+		$data['sn'] = $data['result']->row()->sn;
+		$data['id_barang'] = $id;
+		$data['nama_barang'] = $data['result']->row()->nama_barang;
+		$data['id_jenis'] = $data['result']->row()->id_jenis;
+		$data['id_kategori'] = $data['result']->row()->id_kategori;
+		$data['id_satuan'] = $data['result']->row()->id_satuan;
+		$data['id_golongan'] = $data['result']->row()->id_golongan;
+		$data['hpp'] = $data['result']->row()->hpp;
+		$data['harga_toko'] = $data['result']->row()->harga_toko;
+		$data['harga_partai'] = $data['result']->row()->harga_partai;
+		$data['harga_cabang'] = $data['result']->row()->harga_cabang;
+		$data['point_karyawan'] = $data['result']->row()->point_karyawan;
+		$data['point_member'] = $data['result']->row()->point_member;
+		$data['point_barangpoint'] = $data['result']->row()->point_barangpoint;
+		$data['tanggal'] = $data['result']->row()->tanggal;
+		$data['po_no'] = $data['result']->row()->po_no;
+		$data['is_hargatoko'] = $data['result']->row()->is_hargatoko;
+		$data['is_hargapartai'] = $data['result']->row()->is_hargapartai;
+		$data['is_hargajual'] = $data['result']->row()->is_hargajual;		
+		
+		$res_hpp = $this->detail_pembelian->getHPP($id);
+
+		if ($res_hpp->row()->jumlah == 0)
+		$data['hpp'] = 0;
+		else
+		$data['hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
+
+		$this->load->view('barang_second/barang_second_edit', $data);
+
+		$this->close();
+	}
+
+	function process_update()
+	{
+		if ($this->can_update() == FALSE){
+			redirect('auth/failed');
+		}
+		
+		$this->open();
+				
+		$data['id_barang'] = $this->input->post('id_barang');
+		$data['nama_barang'] = $this->input->post('nama_barang');
+		$data['id_jenis'] = $this->input->post('id_jenis');
+		$data['id_kategori'] = $this->input->post('id_kategori');
+		$data['id_satuan'] = $this->input->post('id_satuan');
+		$data['id_golongan'] = $this->input->post('id_golongan');
+		$data['hpp'] = $this->input->post('hpp');
+		$data['harga_toko'] = $this->input->post('harga_toko');
+		$data['harga_partai'] = $this->input->post('harga_partai');
+		$data['harga_cabang'] = $this->input->post('harga_cabang');			
+		$data['is_hargatoko'] = $this->input->post('is_hargatoko');
+		$data['is_hargapartai'] = $this->input->post('is_hargapartai');
+		$data['is_hargajual'] = $this->input->post('is_hargajual');
+		$data['point_karyawan'] = $this->input->post('point_karyawan');
+		$data['point_member'] = $this->input->post('point_member');
+		$data['sn'] = $this->input->post('sn');
+		$data['userid'] = get_userid();
+		
+		$this->form_validation->set_rules('nama_barang', 'nama_barang');
+		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');
+		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');
+		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');
+		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');
+		$this->form_validation->set_rules('hpp', 'hpp', 'trim');
+		$this->form_validation->set_rules('harga_toko', 'harga_toko', 'trim|numeric');
+		$this->form_validation->set_rules('harga_partai', 'harga_partai', 'trim|numeric');
+		$this->form_validation->set_rules('harga_cabang', 'harga_cabang', 'trim|numeric');
+		$this->form_validation->set_rules('is_hargatoko', 'is_hargatoko', 'trim');
+		$this->form_validation->set_rules('is_hargapartai', 'is_hargapartai', 'trim');
+		$this->form_validation->set_rules('is_hargajual', 'is_hargajual', 'trim');
+		$this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');
+		$this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');
+		
+		
+		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+		
+		
+		$this->form_validation->set_message('required', 'Field %s harus diisi!');
+		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
+		
+		
+		if ($this->form_validation->run() == FALSE){
+			
+			$this->load->view('barang/barang_edit',$data);
+			
+		}else{	
+			$this->barang_second->update($data['id_barang'], $data);
+			
+			$this->session->set_flashdata('message', 'Data Barang Berhasil diupdate.');
+			redirect('barang_second');
+		}
+		
+		$this->close();
+	}
+
+	function delete($id)
+	{
+		if ($this->can_delete() == FALSE){
+			redirect('auth/failed');
+		}
+		
+		$this->barang_second->delete($id);
+		$this->session->set_flashdata('message', 'Data Barang Berhasil dihapus.');
+		redirect('barang_second');
+	}
 }

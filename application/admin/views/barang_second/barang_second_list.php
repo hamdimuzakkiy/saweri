@@ -70,11 +70,11 @@
 						<td align="center" valign="top" class="table-actions">
 							<?php
 								if ($can_update == TRUE){
-									echo anchor('barang/update/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
+									echo anchor('barang_second/update/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
 								}
 								
 								if ($can_delete == TRUE){
-									echo anchor('barang/delete/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/cross-circle.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit', 'onclick'=>"return confirm('Anda yakin akan menghapus data ini?')"));
+									echo anchor('barang_second/delete/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/cross-circle.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit', 'onclick'=>"return confirm('Anda yakin akan menghapus data ini?')"));
 								}
 							?>
 						</td>
