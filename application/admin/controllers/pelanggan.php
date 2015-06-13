@@ -189,20 +189,20 @@ class pelanggan extends My_Controller
 		$this->form_validation->set_rules('kode_pelanggan', 'Kode Pelanggan', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
-		$this->form_validation->set_rules('tgl_lahir', 'Tgl Lahir', 'trim');
+		/*$this->form_validation->set_rules('tgl_lahir', 'Tgl Lahir', 'trim');
 		$this->form_validation->set_rules('agama', 'Agama', 'trim');
 		$this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim');
 		$this->form_validation->set_rules('jenis_pengenal', 'Jenis Pengenal', 'required');
 		$this->form_validation->set_rules('no_pengenal', 'No Pengenal', 'required|numeric');
-		$this->form_validation->set_rules('tel', 'Telepon', 'trim|numeric');
+		$this->form_validation->set_rules('tel', 'Telepon', 'trim|numeric');*/
 		$this->form_validation->set_rules('max_piutang', 'Max Piutang', 'trim|numeric');
 		$this->form_validation->set_rules('id_area', 'Max id_area', 'trim');
-		$this->form_validation->set_rules('point', 'Point', 'trim|numeric');
-		$this->form_validation->set_rules('expired', 'Expired', 'trim');
+		//$this->form_validation->set_rules('point', 'Point', 'trim|numeric');
+		//$this->form_validation->set_rules('expired', 'Expired', 'trim');				
+		$this->form_validation->set_rules('tanggal_piutang', 'Tanggal Saldo Piutang', 'trim');
 		$this->form_validation->set_rules('saldo_piutang', 'Saldo Piutang', 'trim|numeric');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
