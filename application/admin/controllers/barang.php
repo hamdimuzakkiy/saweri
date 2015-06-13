@@ -92,11 +92,9 @@ class barang extends My_Controller
 		$data['is_hargapartai'] = $this->input->post('is_hargapartai');
 		$data['is_hargajual'] = $this->input->post('is_hargajual');
 		$data['sn'] = $this->input->post('sn');
-		//$data['jumlah_barang'] = 
 		$data['userid'] = get_userid();
 				
-		
-		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'callback_cek_nama');
+		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
 		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');
 		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');
 		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');
@@ -117,18 +115,13 @@ class barang extends My_Controller
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('barang/barang_add',$data);
-			
 		}else{	
 			$this->barang->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data Barang Berhasil disimpan.');
 			redirect('barang');
 		}

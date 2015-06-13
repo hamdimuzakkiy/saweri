@@ -52,12 +52,8 @@ class master_saldo_elektrik extends My_Controller
 		$config['first_tag_open'] = '<li>';
 		$config['first_tag_close'] = '</li>';
 		
-		$this->pagination->initialize($config);	
-		
-		
-		
+		$this->pagination->initialize($config);
 		$data['results'] = $this->master_saldo_elektrik->getItem($config['per_page'], $this->uri->segment(3));
-		
 		
 		$this->load->view('master_saldo_elektrik/master_saldo_elektrik_list', $data);
 		
@@ -86,7 +82,7 @@ class master_saldo_elektrik extends My_Controller
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');		
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		if ($this->form_validation->run() == FALSE){						
-		$this->load->view('master_saldo_elektrik/master_saldo_elektrik_add',$data);					
+                        $this->load->view('master_saldo_elektrik/master_saldo_elektrik_add',$data);					
 		}
 		else
 		{				
