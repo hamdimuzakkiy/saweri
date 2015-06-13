@@ -59,10 +59,5 @@ class mdl_barang extends CI_Model{
 		$this->db->delete('barang', array('id_barang' => $id));
 	}
 	
-	function getMax()
-	{
-		$this->db->flush_cache();		
-		$this->db->select_max('id_barang', 'maxId');
-		return $this->db->get('barang');
-	}
+	
 }

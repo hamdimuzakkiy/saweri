@@ -8,7 +8,6 @@ class barang extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_barang', 'barang');
-		$this->load->model('mdl_pembelian', 'pembelian');
 		$this->load->model('mdl_detail_pembelian','detail_pembelian');
 		
 	}
@@ -93,7 +92,7 @@ class barang extends My_Controller
 		$data['is_hargapartai'] = $this->input->post('is_hargapartai');
 		$data['is_hargajual'] = $this->input->post('is_hargajual');
 		$data['sn'] = $this->input->post('sn');
-		$jumlah_barang = $this->input->post('jumlah_barang');
+		//$data['jumlah_barang'] = 
 		$data['userid'] = get_userid();
 				
 		
@@ -129,23 +128,7 @@ class barang extends My_Controller
 			
 		}else{	
 			$this->barang->insert($data);
-			$max = $this->barang->getMax();			
-			foreach ($max->result() as $row) {
-				$maxId = $row->maxId;
-			}		
-
-			for ($i=0; $i < $jumlah_barang ; $i++) { 
-				
-				$data_['id_pembelian'] 		= 'Barang';
-				$data_['id_barang'] 		= $maxId;
-				$data_['harga'] 			= $data['hpp'];
-				$data_['qty'] 				= 1;				
-				$data_['total'] 			= $data['hpp'];
-				$data_['sn']	 			= 0;
-				$data_['posisi_pusat'] 		= 1;				
-				$this->pembelian->insert_detail($data_);
-			}
-
+			
 			$this->session->set_flashdata('message', 'Data Barang Berhasil disimpan.');
 			redirect('barang');
 		}
@@ -222,7 +205,8 @@ class barang extends My_Controller
 		}
 		
 		$this->open();
-				
+		
+		
 		$data['id_barang'] = $this->input->post('id_barang');
 		$data['nama_barang'] = $this->input->post('nama_barang');
 		$data['id_jenis'] = $this->input->post('id_jenis');
