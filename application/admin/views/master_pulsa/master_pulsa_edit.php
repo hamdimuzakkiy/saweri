@@ -44,7 +44,7 @@
 							?>
 						</span>
 					</p>
-					<p class="colx2-left">
+					<p class="colx2-right">
 						<label for="complex-en-url">Nama Pulsa :</label>
 						<span class="relative">
 							<?php 
@@ -146,7 +146,7 @@
 					</p>
 				</div>
 				<div class="columns">					
-					<p class="colx3-left">
+					<p class="colx2-left">
 						<label for="complex-en-url">Satuan :</label>
 						<span class="relative">
 							<select name="id_satuan" id="id_satuan" lass="seperempat-width">
@@ -168,8 +168,11 @@
 								?>
 							</select>
 						</span>
-					</p>
-					<p class="colx3-center">
+					</p>					
+				</div>
+
+				<div class = "columns">
+					<p class="colx2-left">
 						<label for="complex-en-url">Point Karyawan :</label>
 						<span class="relative">
 							<?php 
@@ -183,7 +186,7 @@
 							?>
 						</span>
 					</p>
-					<p class="colx3-right">
+					<p class="colx2-right">
 						<label for="complex-en-url">Point Member :</label>
 						<span class="relative">
 							<?php 
@@ -198,6 +201,7 @@
 						</span>
 					</p>
 				</div>
+
 				<div class="columns">						
 					<p class="colx2-left">
 						<label for="complex-en-url">HPP :</label>

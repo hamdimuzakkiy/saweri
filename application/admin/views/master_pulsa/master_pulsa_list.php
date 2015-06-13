@@ -63,18 +63,18 @@
 					
 					<?php foreach($results->result() as $row) {?>
 					<tr>
-						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_pulsa?>" type="checkbox" /></td>
-						<td align="left" valign="top"><?=$row->kode_pulsa?> </td>						
-						<td align="left" valign="top"><?=$row->nama_pulsa?> </td>
+						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_barang?>" type="checkbox" /></td>
+						<td align="left" valign="top"><?=$row->kode?> </td>
+						<td align="left" valign="top"><?=$row->nama_barang?> </td>
 						<td align="left" valign="top"><?=$row->nama_kategori?> </td>
 						<td align="left" valign="top" class="table-actions">
 							<?php
 								if ($can_update == TRUE){
-									echo anchor('master_pulsa/update/'.$row->id_pulsa, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
+									echo anchor('master_pulsa/update/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
 								}
 								
 								if ($can_delete == TRUE){
-									echo anchor('master_pulsa/delete/'.$row->id_pulsa, '<img src="'.base_url().'asset/admin/images/icons/fugue/cross-circle.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit', 'onclick'=>"return confirm('Anda yakin akan menghapus data ini?')"));
+									echo anchor('master_pulsa/delete/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/cross-circle.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit', 'onclick'=>"return confirm('Anda yakin akan menghapus data ini?')"));
 								}
 							?>
 						</td>

@@ -235,10 +235,10 @@ class master_pulsa extends My_Controller
 		}				
 			$this->open();				
 			$data['result'] 		= $this->master_pulsa->getItemById($id);				
-			$data['id_pulsa'] = $id;				
-			$data['kode_pulsa'] = $data['result']->row()->kode_pulsa;		
-			$data['nama_pulsa'] = $data['result']->row()->nama_pulsa;		
-			$data['id_pulsa'] = $data['result']->row()->id_pulsa;		
+			$data['id_pulsa'] = $id;
+			$data['kode_pulsa'] = $data['result']->row()->kode;		
+			$data['nama_pulsa'] = $data['result']->row()->nama_barang;		
+			$data['id_pulsa'] = $data['result']->row()->id_barang;		
 			$data['id_kategori'] = $data['result']->row()->id_kategori;		
 			$data['id_satuan'] = $data['result']->row()->id_satuan;				
 			$data['id_saldo']= $data['result']->row()->id_saldo;		
@@ -251,7 +251,16 @@ class master_pulsa extends My_Controller
 			$data['is_hargapartai'] = $data['result']->row()->is_hargapartai;		
 			$data['is_hargajual'] = $data['result']->row()->is_hargajual;		
 			$data['point_karyawan'] = $data['result']->row()->point_karyawan;		
-			$data['point_member'] = $data['result']->row()->point_member;						
+			$data['point_member'] = $data['result']->row()->point_member;		
+
+			$res_hpp = $this->detail_pembelian->getHPP($id);
+			if ($res_hpp->row()->jumlah == 0)
+			$data['hpp'] = 0;
+			else
+			$data['hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;				
+
+			$data['hpp'] = number_format((float)$data['hpp'], 2, '.', '');
+
 			$this->load->view('master_pulsa/master_pulsa_edit', $data);				
 			$this->close();
 	}
