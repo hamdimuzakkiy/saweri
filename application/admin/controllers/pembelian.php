@@ -176,9 +176,8 @@ class pembelian extends My_Controller
 					for ($j=0;$j<$qty_pembelian;$j++)
 					{							
 						$data_['id_pembelian'] 		= $pembelian['id_pembelian'];							
-						print $data_['id_barang'] 		= $detail[$i]['id_barang'];							
-						$data_['harga'] 			= $detail[$i]['harga'];							
-						/*$data_['qty'] 				= $detail[$i]['qty']; */							
+						$data_['id_barang'] 		= $detail[$i]['id_barang'];							
+						$data_['harga'] 			= $detail[$i]['harga'];
 						$data_['qty'] 				= 1;
 						$data_['sn'] 				= $detail[$i]['sn'];							
 						$data_['jatuh_tempo'] 		= $detail[$i]['jatuh_tempo'];							

@@ -129,11 +129,19 @@
 						</span>
 					</p>
 				</div>
+				<div class="columns">
+					<p class="colx2-left">
+						<label for="complex-en-url">Jumlah Barang :</label>
+						<span class="relative">
+							<input type="text" name="jumlah_barang" id="point_karyawan" value="" class="duapertiga-width">
+						</span>
+					</p>					
+				</div>
 				<div class="columns">		
 					<p class="colx2-left">
 						<label for="complex-en-url">HPP :</label>
 						<span class="relative">
-							<input type="text" readonly name="hpp" id="hpp" value="<?=set_value('hpp')?>" class="duapertiga-width">
+							<input type="text"  name="hpp" id="hpp" value="<?=set_value('hpp')?>" class="duapertiga-width">
 						</span>
 					</p>
 
