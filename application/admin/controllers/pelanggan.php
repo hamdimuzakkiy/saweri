@@ -19,8 +19,7 @@ class pelanggan extends My_Controller
 		$data['can_delete'] = $this->can_delete();
 		
 		$this->open();
-		
-		
+                
 		$config['base_url'] = base_url().'index.php/pelanggan/index/';
 		$config['total_rows'] = $this->pelanggan->getallItem('pelanggan');
 		$config['per_page'] = '10';
@@ -53,11 +52,7 @@ class pelanggan extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
-		
 		$data['results'] = $this->pelanggan->getItem($config['per_page'], $this->uri->segment(3));
-		
 		
 		$this->load->view('pelanggan/pelanggan_list', $data);
 		
@@ -90,9 +85,7 @@ class pelanggan extends My_Controller
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');				
 		$data['tanggal_piutang'] = $this->input->post('tanggal_piutang');
 		$data['userid'] = get_userid();
-				
-		
-		
+			
 		$this->form_validation->set_rules('kode_pelanggan', 'Kode Pelanggan', 'required');
 		$this->form_validation->set_rules('nama', 'Nama', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
@@ -109,20 +102,22 @@ class pelanggan extends My_Controller
 		$this->form_validation->set_rules('tanggal_piutang', 'Tanggal Saldo Piutang', 'trim');
 		$this->form_validation->set_rules('saldo_piutang', 'Saldo Piutang', 'trim|numeric');
 		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
-		if ($this->form_validation->run() == FALSE){			
+		$checker = $this->checkKode($data['kode_pelanggan']);
+		if ($this->form_validation->run() == FALSE){
+                        $data['usernameValidation']=0;
 			$data['get_date_now'] = date('Y-m-d');
-			
 			$this->load->view('pelanggan/pelanggan_add',$data);
-			
-		}else{	
+		}
+                else if($checker==FALSE){
+                        $data['usernameValidation']=1;
+			$data['get_date_now'] = date('Y-m-d');
+			$this->load->view('pelanggan/pelanggan_add',$data);
+                }
+                else{	
 			$this->pelanggan->insert($data);
 			$this->session->set_flashdata('message', 'Data Pelanggan Berhasil disimpan.');
 			redirect('pelanggan');
@@ -157,7 +152,6 @@ class pelanggan extends My_Controller
 		$data['expired'] = $data['result']->row()->expired;
 		$data['saldo_piutang'] = $data['result']->row()->saldo_piutang;				
 		$data['tanggal_piutang'] = $data['result']->row()->tanggal_piutang;
-		
 		
 		$this->load->view('pelanggan/pelanggan_edit', $data);
 		
@@ -207,26 +201,19 @@ class pelanggan extends My_Controller
 		$this->form_validation->set_rules('expired', 'Expired', 'trim');
 		$this->form_validation->set_rules('saldo_piutang', 'Saldo Piutang', 'trim|numeric');
 		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
 		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('pelanggan/pelanggan_edit',$data);
-			
 		}else{	
 			$this->pelanggan->update($data['id_pelanggan'], $data);
 			$this->session->set_flashdata('message', 'Data Pelanggan Berhasil diupdate.');
 			redirect('pelanggan');
 		}
-		
 		$this->close();
-		
 	}
 	
 	function delete($id)
@@ -234,10 +221,15 @@ class pelanggan extends My_Controller
 		if ($this->can_delete() == FALSE){
 			redirect('auth/failed');
 		}
-		
 		$this->pelanggan->delete($id);
 		$this->session->set_flashdata('message', 'Data Pelanggan Berhasil dihapus.');
 		redirect('pelanggan');
 	}
+        
+        function checkKode($kode){
+            $result = $this->pelanggan->getItemByKode($kode);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 	
 }

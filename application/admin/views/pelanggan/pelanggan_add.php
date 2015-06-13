@@ -28,7 +28,13 @@
 		var tanggal = document.getElementById("expired");
 		tanggal.focus();
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -42,7 +48,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Kode Pelanggan Sudah ada</h2>
+</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php

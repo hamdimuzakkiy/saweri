@@ -50,20 +50,20 @@
 			
 				<thead>
 					<tr>
-						<th align="left" valign="top" scope="col">&nbsp;</th>
+						<!--<th align="center" valign="top" scope="col">&nbsp;</th>-->
 						<!--<th align="left" valign="top" scope="col">Cabang</th>-->
-						<th align="left" valign="top" scope="col">Kode Pelanggan</th>
-						<th align="left" valign="top" scope="col">Nama</th>
-						<th align="left" valign="top" scope="col">Alamat</th>
+						<th align="center" valign="top" scope="col">Kode Pelanggan</th>
+						<th align="center" valign="top" scope="col">Nama</th>
+						<th align="center" valign="top" scope="col">Alamat</th>
 						<!--th align="left" valign="top" scope="col">Jenis Pengenal</th>
 						<th align="left" valign="top" scope="col">No Identitas</th>
 						<th align="left" valign="top" scope="col">Tgl Lahir</th>
 						<th align="left" valign="top" scope="col">Agama</th>
 						<th align="left" valign="top" scope="col">Pekerjaan</th>
 						<th align="left" valign="top" scope="col">Telepon</th-->						
-						<th align="left" valign="top" scope="col">Saldo Piutang</th>
-						<th align="left" valign="top" scope="col">Poin Akhir</th>	
-						<th align="left" valign="top" scope="col">Aksi</th>
+						<th align="center" valign="top" scope="col">Saldo Piutang</th>
+						<th align="center" valign="top" scope="col">Poin Akhir</th>	
+						<th align="center" valign="top" scope="col">Aksi</th>
 					</tr>
 				</thead>
 				
@@ -71,11 +71,11 @@
 					
 					<?php foreach($results->result() as $row) {?>
 					<tr>
-						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_pelanggan?>" type="checkbox" /></td>
+						<!--<td align="center" valign="top"><input name="id[]" id="id" value="<?=$row->id_pelanggan?>" type="checkbox" /></td>-->
 						<!--<td align="left" valign="top"><?=$row->nama_cabang?> </td>-->
-						<td align="left" valign="top"><?=$row->kode_pelanggan?> </td>
-						<td align="left" valign="top"><?=$row->nama?> </td>
-						<td align="left" valign="top"><?=$row->alamat?> </td>
+						<td align="center" valign="top"><?=$row->kode_pelanggan?> </td>
+						<td align="center" valign="top"><?=$row->nama?> </td>
+						<td align="center" valign="top"><?=$row->alamat?> </td>
 						<!--td align="left" valign="top"><?=$row->jenis_pengenal?> </td>
 						<td align="left" valign="top"><?=$row->no_pengenal?> </td>
 						<td align="left" valign="top"><?=$row->tgl_lahir?> </td>
@@ -83,7 +83,7 @@
 						<td align="left" valign="top"><?=$row->pekerjaan?> </td>
 						<td align="left" valign="top"><?=$row->tel?> </td-->
 						<td align="right" valign="top"><?=convert_rupiah_non_rp($row->saldo_piutang);?> </td>												<td align="right" valign="top"><?=$row->point;?> </td>
-						<td align="left" valign="top" class="table-actions">
+						<td align="center" valign="top" class="table-actions">
 							<?php
 								if ($can_update == TRUE){
 									echo anchor('pelanggan/update/'.$row->id_pelanggan, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
@@ -106,20 +106,19 @@
 			</ul>
 			
 			<div class="block-footer">
-				
-				<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
+				<!--<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
 				<a href="javascript:void(0)" class="button" onClick="check_all(0)" >Select All</a> 
-				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>
+				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>-->
 				<span class="sep"></span>
 				<?=anchor('pelanggan/insert', 'Tambah Data', array('class'=>'button'))?>			
 				<span class="sep"></span>
-				<select name="table-action" id="table-action" class="small">
+				<!--<select name="table-action" id="table-action" class="small">
 					<option value="">Aksi</option>
 					<option value="validate">Validasi</option>
 					<option value="delete">Hapus</option>
 				</select>
 				<button type="submit" class="small">Ok</button>
-				
+				-->
 			</div>
 				
 		</form>
