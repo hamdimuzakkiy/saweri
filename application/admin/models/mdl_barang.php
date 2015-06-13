@@ -44,8 +44,7 @@ class mdl_barang extends CI_Model{
 	}
 
 	function insert($data)
-	{	
-		$data['jenis_barang'] = 'barang';
+	{			
 		$this->db->flush_cache();
 		$this->db->insert('barang', $data);
 	}

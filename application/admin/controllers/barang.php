@@ -74,7 +74,7 @@ class barang extends My_Controller
 		}
 				
 		$this->open();
-		
+
 		$data['id_barang'] = $this->input->post('id_barang');
 		$data['nama_barang'] = $this->input->post('nama_barang');
 		$data['id_jenis'] = $this->input->post('id_jenis');
@@ -129,6 +129,17 @@ class barang extends My_Controller
 			$this->load->view('barang/barang_add',$data);
 			
 		}else{	
+
+			$data['jenis_barang'] = 'barang';
+			$nama = $data['nama_barang'];
+
+			$index = sizeof(explode(' ', $nama));
+
+			if (strtolower(explode(' ', $nama)[$index-1]) == 'second')
+			{
+				$data['jenis_barang'] = "second";
+			}
+
 			$this->barang->insert($data);
 			$max = $this->barang->getMax();			
 			foreach ($max->result() as $row) {
