@@ -8,6 +8,8 @@ class barang_point extends My_Controller
 		parent::__construct();
 		
 		$this->load->model('mdl_barang_point', 'barang_point');
+		$this->load->model('mdl_barang', 'barang');
+		$this->load->model('mdl_pembelian', 'pembelian');
 		$this->load->model('mdl_detail_pembelian', 'detail_pembelian');
 		
 	}
@@ -93,7 +95,7 @@ class barang_point extends My_Controller
 		$data['is_hargajual'] = $this->input->post('is_hargajual');
 		$data['sn'] = $this->input->post('sn');
 		$data['userid'] = get_userid();
-		
+		$jumlah_barang = $this->input->post('jumlah_barang');
 		
 		
 		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'callback_cek_nama');
@@ -128,7 +130,22 @@ class barang_point extends My_Controller
 			
 		}else{	
 			$this->barang_point->insert($data);
-			
+			$max = $this->barang->getMax();			
+			foreach ($max->result() as $row) {
+				$maxId = $row->maxId;
+			}		
+
+			for ($i=0; $i < $jumlah_barang ; $i++) { 
+				
+				$data_['id_pembelian'] 		= 'Point';
+				$data_['id_barang'] 		= $maxId;
+				$data_['harga'] 			= $data['hpp'];
+				$data_['qty'] 				= 1;				
+				$data_['total'] 			= $data['hpp'];
+				$data_['sn']	 			= 0;
+				$data_['posisi_pusat'] 		= 1;				
+				$this->pembelian->insert_detail($data_);
+			}
 			$this->session->set_flashdata('message', 'Data Barang Point Berhasil disimpan.');
 			redirect('barang_point');
 		}
@@ -169,9 +186,9 @@ class barang_point extends My_Controller
 		$res_hpp = $this->detail_pembelian->getHPP($id);
 
 		if ($res_hpp->row()->jumlah == 0)
-		$data['final_hpp'] = 0;
+		$data['hpp'] = 0;
 		else
-		$data['final_hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
+		$data['hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
 
 		$this->load->view('barang_point/barang_point_edit', $data);
 		

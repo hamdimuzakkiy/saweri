@@ -17,7 +17,7 @@ class mdl_barang extends CI_Model{
 		$this->db->join('satuan', 'satuan.id_satuan = barang.id_satuan');
 		$this->db->join('golongan', 'golongan.id_golongan = barang.id_golongan');		
 		$this->db->order_by("barang.nama_barang", "asc");
-		$this->db->where('barang.kode', '');
+		$this->db->where('barang.jenis_barang', 'barang');
 		$this->db->limit($num, $offset);
 		return $this->db->get();
 	}
@@ -31,7 +31,7 @@ class mdl_barang extends CI_Model{
 		$this->db->join('kategori', 'kategori.id_kategori = barang.id_kategori');
 		$this->db->join('satuan', 'satuan.id_satuan = barang.id_satuan');
 		$this->db->join('golongan', 'golongan.id_golongan = barang.id_golongan');
-		$this->db->where('barang.kode', '');
+		$this->db->where('barang.jenis_barang', 'barang');
 		return $this->db->count_all_results();
 	}
 	
@@ -39,12 +39,13 @@ class mdl_barang extends CI_Model{
 	{
 		$this->db->flush_cache();
 		$this->db->where('id_barang', $id);
-		$this->db->where('barang.kode', '');
+		$this->db->where('barang.jenis_barang', 'barang');
 		return $this->db->get('barang');
 	}
 
 	function insert($data)
-	{
+	{	
+		$data['jenis_barang'] = 'barang';
 		$this->db->flush_cache();
 		$this->db->insert('barang', $data);
 	}

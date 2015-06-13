@@ -194,7 +194,7 @@ class master_pulsa extends My_Controller
 
 						for ($i=0; $i < $jumlah_barang ; $i++) { 
 							
-							$data_['id_pembelian'] 		= 'Barang';
+							$data_['id_pembelian'] 		= 'Pulsa';
 							$data_['id_barang'] 		= $maxId;
 							$data_['harga'] 			= $data['hpp'];
 							$data_['qty'] 				= 1;				
