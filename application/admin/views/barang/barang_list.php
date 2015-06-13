@@ -47,12 +47,12 @@
 			
 				<thead>
 					<tr>
-						<th align="left" valign="top" scope="col">&nbsp;</th>
-						<th align="left" valign="top" scope="col">Id Barang</th>
-						<th align="left" valign="top" scope="col">Nama Barang</th>
-						<th align="left" valign="top" scope="col">Jenis</th>
-						<th align="left" valign="top" scope="col">Kategori</th>
-						<th align="left" valign="top" scope="col">Aksi</th>
+						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
+						<th align="center" valign="top" scope="col">Id Barang</th>
+						<th align="center" valign="top" scope="col">Nama Barang</th>
+						<th align="center" valign="top" scope="col">Jenis</th>
+						<th align="center" valign="top" scope="col">Kategori</th>
+						<th align="center" valign="top" scope="col">Aksi</th>
 					</tr>
 				</thead>
 				
@@ -62,12 +62,12 @@
 					{?>
 
 					<tr>
-						<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_barang?>" type="checkbox" /></td>
-						<td align="left" valign="top"><?=$row->id_barang?> </td>
+						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_barang?>" type="checkbox" /></td>-->
+						<td align="center" valign="top"><?=$row->id_barang?> </td>
 						<td align="left" valign="top"><?=$row->nama_barang?> </td>
-						<td align="left" valign="top"><?=$row->nama_jenis?> </td>
-						<td align="left" valign="top"><?=$row->nama_kategori?> </td>
-						<td align="left" valign="top" class="table-actions">
+						<td align="center" valign="top"><?=$row->nama_jenis?> </td>
+						<td align="center" valign="top"><?=$row->nama_kategori?> </td>
+						<td align="center" valign="top" class="table-actions">
 							<?php
 								if ($can_update == TRUE){
 									echo anchor('barang/update/'.$row->id_barang, '<img src="'.base_url().'asset/admin/images/icons/fugue/pencil.png" width="16" height="16">', array('class'=>'with-tip', 'title'=>'Edit'));
@@ -93,18 +93,18 @@
 			</ul>
 			
 			<div class="block-footer">
-				<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
+				<!--<img src="images/icons/fugue/arrow-curve-000-left.png" width="16" height="16" class="picto"> 
 				<a href="javascript:void(0)" class="button" onClick="check_all(0)" >Select All</a> 
-				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>
+				<a href="javascript:void(0)" class="button" onClick="uncheck_all(0)" >Unselect All</a>-->
 				<span class="sep"></span>
 				<?=anchor('barang/insert', 'Tambah Data', array('class'=>'button'))?>
 				<span class="sep"></span>
-				<select name="table-action" id="table-action" class="small">
+				<!--<select name="table-action" id="table-action" class="small">
 					<option value="">Aksi</option>
 					<option value="validate">Validasi</option>
 					<option value="delete">Hapus</option>
 				</select>
-				<button type="submit" class="small">OK</button>
+				<button type="submit" class="small">OK</button>-->
 			</div>
 				
 		</form>
