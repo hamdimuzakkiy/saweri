@@ -1,5 +1,8 @@
-<script type="text/javascript">
+
+<script type="text/javascript">	
 	
+
+
 	function set_barang(id, nama, harga, idjenis,sn){
 		document.getElementById('detail_idbarang').value = id;	
 		document.getElementById('detail_namabarang').value = nama;
@@ -13,13 +16,13 @@
 		else
 		{
 			document.getElementById('sn').checked = true;
-		}
+		}		
 		$.fancybox.close();
 	}
 	
 </script>
 
-<table width="666" border="1" align="center" cellpadding="1" cellspacing="1">
+<table width="666" border="1" align="center" cellpadding="1" cellspacing="1">	
 	<tr>
 		<th width="305" bgcolor="#D4DFFF" scope="col">Nama Barang</th>
 		<th width="158" bgcolor="#D4DFFF" scope="col">Jenis</th>
@@ -39,3 +42,4 @@
 		}
 	?>
 </table>
+
