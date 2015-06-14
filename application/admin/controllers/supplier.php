@@ -187,7 +187,7 @@ class supplier extends My_Controller
 		}
                 else if($checker==FALSE){
                         $data['usernameValidation'] = 1;
-			$this->load->view('supplier/supplier_add',$data);
+			$this->load->view('supplier/supplier_edit',$data);
                 }
                 else{
 			$this->supplier->update($data['id_supplier'], $data);
