@@ -218,9 +218,9 @@ class barang extends My_Controller
 		$res_hpp = $this->detail_pembelian->getHPP($id);
 
 		if ($res_hpp->row()->jumlah == 0)
-		$data['final_hpp'] = 0;
+		$data['hpp'] = 0;
 		else
-		$data['final_hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
+		$data['hpp'] =  $res_hpp->row()->total/$res_hpp->row()->jumlah;
 
 		$this->load->view('barang/barang_edit', $data);
 		

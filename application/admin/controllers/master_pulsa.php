@@ -97,7 +97,7 @@ class master_pulsa extends My_Controller
 		$data['point_karyawan'] = $this->input->post('point_karyawan');		
 		$data['point_member'] = $this->input->post('point_member');		
 		$data['userid'] = get_userid();
-		
+		$data['jenis_barang'] = 'pulsa';
 		
 		/* set rules validation*/
 		$this->form_validation->set_rules('nama_pulsa', 'nama_pulsa', 'required');				

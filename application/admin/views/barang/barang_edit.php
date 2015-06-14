@@ -171,10 +171,10 @@
 							<?php 
 								if (form_error('hpp') != null)
 								{
-									echo '<input readonly type="text" name="hpp" id="hpp" value="'.number_format((float)$final_hpp, 2, '.', '').'" class="duapertiga-width" >';
+									echo '<input readonly type="text" name="hpp" id="hpp" value="'.number_format((float)$hpp, 2, '.', '').'" class="duapertiga-width" >';
 								}else
 								{
-									echo '<input readonly type="text" name="hpp" id="hpp" value="'.number_format((float)$final_hpp, 2, '.', '').'" class="duapertiga-width">';
+									echo '<input readonly type="text" name="hpp" id="hpp" value="'.number_format((float)$hpp, 2, '.', '').'" class="duapertiga-width">';
 								}
 							?>
 						</span>
