@@ -217,7 +217,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#getbarang").fancybox();
+		$("#getbarang").fancybox({
+			
+			
+		    
+		});
 	});
 	function set_detail(){			
 			var cara_bayar = document.getElementById("cara_bayar").value;		
@@ -464,7 +468,7 @@
 					<p class="colx3-left">
 						<label for="complex-en-url">Nama Barang :</label>
 						<span class="relative">
-								<input type="text" size="35" name="detail_namabarang" id="detail_namabarang" />
+								<input type="text" size="35" name="detail_namabarang" id="detail_namabarang" />								
 								<a id="getbarang" href="<?=base_url().'index.php/pembelian/show_barang'?>"><img src="<?=base_url()?>asset/admin/images/icons/fugue/application-export.png" width="16" height="16"></a>
 								<input type="hidden" name="detail_idbarang" id="detail_idbarang" />								
 								<input type="hidden" name="detail_idjenis" id="detail_idjenis" />

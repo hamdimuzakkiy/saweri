@@ -136,7 +136,8 @@ class master_pulsa extends My_Controller
 									$data['is_hargapartai'] = $this->input->post('is_hargapartai');			
 									$data['is_hargajual'] = $this->input->post('is_hargajual');			
 									$data['point_karyawan'] = $this->input->post('point_karyawan');			
-									$data['point_member'] = $this->input->post('point_member');			
+									$data['point_member'] = $this->input->post('point_member');		
+
 									$data['userid'] = get_userid();			
 			$this->load->view('master_pulsa/master_pulsa_add',$data);
 		}else{													
@@ -170,7 +171,8 @@ class master_pulsa extends My_Controller
 		$data['id_saldo'] = $this->input->post('id_saldo');			
 		$data['id_golongan'] = $this->input->post('id_golongan');			
 		$hpp = $this->input->post('hpp');						
-		$data['hpp']  = $hpp;			
+		$data['hpp']  = $hpp;
+		$data['sn']	 = 0;
 		$data['harga_toko'] = $this->input->post('harga_toko');			
 		$data['harga_partai'] = $this->input->post('harga_partai');			
 		$data['harga_cabang'] = $this->input->post('harga_cabang');					
