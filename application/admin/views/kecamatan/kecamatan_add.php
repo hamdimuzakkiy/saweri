@@ -41,7 +41,7 @@
 					<p class="colx2-left">
 						<label for="complex-en-url">Kabupaten :</label>
 						<span class="relative">
-							<select name="id_kabupaten" id="id_kabupaten" >
+							<select name="id_kabupaten" id="id_kabupaten">
 								<?php
 									$query = $this->db->get('kabupaten');
 									if($query->num_rows() > 0)

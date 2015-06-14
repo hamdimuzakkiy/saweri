@@ -82,10 +82,10 @@ class cabang extends My_Controller
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');
 		$data['userid'] = get_userid();
 		
-		
+		$checker = $this->checkID($data['kode_cabang']);
 		
 		$this->form_validation->set_rules('kode_cabang', 'Kode Cabang', 'required');
-		$this->form_validation->set_rules('nama_cabang', 'Nama Cabang', 'callback_cek_nama|required');
+		$this->form_validation->set_rules('nama_cabang', 'Nama Cabang', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'trim');
 		$this->form_validation->set_rules('telepon', 'telepon', 'trim|numeric');
 		$this->form_validation->set_rules('max_piutang', 'max_piutang', 'trim|numeric');
@@ -97,9 +97,16 @@ class cabang extends My_Controller
 		
 		
 		if ($this->form_validation->run() == FALSE){
+			$data['usernameValidation']=0;
 			$this->load->view('cabang/cabang_add',$data);
 			
-		}else{	
+		}
+		else if($checker==FALSE){
+            $data['usernameValidation']=1;
+            $this->load->view('cabang/cabang_add',$data);
+        }
+		else
+		{	
 			$this->cabang->insert($data);
 			$this->session->set_flashdata('message', 'Data Cabang Berhasil disimpan.');
 			redirect('cabang');
@@ -107,6 +114,12 @@ class cabang extends My_Controller
 		
 		$this->close();
 	}
+
+	function checkID($id){
+            $result = $this->cabang->getItemByKode($id);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 	
 	function cek_nama($str)
 	{

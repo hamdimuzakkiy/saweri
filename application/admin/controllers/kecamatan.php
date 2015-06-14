@@ -129,7 +129,7 @@ class kecamatan extends My_Controller
 		$this->open();
 		
 		$data['result'] = $this->kecamatan->getItemById($id);
-		
+		$data['usernameValidation'] = 0;
 		$data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
 		$data['kecamatan'] = $data['result']->row()->kecamatan;
 		
@@ -148,10 +148,13 @@ class kecamatan extends My_Controller
 		
 		
 		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
+		$id = $data['id_kecamatan'];
 		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
 		$data['kecamatan'] = $this->input->post('kecamatan');
 		$data['userid'] = get_userid();
 		
+		
+
                $hasil_kabupaten = $this->kecamatan->getKabupaten($data['id_kecamatan']);
                $checker = $this->checkNama($data['kecamatan'],$data['id_kabupaten']);
                
@@ -160,15 +163,20 @@ class kecamatan extends My_Controller
                     $this->form_validation->set_error_delimiters('<div class="error">', '</div>');	
                     $this->form_validation->set_message('required', 'Field %s harus diisi!');
                     
-                    if ($this->form_validation->run()==FALSE){
-			//$this->load->view('kecamatan/kecamatan_edit',$data);
-                        //$this->update($data['id_kecamatan']);
+                    if ($this->form_validation->run()==FALSE){			                     
                         $data['usernameValidation'] = 0;
+                        $data['result'] = $this->kecamatan->getItemById($id);		
+						$data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
+						$data['kecamatan'] = $data['result']->row()->kecamatan;
                         $this->load->view('kecamatan/kecamatan_edit',$data);
                     }
                     else if($checker==FALSE){
-                    $data['usernameValidation'] = 1;
-                    $this->load->view('kecamatan/kecamatan_add',$data);
+                    	$data['usernameValidation'] = 1;
+                    	$data['result'] = $this->kecamatan->getItemById($id);		
+						$data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
+						$data['kecamatan'] = $data['result']->row()->kecamatan;
+                    $this->load->view('kecamatan/kecamatan_edit',$data);
+
                     }
                     else{
 			$this->kecamatan->update($data['id_kecamatan'], $data);

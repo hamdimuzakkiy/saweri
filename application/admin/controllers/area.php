@@ -136,8 +136,8 @@ class area extends My_Controller
 		$data['id_kabupaten'] = $data['result']->row()->id_kabupaten;
 		$data['id_area'] = $data['result']->row()->id_area;
 		$data['area'] = $data['result']->row()->area;
-                $data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
-                $data['usernameValidation'] = 0;
+        $data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
+        $data['usernameValidation'] = 0;
 		
 		$this->load->view('area/area_edit', $data);
 		
@@ -170,7 +170,7 @@ class area extends My_Controller
                         $checker = $this->checkArea($data['area'],$data['id_kabupaten'],$data['id_kecamatan']);
                         if($checker==FALSE){
                             $data['usernameValidation'] = 1;
-                            $this->load->view('area/area_add',$data);
+                            $this->load->view('area/area_edit',$data);
                         }
                         else{
                             $this->area->update($data['id_area'], $data);

@@ -3,7 +3,13 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/kecamatan'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });	
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>ID telah ada telah ada. Silahkan cari ID lain</h2>
+</div>
 <section class="grid_8">
 	<div class="block-border">
 		<?php
@@ -42,7 +50,7 @@
 											if($result->row()->id_kabupaten == $row->id_kabupaten){
 												echo '<option value="'.$row->id_kabupaten.'" selected="selected">'.$row->kabupaten.'</option>';
 											}else{
-												echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
+												//echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
 											}
 										}
 									}

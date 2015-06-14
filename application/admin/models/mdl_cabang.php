@@ -32,6 +32,14 @@ class mdl_cabang extends CI_Model{
 		return $this->db->get('cabang');
 	}
 
+	function getItemByKode($id)
+	{
+		$this->db->flush_cache();
+                //$this->db->select('*');
+		$this->db->where('kode_cabang', $id);
+		return $this->db->get('cabang');
+	}
+
 	function insert($data)
 	{
 		$this->db->flush_cache();

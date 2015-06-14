@@ -8,7 +8,7 @@
 
 
 <script type="text/javascript" src="<?=base_url()?>asset/bootstrap/bower_components/jquery/dist/jquery.min.js"></script>
-
+<script type="text/javascript" src="<?=base_url()?>asset/bootstrap/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>asset/bootstrap/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>asset/bootstrap/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="<?=base_url()?>asset/bootstrap/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>

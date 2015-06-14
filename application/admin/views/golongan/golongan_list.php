@@ -52,8 +52,7 @@
 			
 				<thead>
 					<tr>
-						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->
-                                                <th align="center" valign="top" scope="col">ID Golongan</th>
+						<!--<th align="left" valign="top" scope="col">&nbsp;</th>-->                                                
 						<th align="center" valign="top" scope="col">Golongan</th>
 						<th align="center" valign="top" scope="col">Jenis</th>
 						<th align="center" valign="top" scope="col">Aksi</th>
@@ -65,8 +64,8 @@
 					<?php foreach($results->result() as $row) {?>
 					<tr>
 						<!--<td align="left" valign="top"><input name="id[]" id="id" value="<?=$row->id_golongan?>" type="checkbox" /></td>-->
-						<td align="center" valign="top"><?=$row->id_golongan?> </td>
-                                                <td align="left" valign="top"><?=$row->golongan?> </td>
+						
+                                                <td align="center" valign="top"><?=$row->golongan?> </td>
 						<td align="center" valign="top"><?=$row->jenis?> </td>
 						<td align="center" valign="top" class="table-actions">
 							<?php
