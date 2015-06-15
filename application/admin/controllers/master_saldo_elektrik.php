@@ -85,8 +85,16 @@ class master_saldo_elektrik extends My_Controller
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');						
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');		
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
+                
+                $checker = $this->checkNama($data['nama_mastersaldo']);
+                
 		if ($this->form_validation->run() == FALSE){						
-		$this->load->view('master_saldo_elektrik/master_saldo_elektrik_add',$data);					
+                    $data['usernameValidation'] = 0;
+                    $this->load->view('master_saldo_elektrik/master_saldo_elektrik_add',$data);					
+		}
+                else if($checker==FALSE){
+                    $data['usernameValidation'] = 1;
+                    $this->load->view('master_saldo_elektrik/master_saldo_elektrik_add',$data);					
 		}
 		else
 		{				
@@ -128,7 +136,8 @@ class master_saldo_elektrik extends My_Controller
 	$data['result'] = $this->master_saldo_elektrik->getItemById($id);				
 	$data['id_saldo'] = $id;
 	$data['nama_mastersaldo'] = $data['result']->row()->nama_mastersaldo;		
-	$data['saldo'] = $data['result']->row()->saldo;						
+	$data['saldo'] = $data['result']->row()->saldo;		
+        $data['usernameValidation']=0;
 	$this->load->view('master_saldo_elektrik/master_saldo_elektrik_edit', $data);				
 	$this->close();	
 	}		
@@ -141,19 +150,37 @@ class master_saldo_elektrik extends My_Controller
 		$this->open();						
 		$data['id_saldo'] = $this->input->post('id_saldo');		
 		$data['nama_mastersaldo'] = $this->input->post('nama_mastersaldo');		
-		$data['saldo'] = $this->input->post('saldo');										
+		$data['saldo'] = $this->input->post('saldo');	
+                $check_master_saldo = $this->input->post('nama_mastersaldo_temp');	
 		$this->form_validation->set_rules('nama_mastersaldo', 'nama_mastersaldo');		
 		$this->form_validation->set_rules('id_saldo', 'id_saldo');		
 		$this->form_validation->set_rules('saldo', 'saldo', 'trim|numeric');						
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');						
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');		
-		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');						
+		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');	
+                
+                $checker = $this->checkNama($data['nama_mastersaldo']);
 		if ($this->form_validation->run() == FALSE){						
-		$this->load->view('master_saldo_elektrik/master_saldo_elektrik_edit',$data);					
-		}else{				
-		$this->master_saldo_elektrik->update($data['id_saldo'], $data);						
-		$this->session->set_flashdata('message', 'Data Master Saldo Berhasil diupdate.');			
-		redirect('master_saldo_elektrik');		
+                    $data['usernameValidation']=0;
+                    $this->load->view('master_saldo_elektrik/master_saldo_elektrik_edit',$data);					
+		}
+                else if($checker==FALSE){
+                    $checker = $this->checkNama2($data['nama_mastersaldo']);
+                    foreach ($checker->result() as $check)echo $check->nama_mastersaldo;
+                    if($check->nama_mastersaldo!=$check_master_saldo){
+                        $data['usernameValidation']=1;
+                        $this->load->view('master_saldo_elektrik/master_saldo_elektrik_edit',$data);
+                    }
+                    else{
+                        $this->master_saldo_elektrik->update($data['id_saldo'], $data);						
+                        $this->session->set_flashdata('message', 'Data Master Saldo Berhasil diupdate.');			
+                        redirect('master_saldo_elektrik');
+                    }
+                }
+                else{				
+                    $this->master_saldo_elektrik->update($data['id_saldo'], $data);						
+                    $this->session->set_flashdata('message', 'Data Master Saldo Berhasil diupdate.');			
+                    redirect('master_saldo_elektrik');		
 		}				
 		$this->close();		
 		
@@ -166,5 +193,14 @@ class master_saldo_elektrik extends My_Controller
 		$this->session->set_flashdata('message', 'Data Master Saldo Berhasil dihapus.');		
 		redirect('master_saldo_elektrik');
 	}
-	
+
+        function checkNama($nama){
+            $result = $this->master_saldo_elektrik->getItemByName($nama);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
+        function checkNama2($nama){
+            return $result = $this->master_saldo_elektrik->getItemByName($nama);
+            //return $result->result();
+        }
 }

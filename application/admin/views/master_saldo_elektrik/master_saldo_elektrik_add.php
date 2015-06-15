@@ -3,7 +3,13 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/master_saldo_elektrik'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Nama Master Saldo telah ada.</h2>
+</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php

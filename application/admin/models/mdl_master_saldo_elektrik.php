@@ -33,6 +33,13 @@ class mdl_master_saldo_elektrik extends CI_Model{
 		return $this->db->get('master_saldo_elektrik');
 	}
 
+        function getItemByName($name)
+	{
+		$this->db->flush_cache();
+		$this->db->where('nama_masterSaldo', $name);
+		return $this->db->get('master_saldo_elektrik');
+	}
+        
 	function insert($data)
 	{
 		$this->db->flush_cache();
