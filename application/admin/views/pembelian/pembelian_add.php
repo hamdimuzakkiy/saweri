@@ -243,7 +243,8 @@
 			}
 			//else if((cara_bayar=='2') && (document.getElementById('detail_jatuh_tempo').value == ''))
 			//{			alert('Jatuh Tempo Tidak Boleh Kosong.');					}
-			else if (detail_idjenis=='4'){			$.ajax({				type: 'POST',				url: '<?php echo base_url().'asset/admin/js/ajax_pembelian.php?command=add_sn'?>',				data: $('#get_serialize :input').serialize(),				success: function(data) {					$('#detail').html(data);					/*$.fancybox(data);*/				}			});					}
+			else if (detail_idjenis=='4'){			
+			$.ajax({				type: 'POST',				url: '<?php echo base_url().'asset/admin/js/ajax_pembelian.php?command=add_sn'?>',				data: $('#get_serialize :input').serialize(),				success: function(data) {					$('#detail').html(data);					/*$.fancybox(data);*/				}			});					}
 			else if (sn) {
 
 				$.ajax({
@@ -280,11 +281,11 @@
 	
 	function remove_detail(id){		
 	//alert(id)	;
-		$.ajax({
+		$.ajax({			
 			type: 'POST',
 			url: '<?=base_url().'asset/admin/js/ajax_pembelian.php?command=remove&id='?>'+id,
 			data: $('#form1').serialize(),
-			success: function(data) {
+			success: function(data) {				
 				$('#detail').html(data);
 			}
 		});				counter_list--;

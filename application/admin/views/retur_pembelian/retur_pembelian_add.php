@@ -53,17 +53,34 @@
 	function get_po(po){
 		$.ajax({
 			type: 'GET',
-			url: '<?=base_url().'index.php/retur_pembelian/get_barang_by_po/'?>' + po, //url: $(this).attr('action'),
+			url: '<?php echo base_url().'index.php/retur_pembelian/get_barang_by_po/'?>' + po, //url: $(this).attr('action'),
 			//data: $('#form1').serialize(),
 			success: function(data) {
 				$('#detail').html(data);
-			}
-		});
+			}						
+		});			
 	}
 	
+
+
 		function klick_tanggal(){
 		var tanggal = document.getElementById("tanggal");
 		tanggal.focus();
+	}
+
+	function test(){
+
+		//alert('<?php echo base_url().'index.php/retur_pembelian/test/'?>');
+		$.ajax({
+			type: 'GET',
+			url: '<?php echo base_url().'index.php/retur_pembelian/test/'?>', //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {				
+				$('#detail').html(data);
+			}
+
+		});	
+		alert('kanto');		
 	}
 	
 	
@@ -82,6 +99,7 @@
 			<fieldset class="grey-bg ">	
 				<div class="columns">
 					<p class="colx2-left">
+
 						<label for="complex-en-url">PO No (*) :</label>
 						<span class="relative">
 							<select name="po_no" id="po_no" onchange="javascript:get_po(this.value);">
@@ -148,3 +166,4 @@
 		</form>
 	</div>
 </section>
+<button onclick="javascript:test();">button</button>

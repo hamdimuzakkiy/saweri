@@ -175,7 +175,8 @@ class pembelian extends My_Controller
 				{					
 					$qty_pembelian = $detail[$i]['qty'];											
 					for ($j=0;$j<$qty_pembelian;$j++)
-					{							
+					{			
+						print $pembelian['id_pembelian'];
 						$data_['id_pembelian'] 		= $pembelian['id_pembelian'];							
 						$data_['id_barang'] 		= $detail[$i]['id_barang'];							
 						$data_['harga'] 			= $detail[$i]['harga'];
@@ -319,7 +320,7 @@ class pembelian extends My_Controller
 					
 			
 						$this->session->set_flashdata('message', 'Data Pembelian Berhasil disimpan.');
-			redirect('pembelian');			
+			//redirect('pembelian');			
 		}
 		
 		$this->close();

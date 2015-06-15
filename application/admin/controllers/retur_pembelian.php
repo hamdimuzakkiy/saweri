@@ -202,8 +202,12 @@ class retur_pembelian extends My_Controller
 		redirect('retur_pembelian');
 	}
 	
-	function get_barang_by_po($po){
+	function get_barang_by_po($po){		
 		# ambil id pembelian berdasarkan no po di tabel pembelian
+
+
+
+
 		$this->db->flush_cache();
 		$this->db->from('pembelian');		
 		$this->db->where('id_pembelian', $po);
@@ -284,6 +288,7 @@ class retur_pembelian extends My_Controller
 					$i++;
 				}
 			}
+
 		}
 	}
 	
