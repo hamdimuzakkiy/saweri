@@ -166,7 +166,6 @@ class pelanggan extends My_Controller
 		
 		$this->open();
 		
-		
 		$data['id_pelanggan'] = $this->input->post('id_pelanggan');
 		$data['kode_pelanggan'] = $this->input->post('kode_pelanggan');
 		$data['nama'] = $this->input->post('nama');

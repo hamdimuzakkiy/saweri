@@ -40,6 +40,14 @@ class mdl_master_pulsa extends CI_Model
 		return $this->db->get('barang');
 	}
 
+        function getItemByKode($kode)
+	{
+		$this->db->flush_cache();
+		$this->db->where('barang.kode', $kode);
+                $this->db->where('barang.jenis_barang', 'pulsa');
+		return $this->db->get('barang');
+	}
+        
 	function update($id, $data)
 	{
 		$this->db->flush_cache();
