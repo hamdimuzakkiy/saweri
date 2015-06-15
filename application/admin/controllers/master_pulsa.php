@@ -256,7 +256,7 @@ class master_pulsa extends My_Controller
 			$data['is_hargajual'] = $data['result']->row()->is_hargajual;		
 			$data['point_karyawan'] = $data['result']->row()->point_karyawan;		
 			$data['point_member'] = $data['result']->row()->point_member;		
-                        $data['usernameValidation']=0;
+                        //$data['usernameValidation']=0;
                         
 			$res_hpp = $this->detail_pembelian->getHPP($id);
 			if ($res_hpp->row()->jumlah == 0)
@@ -316,7 +316,7 @@ class master_pulsa extends My_Controller
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');		
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');						
 		
-                                $checker = $this->checkKode($data['kode']);
+                //$checker = $this->checkKode($data['kode']);
                 if ($this->form_validation->run() == FALSE){
                     $data['id_barang'] = $this->input->post('id_pulsa');					
                     $data['kode'] = $this->input->post('kode_pulsa');			
@@ -341,7 +341,7 @@ class master_pulsa extends My_Controller
                     $data['usernameValidation']=0;
                     $this->load->view('master_pulsa/master_pulsa_add',$data);
 		}
-                else if($checker==FALSE){
+                /*else if($checker==FALSE){
                     $data['id_barang'] = $this->input->post('id_pulsa');					
                     $data['kode'] = $this->input->post('kode_pulsa');			
                     $data['nama_barang'] = $this->input->post('nama_pulsa');			
@@ -363,7 +363,7 @@ class master_pulsa extends My_Controller
                     $data['userid'] = get_userid();			
                     $data['usernameValidation']=1;
                     $this->load->view('master_pulsa/master_pulsa_add',$data);
-                }
+                }*/
                 else{
 		/*			$saldo_elektrik 		= $this->master_pulsa->get_saldo_elektrik($data['id_saldo']);			
 		$v_saldo_saldo_elektrik = $saldo_elektrik->row()->saldo;						

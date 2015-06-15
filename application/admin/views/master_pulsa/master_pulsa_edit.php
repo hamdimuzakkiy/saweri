@@ -2,14 +2,7 @@
 	
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/master_pulsa'?>';
-	}
-	$(document).ready(function (){
-            var x = <?php echo $usernameValidation ;?>;
-            $("#username-error").hide();
-            if(x==1){
-                $("#username-error").show();
-            }
-        });
+	
 </script>
 
 	<?php 
@@ -23,9 +16,6 @@
 	<?php
 		} 
 	?>
-<div id="username-error">
-    <h2>Kode Pulsa telah ada.</h2>
-</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php
@@ -39,7 +29,7 @@
 				<p class="colx2-left">
 						<label for="complex-en-url">Kode Pulsa :</label>
 						<input type="hidden" name="id_pulsa" value="<?=$id_pulsa?>">
-						<input type="hidden" name="kode_pulsa" value="<?=$kode_pulsa?>">
+                                                <input type="hidden" name="kode_pulsa" value="<?=$kode_pulsa?>">
 						<span class="relative">
 							<?php 
 								if (form_error('kode_pulsa') != null)
@@ -47,7 +37,7 @@
 									echo '<input type="text" name="kode_pulsa" id="kode_pulsa" value="'.set_value('kode_pulsa').'" class="setengah-width">';
 								}else
 								{
-									echo '<input type="text" name="kode_pulsa" id="kode_pulsa" value="'.$kode_pulsa.'" class="setengah-width">';
+									echo '<input type="text" name="kode_pulsa" id="kode_pulsa" value="'.$kode_pulsa.'" class="setengah-width" readonly>';
 								}
 							?>
 						</span>
