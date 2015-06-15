@@ -273,7 +273,10 @@
                                                                                         
                                                                                         if($query1->num_rows() > 0 || $query2->num_rows() > 0)
                                                                                             foreach ($query1->result() as $rows_kec)foreach ($query2->result() as $rows_kab)
-                                                                                                echo '<option value="'.$row->id_area.'">'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
+                                                                                                if($row->id_area == $id_area)
+                                                                                                    echo '<option value="'.$row->id_area.'" selected>'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
+                                                                                                else
+                                                                                                    echo '<option value="'.$row->id_area.'">'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
 										}
 									}
 								?>
