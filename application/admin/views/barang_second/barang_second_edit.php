@@ -35,10 +35,10 @@
 							<?php
 								if (form_error('nama_barang') != null)
 								{
-									echo '<input type="text" name="nama_barang" id="nama_barang" value="'.set_value('nama_barang').'" class="setengah-width">';
+									echo '<input readonly type="text" name="nama_barang" id="nama_barang" value="'.set_value('nama_barang').'" class="setengah-width">';
 								}else
 								{
-									echo '<input type="text" name="nama_barang" id="nama_barang" value="'.$nama_barang.'" class="setengah-width">';
+									echo '<input readonly type="text" name="nama_barang" id="nama_barang" value="'.$nama_barang.'" class="setengah-width">';
 								}
 							?>
 						</span>

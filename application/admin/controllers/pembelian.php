@@ -320,7 +320,7 @@ class pembelian extends My_Controller
 					
 			
 						$this->session->set_flashdata('message', 'Data Pembelian Berhasil disimpan.');
-			//redirect('pembelian');			
+			redirect('pembelian');			
 		}
 		
 		$this->close();

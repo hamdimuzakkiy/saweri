@@ -1,7 +1,7 @@
 <section class="grid_12">
 	<div class="block-border">
 		<form class="block-content form"  name="table_form" id="table_form" method="post" action="">
-			<h1>Piutang > Master Piutang</h1>
+			<h1>Piutang > Master Kas</h1>
 			
 			<div class="block-controls">								<ul class="controls-buttons">					<?php echo $this->pagination->create_links(); ?>					<li class="sep"></li>					<li><?							if ($can_insert == TRUE){								echo anchor('master_piutang/insert', 'Tambah Data');							}						?></li>				</ul>							</div>
 		
