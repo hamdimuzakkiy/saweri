@@ -15,6 +15,7 @@ class mdl_pembelian extends CI_Model{
 		$this->db->join('supplier', 'supplier.id_supplier = pembelian.id_supplier');
 		$this->db->join('cabang', 'cabang.id_cabang = pembelian.id_cabang');		
 		$this->db->where('cabang.id_cabang', $this->session->userdata('idcabang'));		$this->db->where('pembelian.posting', '0');
+
 		$this->db->limit($num, $offset);				
 		//print $this->db->last_query();
 
@@ -139,7 +140,8 @@ class mdl_pembelian extends CI_Model{
 		$this->db->from('barang');
 		$this->db->join('jenis', 'jenis.id_jenis = barang.id_jenis');
 		$this->db->join('kategori', 'kategori.id_kategori = barang.id_kategori');
-		$this->db->where('barang.id_jenis <>', '3');
+		$this->db->where('barang.jenis_barang <>','pulsa');
+		//$this->db->where('barang.id_jenis <>', '3');
 		return $this->db->get();
 	}		
 	function get_total_kas()	
