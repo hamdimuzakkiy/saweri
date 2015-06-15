@@ -478,7 +478,8 @@ class pembelian extends My_Controller
 	
 	function show_barang()
 	{
-		$data['result'] = $this->pembelian->get_barang();
+		$data['result'] = $this->pembelian->get_barangV2();
+		//print $this->db->last_query();
 		$this->load->view('pembelian/list_barang.php', $data);
 	}
 	

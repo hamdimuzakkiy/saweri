@@ -3,7 +3,7 @@
 	
 	
 	function set_barang(id, nama, harga, idjenis,sn){
-
+		//alert(id);
 		$.fancybox.close();
 		document.getElementById('detail_idbarang').value = id;			
 		document.getElementById('detail_namabarang').value = nama;
@@ -53,19 +53,28 @@
 <table width="666" border="1" align="center"  cellpadding="1" cellspacing="1">	
 	<tr>
 		<th width="305" bgcolor="#D4DFFF" scope="col">Nama Barang</th>
-		<th width="158" bgcolor="#D4DFFF" scope="col">Jenis</th>
-		<th width="181" bgcolor="#D4DFFF" scope="col">Kategori</th>
+		<th width="158" bgcolor="#D4DFFF" scope="col">HPP</th>
+		<th width="181" bgcolor="#D4DFFF" scope="col">Stok</th>
 	</tr>
 	
 	<?php
 		$ids = 0;
 		foreach($result->result() as $row)
 		{
-	?>
+				?>
 			<tr id = '<?php print  "BarangKe".$ids;?>'>
 				<td align="left" valign="middle"><a id = "<?php print  "NamaBarang".$ids++;?>" href="javascript:set_barang('<?=$row->id_barang?>', '<?=$row->nama_barang?>', 0,<?=$row->id_jenis?>,<?=$row->sn?>)"><?=$row->nama_barang?></a></td>
-				<td align="left" valign="middle"><?=$row->jenis_barang?></td>
-				<td align="left" valign="middle"><?=$row->kategori_barang?></td>
+
+				<td align="left" valign="middle"><?php 
+				if ($row->StokBarang == 0)
+					print convert_rupiah('0');
+				else
+					{					
+						$res = ($row->hpp/$row->StokBarang);
+						print  convert_rupiah($res);
+					}
+				?></td>
+				<td align="left" valign="middle"><?=$row->StokBarang?></td>
 			</tr>
 	<?php
 		}

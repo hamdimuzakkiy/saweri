@@ -10,7 +10,7 @@ class mdl_pembelian extends CI_Model{
 	function getItem($num=0, $offset=0)
 	{
 		$this->db->flush_cache();
-		$this->db->select('pembelian.id_pembelian, pembelian.po_no, supplier.kode_supplier, supplier.nama AS nama_supplier, cabang.nama_cabang, pembelian.tanggal');
+		$this->db->select('pembelian.total,pembelian.id_pembelian, pembelian.po_no, supplier.kode_supplier, supplier.nama AS nama_supplier, cabang.nama_cabang, pembelian.tanggal');
 		$this->db->from('pembelian');
 		$this->db->join('supplier', 'supplier.id_supplier = pembelian.id_supplier');
 		$this->db->join('cabang', 'cabang.id_cabang = pembelian.id_cabang');		
@@ -139,11 +139,27 @@ class mdl_pembelian extends CI_Model{
 		$this->db->select('*, jenis.jenis AS jenis_barang,jenis.id_jenis, kategori.kategori AS kategori_barang');
 		$this->db->from('barang');
 		$this->db->join('jenis', 'jenis.id_jenis = barang.id_jenis');
-		$this->db->join('kategori', 'kategori.id_kategori = barang.id_kategori');
-		$this->db->where('barang.jenis_barang <>','pulsa');
-		//$this->db->where('barang.id_jenis <>', '3');
+		$this->db->join('kategori', 'kategori.id_kategori = barang.id_kategori');		
+		$this->db->where('barang.jenis_barang <>','pulsa');		
 		return $this->db->get();
 	}		
+
+	function get_barangV2()
+	{		
+		/*$this->db->flush_cache();
+		$this->db->select('barang.sn,SUM(detail_pembelian.harga),COUNT(detail_pembelian.id_barang) as StokBarang,barang.id_barang,barang.nama_barang,barang.id_jenis,kategori.kategori AS kategori_barang');
+		$this->db->from('barang');
+		$this->db->join('jenis', 'jenis.id_jenis = barang.id_jenis');
+		$this->db->join('kategori', 'kategori.id_kategori = barang.id_kategori');		
+		$this->db->where('barang.jenis_barang <>','pulsa');
+		$this->db->join('detail_pembelian', 'detail_pembelian.id_barang = barang.id_barang','left');
+		
+		$this->db->group_by('barang.id_barang');
+
+		//$this->db->where('detail_pembelian.posisi_pusat','1');*/
+		return $this->db->query("SELECT `barang`.`sn`, SUM(detail_pembelian.harga) as hpp, COUNT(detail_pembelian.id_barang) as StokBarang, `barang`.`id_barang`, `barang`.`nama_barang`, `barang`.`id_jenis`, `kategori`.`kategori` AS kategori_barang FROM (`barang`) JOIN `jenis` ON `jenis`.`id_jenis` = `barang`.`id_jenis` JOIN `kategori` ON `kategori`.`id_kategori` = `barang`.`id_kategori` LEFT JOIN (select * from detail_pembelian where posisi_pusat = 1) As detail_pembelian  ON `detail_pembelian`.`id_barang` = `barang`.`id_barang` WHERE `barang`.`jenis_barang` <> 'pulsa'  GROUP BY `barang`.`id_barang`");
+	}		
+
 	function get_total_kas()	
 	{		$this->db->flush_cache();		
 		$this->db->select('Sum(detail_jurnal.DEBET)-Sum(detail_jurnal.KREDIT) as total_kas');		

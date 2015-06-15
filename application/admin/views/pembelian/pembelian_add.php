@@ -393,19 +393,8 @@
 				</div>				
 				<div class="columns">												
 					<p class="colx3-left">						
-						<label for="complex-en-url">Cara Bayar :</label>						
-						<span class="relative">
-							<select name="cara_bayar" id="cara_bayar" onchange = "javascript:hutang();">								
-							<option value="Cash">Cash</option>								
-							<option value="7">1 Minggu</option>
-							<option value="14">2 Minggu</option>
-							<option value="21">3 Minggu</option>
-							<option value="28">4 Minggu</option>
-							<option value="Custom">Custom</option>
-						</select>						
-					</span>			
 
-					<span id="kas">
+						<span id="kas">
 					<label for="complex-en-url" >Kas :</label>						
 						<span class="relative">
 							<select id = "valKas" name="kas" onchange = "javascript:showKas();">
@@ -427,6 +416,21 @@
 							<span id = "saldo"><?php print $initKas; ?></span>
 						</span>					
 					</span>
+						
+						
+						<label for="complex-en-url">Cara Bayar :</label>						
+						<span class="relative">
+							<select name="cara_bayar" id="cara_bayar" onchange = "javascript:hutang();">								
+							<option value="Cash">Cash</option>								
+							<option value="7">1 Minggu</option>
+							<option value="14">2 Minggu</option>
+							<option value="21">3 Minggu</option>
+							<option value="28">4 Minggu</option>
+							<option value="Custom">Custom</option>
+						</select>						
+					</span>			
+
+					
 
 
 					<span style = "display:none;" id="pembelian_jatuh_tempo">

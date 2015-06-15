@@ -50,10 +50,10 @@
 				<thead>
 					<tr>
 						<th align="left" valign="top" scope="col">PO No</th>
-						<th align="left" valign="top" scope="col">Kode Supplier</th>
+						<th align="left" valign="top" scope="col">Tanggal</th>
 						<th align="left" valign="top" scope="col">Supplier</th>
 						<th align="left" valign="top" scope="col">Cabang</th>
-						<th align="left" valign="top" scope="col">Tanggal</th>
+						<th align="left" valign="top" scope="col">Total</th>
 						<th align="left" valign="top" scope="col">Aksi</th>
 					</tr>
 				</thead>
@@ -63,10 +63,10 @@
 					<?php foreach($results->result() as $row) {?>
 					<tr>
 						<td align="left" valign="top"><?=anchor('pembelian/view/'.$row->id_pembelian, $row->po_no, array('class'=>'with-tip view','id'=>'view'))?> </td>
-						<td align="left" valign="top"><?=$row->kode_supplier?> </td>
+						<td align="left" valign="top"><?=$row->tanggal?> </td>
 						<td align="left" valign="top"><?=$row->nama_supplier?> </td>
 						<td align="left" valign="top"><?=$row->nama_cabang?> </td>
-						<td align="left" valign="top"><?=$row->tanggal?> </td>
+						<td align="left" valign="top"><?php echo convert_rupiah($row->total); ?> </td>
 						<td align="left" valign="top" class="table-actions">
 							<?php
 
