@@ -2,11 +2,10 @@
 <strong>Detail Pembelian</strong>
 <div>
 <br/>
-<table width="800" border="1" cellpadding="1" cellspacing="1">	
+<table width="800" border="1" cellpadding="1" cellspacing="1" style = "overflow-x:hidden;">	
 <?php
 		
-		foreach ($results->result() as $i) {			
-		
+		foreach ($results->result() as $i) {					
 	?>
 <tr>
 	<td>Tanggal</td>
@@ -106,7 +105,7 @@
 	<td style = 'border-color:white;'> </td>
 	<td style = 'border-color:white;'> </td>
 	<td style = 'border-color:white;'> </td>
-	<td style = 'border-color:white;'> Diskon </td>
+	<td style = 'border-color:white;'> Bayar </td>
 	<td > <?php print ($total_bayar/100*(100-$diskon)); ?> </td>
 	<!---
  	  <tr>
@@ -117,3 +116,5 @@
 	  </tr>
 	-->
 </table>
+<br>
+<br>

@@ -10,6 +10,7 @@ class pembelian extends My_Controller
 		$this->load->model('mdl_pembelian', 'pembelian');				
 		$this->load->model('mdl_kode_trans', 'kode_trans');				
 		$this->load->model('mdl_hutang', 'hutang');		
+		$this->load->model('mdl_cabang', 'cabang');		
 		$this->load->library('fungsi');
 		$this->load->library('pdf');
 	}
@@ -468,7 +469,7 @@ class pembelian extends My_Controller
 		redirect('pembelian');
 	}
 	function view($id)
-	{					
+	{						
 		$data['results'] = $this->pembelian->getItemById($id);
 		$data['result'] = $this->pembelian->get_detail_versi2($id);
 		$this->load->view('pembelian/pembelian_view', $data);
@@ -483,6 +484,10 @@ class pembelian extends My_Controller
 	function view_lap_pembelian()
 	{
 		$id = $this->uri->segment('3');
+		$idCabang = $this->getIdCabang();
+        $data['perusahaan'] = $this->cabang->getItemById($idCabang);
+
+
 		$data['results'] = $this->pembelian->getItemById($id);
 		#$data['results2'] = $this->pembelian->get_detail($id);
 		$data['results2'] = $this->pembelian->get_detail_versi2($id);

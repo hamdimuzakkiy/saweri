@@ -194,12 +194,18 @@
 
 		var cek = document.getElementById('cara_bayar').value;
 		if (cek =='Custom')	
-		{		
+		{	
+			document.getElementById('Mcard').style.display = 'none';
+			document.getElementById('atm').style.display = 'none';
+			
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'block';
 			document.getElementById('kas').style.display = 'none';						
 		}
 		else if (cek =='7' || cek =='21' || cek =='14' || cek =='28')	
 		{
+			document.getElementById('Mcard').style.display = 'none';
+			document.getElementById('atm').style.display = 'none';
+			
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'none';
 			document.getElementById('kas').style.display = 'none';
 			document.getElementById('pembelian_jatuh_tempoInp').value = cek;
@@ -207,6 +213,8 @@
 		}		
 		else 
 		{
+			document.getElementById('Mcard').style.display = 'block';			
+			
 			document.getElementById('pembelian_jatuh_tempo').style.display = 'none';
 			document.getElementById('kas').style.display = 'block';
 			document.getElementById('pembelian_jatuh_tempoInp').value = '';
@@ -438,7 +446,7 @@
 							<input type = "text" id = "nomor_atm" name = "nomor_atm" required>							
 						</span>					
 				</p>				
-				<p class="colx3-center">
+				<p class="colx3-center" id = 'Mcard'>
 					<label for="complex-en-url">M Card :</label>
 					<span class="relative">
 						<!--input type="checkbox" onclick="javascript:ATM();" id = "cek_atm"><br-->

@@ -56,13 +56,15 @@
 		<td colspan="5"><b>Dari :</b>
 		</td>
 	</tr>
-	<tr><td colspan="5"><b><?php echo $row->nama_cabang;?></b></td> <td colspan="5"><b><?php echo $row->nama_supplier;?></b></td> </tr>		
-	<tr><td colspan="5"><b>JL. S PARMAN 18 BANYUWANGI</b></td> <td colspan="5"><b><?php echo $row->alamat;?></b></td> </tr>		
-	<tr><td colspan="10"><b>TELP (0333)-411345</b></td></tr>		
+	<?php foreach ($perusahaan->result() as $prsh) {		?>
+	
+	<tr><td colspan="5"><b><?php echo $prsh->perusahaan;?></b></td> <td colspan="5"><b><?php echo $row->nama_supplier;?></b></td> </tr>		
+	<tr><td colspan="5"><b><?php echo $prsh->alamat; ?></b></td> <td colspan="5"><b><?php echo $row->alamat;?></b></td> </tr>		
+	<tr><td colspan="10"><b>TELP <?php echo $prsh->telepon ?></b></td></tr>		
 	<tr><td colspan="10"><b></b><br/></td></tr>		
 	<tr><td colspan="10" div align="center"><b>LAPORAN PEMBELIAN</b></td></tr>		
 	<!--tr><td colspan="10"><b>PERIODE : <?php echo $this->fungsi->dateindo3('-',$periode_awal) . ' S/D ' .  $this->fungsi->dateindo3('-',$periode_akhir); ?></b></td></tr-->		
-	
+	<?php } ?>
 	<input type = "hidden" id = "id_pembelian" value = "<?php print $row->id_pembelian; ?>">  
 	<tr>
 			<td colspan="7"><b>Nomor Faktur : <?php echo $row->po_no?></b></td>	

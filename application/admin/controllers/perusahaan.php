@@ -20,7 +20,7 @@ class perusahaan extends My_Controller
 		
 		$this->open();
 		
-         $idCabang = $this->getIdCabang();
+        $idCabang = $this->getIdCabang();
         $data['results'] = $this->cabang->getItemById($idCabang);
 
         $this->load->view('perusahaan/perusahaan_list', $data);

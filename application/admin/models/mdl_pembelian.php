@@ -40,7 +40,7 @@ class mdl_pembelian extends CI_Model{
 		$this->db->from('pembelian');
 		$this->db->join('supplier', 'supplier.id_supplier = pembelian.id_supplier');
 		$this->db->join('cabang', 'cabang.id_cabang = pembelian.id_cabang');
-		$this->db->join('kas', 'kas.kode = pembelian.kode_kas');
+		$this->db->join('kas', 'kas.kode = pembelian.kode_kas','left');
 		$this->db->where('pembelian.id_pembelian', $id);
 		return $this->db->get();
 	}
