@@ -166,9 +166,10 @@ class master_saldo_elektrik extends My_Controller
 		}
                 else if($checker==FALSE){
                     $checker = $this->checkNama2($data['nama_mastersaldo']);
-                    foreach ($checker->result() as $check)echo $check->nama_mastersaldo;
+                    foreach ($checker->result() as $check)$check->nama_mastersaldo;
                     if($check->nama_mastersaldo!=$check_master_saldo){
                         $data['usernameValidation']=1;
+                        $data['nama_mastersaldo']=$check_master_saldo;
                         $this->load->view('master_saldo_elektrik/master_saldo_elektrik_edit',$data);
                     }
                     else{
