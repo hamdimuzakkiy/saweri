@@ -68,13 +68,13 @@ class pelanggan extends My_Controller
 		
 		$this->open();
 		
-		$data['id_pelanggan'] = $this->input->post('id_pelanggan');
-		$data['kode_pelanggan'] = $this->input->post('kode_pelanggan');
-		$data['nama'] = $this->input->post('nama');
-		$data['alamat'] = $this->input->post('alamat');
-		$data['tgl_lahir'] = $this->input->post('tgl_lahir');
-		$data['agama'] = $this->input->post('agama');
-		$data['pekerjaan'] = $this->input->post('pekerjaan');
+		$data['id_pelanggan'] = strtoupper($this->input->post('id_pelanggan'));
+		$data['kode_pelanggan'] = strtoupper($this->input->post('kode_pelanggan'));
+		$data['nama'] = strtoupper($this->input->post('nama'));
+		$data['alamat'] = strtoupper($this->input->post('alamat'));
+		$data['tgl_lahir'] = strtoupper($this->input->post('tgl_lahir'));
+		$data['agama'] = strtoupper($this->input->post('agama'));
+		$data['pekerjaan'] = strtoupper($this->input->post('pekerjaan'));
 		$data['jenis_pengenal'] = $this->input->post('jenis_pengenal');
 		$data['no_pengenal'] = $this->input->post('no_pengenal');
 		$data['tel'] = $this->input->post('tel');
@@ -166,9 +166,9 @@ class pelanggan extends My_Controller
 		
 		$this->open();
 		
-		$data['id_pelanggan'] = $this->input->post('id_pelanggan');
-		$data['kode_pelanggan'] = $this->input->post('kode_pelanggan');
-		$data['nama'] = $this->input->post('nama');
+		$data['id_pelanggan'] = strtoupper($this->input->post('id_pelanggan'));
+		$data['kode_pelanggan'] = strtoupper($this->input->post('kode_pelanggan'));
+		$data['nama'] = strtoupper($this->input->post('nama'));
 		/*$data['alamat'] = $this->input->post('alamat');
 		$data['tgl_lahir'] = $this->input->post('tgl_lahir');
 		$data['agama'] = $this->input->post('agama');

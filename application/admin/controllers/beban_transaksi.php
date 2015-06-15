@@ -71,8 +71,8 @@ class beban_transaksi extends My_Controller
 		
 		$this->open();
 				
-		$data['pembayaran'] = $this->input->post('pembayaran');		
-		$data['beban'] = $this->input->post('beban');
+		$data['pembayaran'] = strtoupper($this->input->post('pembayaran'));		
+		$data['beban'] = strtoupper($this->input->post('beban'));
 		
 		$this->form_validation->set_rules('pembayaran', 'pembayaran', 'callback_cek_nama|required');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -122,8 +122,8 @@ class beban_transaksi extends My_Controller
 		$this->open();
 
 		$id =  $_POST['id'];
-		$data['pembayaran'] =  $_POST['pembayaran'];
-		$data['beban'] = $_POST['beban'];
+		$data['pembayaran'] = strtoupper($_POST['pembayaran']);
+		$data['beban'] = strtoupper($_POST['beban']);
 
 		$this->form_validation->set_rules('id', 'id', 'required');
 		$this->form_validation->set_rules('pembayaran', 'pembayaran', 'required');

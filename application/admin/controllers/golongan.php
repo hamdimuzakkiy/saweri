@@ -73,9 +73,9 @@ class golongan extends My_Controller
 		
 		$this->open();
 		
-		$data['id_golongan'] = $this->input->post('id_golongan');
-		$data['golongan'] = $this->input->post('golongan');		
-		$data['jenis'] = $this->input->post('jenis');
+		$data['id_golongan'] = strtoupper($this->input->post('id_golongan'));
+		$data['golongan'] = strtoupper($this->input->post('golongan'));		
+		$data['jenis'] = strtoupper($this->input->post('jenis'));
 		
                 $checker = $this->checkID($data['id_golongan']);
                 
@@ -150,9 +150,9 @@ class golongan extends My_Controller
 		$this->open();
 		
 		
-		$data['id_golongan'] = $this->input->post('id_golongan');
-		$data['golongan'] = $this->input->post('golongan');	
-		$data['jenis'] = $this->input->post('jenis');	
+		$data['id_golongan'] = strtoupper($this->input->post('id_golongan'));
+		$data['golongan'] = strtoupper($this->input->post('golongan'));	
+		$data['jenis'] = strtoupper($this->input->post('jenis'));	
 		
 		$this->form_validation->set_rules('golongan', 'golongan', 'required');
 		

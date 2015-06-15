@@ -54,15 +54,8 @@ class master_kas extends My_Controller
 		$config['first_tag_open'] = '<li>';
 		$config['first_tag_close'] = '</li>';
 		
-		$this->pagination->initialize($config);	
-		
-		
-				
+		$this->pagination->initialize($config);				
 		$data['results'] = $this->master_kas->getItem($config['per_page'], $this->uri->segment(3));
-		/*$data['sebagai'] = $sebagai; */
-		 
-		
-		
 		$this->load->view('master_kas/master_kas_list', $data);
 		
 		$this->close();
@@ -75,9 +68,9 @@ class master_kas extends My_Controller
 		}
 
 		$this->open();				
-		$data['kode'] = $this->input->post('kode');		
-		$data['nama'] = $this->input->post('nama');		
-		$data['saldo'] = $this->input->post('saldo');
+		$data['kode'] = strtoupper($this->input->post('kode'));		
+		$data['nama'] = strtoupper($this->input->post('nama'));		
+		$data['saldo'] = strtoupper($this->input->post('saldo'));
 
 		$this->form_validation->set_rules('kode', 'kode', 'required');
 		$this->form_validation->set_rules('nama', 'nama', 'required');
@@ -85,7 +78,8 @@ class master_kas extends My_Controller
 
 		if ($this->form_validation->run() == FALSE){						
 				$this->load->view('master_kas/master_kas_add',$data);					
-		}else{			
+		}
+                else{			
 			$ceks = $this->master_kas->getItemById($data['kode']);
 			//print sizeof($ceks->result());
 			if (sizeof($ceks->result())!=0)
@@ -128,9 +122,9 @@ class master_kas extends My_Controller
 		redirect('auth/failed');		
 		}				
 		$this->open();				
-		$data['kode'] = $this->input->post('kode');
-		$data['nama'] = $this->input->post('nama');		
-		$data['saldo'] = $this->input->post('saldo');	
+		$data['kode'] = strtoupper($this->input->post('kode'));
+		$data['nama'] = strtoupper($this->input->post('nama'));		
+		$data['saldo'] = strtoupper($this->input->post('saldo'));	
 
 		$this->form_validation->set_rules('kode', 'kode', 'required');
 		$this->form_validation->set_rules('nama', 'nama', 'required');

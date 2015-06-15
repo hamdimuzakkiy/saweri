@@ -73,8 +73,8 @@ class jenis extends My_Controller
 		
 		$this->open();
 		
-		$data['id_jenis'] = $this->input->post('id_jenis');
-		$data['jenis'] = $this->input->post('jenis');
+		$data['id_jenis'] = strtoupper($this->input->post('id_jenis'));
+		$data['jenis'] = strtoupper($this->input->post('jenis'));
 		$data['userid'] = get_userid();
 		
 		
@@ -88,7 +88,6 @@ class jenis extends My_Controller
 			
 		}else{	
 			$this->jenis->insert($data);
-			
 			$this->session->set_flashdata('message', 'Data Jenis Barang Berhasil disimpan.');
 			redirect('jenis');
 		}
@@ -129,9 +128,7 @@ class jenis extends My_Controller
 		$data['id_jenis'] = $id;
                 $data['usernameValidation'] = 0;
 
-		
-		$this->load->view('jenis/jenis_edit', $data);
-		
+		$this->load->view('jenis/jenis_edit', $data);		
 		$this->close();
 	}
 	
@@ -143,8 +140,8 @@ class jenis extends My_Controller
 		
 		$this->open();
 		
-		$data['id_jenis'] = $this->input->post('id_jenis');
-		$data['jenis'] = $this->input->post('jenis');		
+		$data['id_jenis'] = strtoupper($this->input->post('id_jenis'));
+		$data['jenis'] = strtoupper($this->input->post('jenis'));		
 		$data['userid'] = get_userid();
                 
 		$this->form_validation->set_rules('jenis', 'jenis', 'required');

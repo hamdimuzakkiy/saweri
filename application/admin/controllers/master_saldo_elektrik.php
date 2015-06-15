@@ -52,15 +52,9 @@ class master_saldo_elektrik extends My_Controller
 		$config['first_tag_open'] = '<li>';
 		$config['first_tag_close'] = '</li>';
 		
-		$this->pagination->initialize($config);	
-		
-		
-		
+		$this->pagination->initialize($config);
 		$data['results'] = $this->master_saldo_elektrik->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
 		$this->load->view('master_saldo_elektrik/master_saldo_elektrik_list', $data);
-		
 		$this->close();
 	}
 	
@@ -74,9 +68,9 @@ class master_saldo_elektrik extends My_Controller
 		
 		$this->open();
 		
-		$data['id_saldo'] = $this->input->post('id_saldo');		
-		$data['nama_mastersaldo'] = $this->input->post('nama_mastersaldo');		
-		$data['saldo'] = $this->input->post('saldo');
+		$data['id_saldo'] = strtoupper($this->input->post('id_saldo'));		
+		$data['nama_mastersaldo'] = strtoupper($this->input->post('nama_mastersaldo'));		
+		$data['saldo'] = strtoupper($this->input->post('saldo'));
 		$data['userid'] = get_userid();
 		
 		$this->form_validation->set_rules('id_saldo');		
@@ -102,7 +96,6 @@ class master_saldo_elektrik extends My_Controller
 			$this->session->set_flashdata('message', 'Data Master Saldo Berhasil disimpan.');			
 			redirect('master_saldo_elektrik');		
 		}
-		
 		$this->close();
 	}
 	
@@ -148,9 +141,9 @@ class master_saldo_elektrik extends My_Controller
 			redirect('auth/failed');		
 		}				
 		$this->open();						
-		$data['id_saldo'] = $this->input->post('id_saldo');		
-		$data['nama_mastersaldo'] = $this->input->post('nama_mastersaldo');		
-		$data['saldo'] = $this->input->post('saldo');	
+		$data['id_saldo'] = strtoupper($this->input->post('id_saldo'));		
+		$data['nama_mastersaldo'] = strtoupper($this->input->post('nama_mastersaldo'));		
+		$data['saldo'] = strtoupper($this->input->post('saldo'));	
                 $check_master_saldo = $this->input->post('nama_mastersaldo_temp');	
 		$this->form_validation->set_rules('nama_mastersaldo', 'nama_mastersaldo');		
 		$this->form_validation->set_rules('id_saldo', 'id_saldo');		
@@ -183,13 +176,14 @@ class master_saldo_elektrik extends My_Controller
                     $this->session->set_flashdata('message', 'Data Master Saldo Berhasil diupdate.');			
                     redirect('master_saldo_elektrik');		
 		}				
-		$this->close();		
-		
+		$this->close();			
 	}
 	
 	function delete($id)
 	{
-		if ($this->can_delete() == FALSE){			redirect('auth/failed');		}				
+		if ($this->can_delete() == FALSE){
+                    redirect('auth/failed');
+                    }				
 		$this->master_saldo_elektrik->delete($id);		
 		$this->session->set_flashdata('message', 'Data Master Saldo Berhasil dihapus.');		
 		redirect('master_saldo_elektrik');

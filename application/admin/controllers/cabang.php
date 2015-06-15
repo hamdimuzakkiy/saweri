@@ -53,14 +53,8 @@ class cabang extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
-		
 		$data['results'] = $this->cabang->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
 		$this->load->view('cabang/cabang_list', $data);
-		
 		$this->close();
 	}
 	
@@ -73,10 +67,10 @@ class cabang extends My_Controller
 		
 		$this->open();
 		
-		$data['id_cabang'] = $this->input->post('id_cabang');
-		$data['kode_cabang'] = $this->input->post('kode_cabang');
-		$data['nama_cabang'] = $this->input->post('nama_cabang');
-		$data['alamat'] = $this->input->post('alamat');
+		$data['id_cabang'] = strtoupper($this->input->post('id_cabang'));
+		$data['kode_cabang'] = strtoupper($this->input->post('kode_cabang'));
+		$data['nama_cabang'] = strtoupper($this->input->post('nama_cabang'));
+		$data['alamat'] = strtoupper($this->input->post('alamat'));
 		$data['telepon'] = $this->input->post('telepon');
 		$data['max_piutang'] = $this->input->post('max_piutang');
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');
@@ -174,12 +168,10 @@ class cabang extends My_Controller
 		}
 		
 		$this->open();
-		
-		
-		$data['id_cabang'] = $this->input->post('id_cabang');
-		$data['kode_cabang'] = $this->input->post('kode_cabang');		
-		$data['nama_cabang'] = $this->input->post('nama_cabang');
-		$data['alamat'] = $this->input->post('alamat');
+		$data['id_cabang'] = strtoupper($this->input->post('id_cabang'));
+		$data['kode_cabang'] = strtoupper($this->input->post('kode_cabang'));		
+		$data['nama_cabang'] = strtoupper($this->input->post('nama_cabang'));
+		$data['alamat'] = strtoupper($this->input->post('alamat'));
 		$data['telepon'] = $this->input->post('telepon');
 		$data['max_piutang'] = $this->input->post('max_piutang');
 		$data['saldo_piutang'] = $this->input->post('saldo_piutang');

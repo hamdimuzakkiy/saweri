@@ -6,12 +6,9 @@ class barang extends My_Controller
 	function __construct()
 	{
 		parent::__construct();
-		
 		$this->load->model('mdl_barang', 'barang');
 		$this->load->model('mdl_pembelian', 'pembelian');
 		$this->load->model('mdl_detail_pembelian','detail_pembelian');
-
-		
 	}
 	
 	function index()
@@ -22,7 +19,6 @@ class barang extends My_Controller
 		$data['can_delete'] = $this->can_delete();
 		
 		$this->open();
-		
 		
 		$config['base_url'] = base_url().'index.php/barang/index/';
 		$config['total_rows'] = $this->barang->getallItem('barang');
@@ -56,11 +52,7 @@ class barang extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
 		$data['results'] = $this->barang->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
 		$this->load->view('barang/barang_list', $data);
 		
 		$this->close();
@@ -75,8 +67,8 @@ class barang extends My_Controller
 				
 		$this->open();
 
-		$data['id_barang'] = $this->input->post('id_barang');
-		$data['nama_barang'] = $this->input->post('nama_barang');
+		$data['id_barang'] = strtoupper($this->input->post('id_barang'));
+		$data['nama_barang'] = strtoupper($this->input->post('nama_barang'));
 		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
@@ -97,7 +89,6 @@ class barang extends My_Controller
 		$jumlah_barang = $this->input->post('jumlah_barang');
 		$data['userid'] = get_userid();
 				
-		
 		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
 		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');
 		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');
@@ -118,23 +109,15 @@ class barang extends My_Controller
 		$this->form_validation->set_rules('sn', 'sn', 'trim');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
-		
-		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('barang/barang_add',$data);
-			
-		}else{	
-
+		}
+                else{	
 			$data['jenis_barang'] = 'barang';
 			$nama = $data['nama_barang'];
-
 			$index = sizeof(explode(' ', $nama));
-
 			if (strtolower(explode(' ', $nama)[$index-1]) == 'second')
 			{
 				$data['jenis_barang'] = "second";
@@ -234,16 +217,10 @@ class barang extends My_Controller
 		}
 		
 		$this->open();
-
-
-				
-		$data['id_barang'] = $this->input->post('id_barang');
-		$data['nama_barang'] = $this->input->post('nama_barang');
-
+		$data['id_barang'] = strtoupper($this->input->post('id_barang'));
+		$data['nama_barang'] = strtoupper($this->input->post('nama_barang'));
 		$nama = $data['nama_barang'];
-
 		$index = sizeof(explode(' ', $nama));
-
 		if (strtolower(explode(' ', $nama)[$index-1]) == 'second')
 		{
 			$data['jenis_barang'] = "second";
@@ -264,8 +241,6 @@ class barang extends My_Controller
 		$data['point_member'] = $this->input->post('point_member');
 		$data['sn'] = $this->input->post('sn');
 		$data['userid'] = get_userid();
-		
-		
 		
 		$this->form_validation->set_rules('nama_barang', 'nama_barang');
 		$this->form_validation->set_rules('id_jenis', 'id_jenis', 'required');
@@ -300,9 +275,7 @@ class barang extends My_Controller
 			$this->session->set_flashdata('message', 'Data Barang Berhasil diupdate.');
 			redirect('barang');
 		}
-		
 		$this->close();
-		
 	}
 	
 	function delete($id)

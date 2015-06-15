@@ -110,8 +110,8 @@ class barang_second extends My_Controller
 		
 		$this->open();
 				
-		$data['id_barang'] = $this->input->post('id_barang');
-		$data['nama_barang'] = $this->input->post('nama_barang');
+		$data['id_barang'] = strtoupper($this->input->post('id_barang'));
+		$data['nama_barang'] = strtoupper($this->input->post('nama_barang'));
 		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
@@ -143,19 +143,13 @@ class barang_second extends My_Controller
 		$this->form_validation->set_rules('point_karyawan', 'point_karyawan', 'trim|numeric');
 		$this->form_validation->set_rules('point_member', 'point_member', 'trim|numeric');
 		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
-		
-		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('barang/barang_edit',$data);
-			
-		}else{	
+		}
+                else{	
 			$this->barang_second->update($data['id_barang'], $data);
 			
 			$this->session->set_flashdata('message', 'Data Barang Berhasil diupdate.');

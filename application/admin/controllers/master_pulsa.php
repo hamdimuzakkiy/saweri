@@ -78,9 +78,9 @@ class master_pulsa extends My_Controller
 		/*$data['id_pulsa'] = $this->input->post('id_pulsa');				
 		$data['kode_pulsa'] = $this->input->post('kode_pulsa');		
 		$data['nama_pulsa'] = $this->input->post('nama_pulsa');*/
-		$data['id_barang'] = $this->input->post('id_pulsa');				
-		$data['kode'] = $this->input->post('kode_pulsa');		
-		$data['nama_barang'] = $this->input->post('nama_pulsa');
+		$data['id_barang'] = strtoupper($this->input->post('id_pulsa'));				
+		$data['kode'] = strtoupper($this->input->post('kode_pulsa'));		
+		$data['nama_barang'] = strtoupper($this->input->post('nama_pulsa'));
 		$data['id_jenis'] = $this->input->post('id_jenis');		
 		$data['id_kategori'] = $this->input->post('id_kategori');		
 		$data['id_satuan'] = $this->input->post('id_satuan');				
@@ -118,10 +118,10 @@ class master_pulsa extends My_Controller
 		
                 $checker = $this->checkKode($data['kode']);
                 if ($this->form_validation->run() == FALSE){
-                    $data['id_barang'] = $this->input->post('id_pulsa');					
-                    $data['kode'] = $this->input->post('kode_pulsa');			
+                    $data['id_barang'] = strtoupper($this->input->post('id_pulsa'));					
+                    $data['kode'] = strtoupper($this->input->post('kode_pulsa'));			
                     //$data['nama_pulsa'] = $this->input->post('nama_pulsa');			
-                    $data['nama_barang'] = $this->input->post('nama_pulsa');			
+                    $data['nama_barang'] = strtoupper($this->input->post('nama_pulsa'));			
                     $data['id_jenis'] = $this->input->post('id_jenis');			
                     $data['id_kategori'] = $this->input->post('id_kategori');			
                     $data['id_satuan'] = $this->input->post('id_satuan');						
@@ -142,9 +142,9 @@ class master_pulsa extends My_Controller
                     $this->load->view('master_pulsa/master_pulsa_add',$data);
 		}
                 else if($checker==FALSE){
-                    $data['id_barang'] = $this->input->post('id_pulsa');					
-                    $data['kode'] = $this->input->post('kode_pulsa');			
-                    $data['nama_barang'] = $this->input->post('nama_pulsa');			
+                    $data['id_barang'] = strtoupper($this->input->post('id_pulsa'));					
+                    $data['kode'] = strtoupper($this->input->post('kode_pulsa'));			
+                    $data['nama_barang'] = strtoupper($this->input->post('nama_pulsa'));			
                     $data['id_jenis'] = $this->input->post('id_jenis');			
                     $data['id_kategori'] = $this->input->post('id_kategori');			
                     $data['id_satuan'] = $this->input->post('id_satuan');						
@@ -165,9 +165,9 @@ class master_pulsa extends My_Controller
                     $this->load->view('master_pulsa/master_pulsa_add',$data);
                 }
                 else{													
-		$data['id_barang'] = $this->input->post('id_pulsa');					
-		$data['kode'] = $this->input->post('kode_pulsa');			
-		$data['nama_barang'] = $this->input->post('nama_pulsa');			
+		$data['id_barang'] = strtoupper($this->input->post('id_pulsa'));					
+		$data['kode'] = strtoupper($this->input->post('kode_pulsa'));			
+		$data['nama_barang'] = strtoupper($this->input->post('nama_pulsa'));			
 		$data['id_jenis'] = $this->input->post('id_jenis');			
 		$data['id_kategori'] = $this->input->post('id_kategori');			
 		$data['id_satuan'] = $this->input->post('id_satuan');						
@@ -276,9 +276,9 @@ class master_pulsa extends My_Controller
 		redirect('auth/failed');		
 		}				
 		$this->open();				
-		$data['id_barang'] = $this->input->post('id_pulsa');				
-		$data['kode'] = $this->input->post('kode_pulsa');		
-		$data['nama_barang'] = $this->input->post('nama_pulsa');		
+		$data['id_barang'] = strtoupper($this->input->post('id_pulsa'));				
+		$data['kode'] = strtoupper($this->input->post('kode_pulsa'));		
+		$data['nama_barang'] = strtoupper($this->input->post('nama_pulsa'));		
 		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');		
 		$data['id_satuan'] = $this->input->post('id_satuan');				
@@ -318,10 +318,10 @@ class master_pulsa extends My_Controller
 		
                 //$checker = $this->checkKode($data['kode']);
                 if ($this->form_validation->run() == FALSE){
-                    $data['id_barang'] = $this->input->post('id_pulsa');					
-                    $data['kode'] = $this->input->post('kode_pulsa');			
+                    $data['id_barang'] = strtoupper($this->input->post('id_pulsa'));					
+                    $data['kode'] = strtoupper($this->input->post('kode_pulsa'));			
                     //$data['nama_pulsa'] = $this->input->post('nama_pulsa');			
-                    $data['nama_barang'] = $this->input->post('nama_pulsa');			
+                    $data['nama_barang'] = strtoupper($this->input->post('nama_pulsa'));			
                     $data['id_jenis'] = $this->input->post('id_jenis');			
                     $data['id_kategori'] = $this->input->post('id_kategori');			
                     $data['id_satuan'] = $this->input->post('id_satuan');						

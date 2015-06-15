@@ -72,8 +72,8 @@ class kabupaten extends My_Controller
 		}
 		
 		$this->open();
-		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
-		$data['kabupaten'] = $this->input->post('kabupaten');
+		$data['id_kabupaten'] = strtoupper($this->input->post('id_kabupaten'));
+		$data['kabupaten'] = strtoupper($this->input->post('kabupaten'));
 		$data['userid'] = get_userid();
 		
 		$this->form_validation->set_rules('kabupaten', 'kabupaten', 'callback_cek_nama|required');	
@@ -140,33 +140,23 @@ class kabupaten extends My_Controller
 		$this->open();
 		
 		
-		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
-		$data['kabupaten'] = $this->input->post('kabupaten');
+		$data['id_kabupaten'] = strtoupper($this->input->post('id_kabupaten'));
+		$data['kabupaten'] = strtoupper($this->input->post('kabupaten'));
 		$data['userid'] = get_userid();
 		
-		
-		
 		$this->form_validation->set_rules('kabupaten', 'kabupaten', 'callback_cek_nama|required');
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		
-		
-		if ($this->form_validation->run() == FALSE){
-			
+		if ($this->form_validation->run() == FALSE){	
 			$this->load->view('kabupaten/kabupaten_edit',$data);
-			
 		}else{
 			$this->kabupaten->update($data['id_kabupaten'], $data);
-			
 			$this->session->set_flashdata('message', 'Data kabupaten Berhasil diupdate.');
 			redirect('kabupaten');
 		}
 		
 		$this->close();
-		
 	}
 	
 	function delete($id)

@@ -75,8 +75,8 @@ class barang_point extends My_Controller
 		
 		$this->open();
 		
-		$data['id_barang'] = $this->input->post('id_barang');
-		$data['nama_barang'] = $this->input->post('nama_barang');
+		$data['id_barang'] = strtoupper($this->input->post('id_barang'));
+		$data['nama_barang'] = strtoupper($this->input->post('nama_barang'));
 		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
@@ -125,10 +125,9 @@ class barang_point extends My_Controller
 		
 		
 		if ($this->form_validation->run() == FALSE){
-			
 			$this->load->view('barang_point/barang_point_add',$data);
-			
-		}else{	
+		}
+                else{	
 			$this->barang_point->insert($data);
 			$max = $this->barang->getMax();			
 			foreach ($max->result() as $row) {
@@ -203,9 +202,8 @@ class barang_point extends My_Controller
 		
 		$this->open();
 		
-		
-		$data['id_barang'] = $this->input->post('id_barang');
-		$data['nama_barang'] = $this->input->post('nama_barang');
+		$data['id_barang'] = strtoupper($this->input->post('id_barang'));
+		$data['nama_barang'] = strtoupper($this->input->post('nama_barang'));
 		$data['id_jenis'] = $this->input->post('id_jenis');
 		$data['id_kategori'] = $this->input->post('id_kategori');
 		$data['id_satuan'] = $this->input->post('id_satuan');
@@ -213,35 +211,25 @@ class barang_point extends My_Controller
 		$data['point_barangpoint'] = $this->input->post('point_barangpoint');			
 		$data['userid'] = get_userid();
 		
-		
-		
 		$this->form_validation->set_rules('nama_barang', 'nama_barang', 'required');
 		$this->form_validation->set_rules('id_kategori', 'id_kategori', 'required');
 		$this->form_validation->set_rules('id_satuan', 'id_satuan', 'required');
 		$this->form_validation->set_rules('id_golongan', 'id_golongan', 'required');
 		$this->form_validation->set_rules('point_barangpoint', 'point_barangpoint', 'required|numeric');
 		
-		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
-		if ($this->form_validation->run() == FALSE){
-			
+		if ($this->form_validation->run() == FALSE){	
 			$this->load->view('barang_point/barang_point_edit',$data);
-			
-		}else{	
-			$this->barang_point->update($data['id_barang'], $data);
-			
+		}
+                else{	
+			$this->barang_point->update($data['id_barang'], $data);	
 			$this->session->set_flashdata('message', 'Data Barang Point Berhasil diupdate.');
 			redirect('barang_point');
 		}
-		
 		$this->close();
-		
 	}
 	
 	function delete($id)

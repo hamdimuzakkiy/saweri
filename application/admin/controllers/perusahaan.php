@@ -48,8 +48,8 @@ class perusahaan extends My_Controller
 	function process_update()
 	{
 		$this->open();
-		$data['perusahaan'] = $this->input->post('perusahaan');
-		$data['alamat'] = $this->input->post('alamat');
+		$data['perusahaan'] = strtoupper($this->input->post('perusahaan'));
+		$data['alamat'] = strtoupper($this->input->post('alamat'));
 
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required');
 		$this->form_validation->set_rules('perusahaan', 'Nama Perusahaan', 'required');

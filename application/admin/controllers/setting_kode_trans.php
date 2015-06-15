@@ -46,8 +46,8 @@ class setting_kode_trans extends My_Controller{
 		}
 		
 		$this->open();
-		$data['kd_trans'] = $this->input->post('kd_trans');
-		$data['transaksi'] = $this->input->post('transaksi');		
+		$data['kd_trans'] = strtoupper($this->input->post('kd_trans'));
+		$data['transaksi'] = strtoupper($this->input->post('transaksi'));		
 		
 		$this->form_validation->set_rules('kd_trans', 'kd_trans', 'required');
 		$this->form_validation->set_rules('transaksi', 'transaksi', 'required');
@@ -89,9 +89,9 @@ class setting_kode_trans extends My_Controller{
 			redirect('auth/failed');
 		}
 		$this->open();
-		$data['id'] = $this->input->post('id');
-		$data['kd_trans'] = $this->input->post('kd_trans');
-		$data['transaksi'] = $this->input->post('transaksi');
+		$data['id'] = strtoupper($this->input->post('id'));
+		$data['kd_trans'] = strtoupper($this->input->post('kd_trans'));
+		$data['transaksi'] = strtoupper($this->input->post('transaksi'));
 		$this->form_validation->set_rules('id', 'id');
 		$this->form_validation->set_rules('kd_trans', 'kd_trans', 'required');
 		$this->form_validation->set_rules('transaksi', 'transaksi', 'required');

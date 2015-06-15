@@ -71,12 +71,12 @@ class supplier extends My_Controller
 		
 		$this->open();
 		
-		$data['id_supplier'] = $this->input->post('id_supplier');
-		$data['kode_supplier'] = $this->input->post('kode_supplier');
-		$data['nama'] = $this->input->post('nama');
-		$data['alamat'] = $this->input->post('alamat');
-		$data['telpon'] = $this->input->post('telpon');
-		$data['saldo_hutang'] = $this->input->post('saldo_hutang');
+		$data['id_supplier'] = strtoupper($this->input->post('id_supplier'));
+		$data['kode_supplier'] = strtoupper($this->input->post('kode_supplier'));
+		$data['nama'] = strtoupper($this->input->post('nama'));
+		$data['alamat'] = strtoupper($this->input->post('alamat'));
+		$data['telpon'] = strtoupper($this->input->post('telpon'));
+		$data['saldo_hutang'] = strtoupper($this->input->post('saldo_hutang'));
 		$data['userid'] = get_userid();		
                 $glid = $this->hutang->get_glid();
                 
@@ -160,10 +160,10 @@ class supplier extends My_Controller
 		}
 		
 		$this->open();
-		$data['id_supplier'] = $this->input->post('id_supplier');
-		$data['kode_supplier'] = $this->input->post('kode_supplier');
-		$data['nama'] = $this->input->post('nama');
-		$data['alamat'] = $this->input->post('alamat');
+		$data['id_supplier'] = strtoupper($this->input->post('id_supplier'));
+		$data['kode_supplier'] = strtoupper($this->input->post('kode_supplier'));
+		$data['nama'] = strtoupper($this->input->post('nama'));
+		$data['alamat'] = strtoupper($this->input->post('alamat'));
 		$data['telpon'] = $this->input->post('telpon');
 		$data['saldo_hutang'] = $this->input->post('saldo_hutang');
 		$data['userid'] = get_userid();
@@ -179,16 +179,12 @@ class supplier extends My_Controller
 		$this->form_validation->set_message('alpha', 'Field %s harus diisi hanya dengan huruf!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		$checker = $this->checkID($data['kode_supplier']);
+		//$checker = $this->checkID($data['kode_supplier']);
                 
 		if ($this->form_validation->run() == FALSE){
                         $data['usernameValidation']=0;
 			$this->load->view('supplier/supplier_edit',$data);
 		}
-                else if($checker==FALSE){
-                        $data['usernameValidation'] = 1;
-			$this->load->view('supplier/supplier_edit',$data);
-                }
                 else{
 			$this->supplier->update($data['id_supplier'], $data);
 			$this->session->set_flashdata('message', 'Data Supplier Berhasil diupdate.');

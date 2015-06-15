@@ -20,7 +20,6 @@ class satuan extends My_Controller
 		
 		$this->open();
 		
-		
 		$config['base_url'] = base_url().'index.php/satuan/index/';
 		$config['total_rows'] = $this->db->count_all('satuan');
 		$config['per_page'] = '10';
@@ -53,14 +52,8 @@ class satuan extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
-		
 		$data['results'] = $this->satuan->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
-		$this->load->view('satuan/satuan_list', $data);
-		
+		$this->load->view('satuan/satuan_list', $data);		
 		$this->close();
 	}
 	
@@ -72,8 +65,8 @@ class satuan extends My_Controller
 		}
 		$this->open();
                 
-		$data['id_satuan'] = $this->input->post('id_satuan');
-		$data['satuan'] = $this->input->post('satuan');
+		$data['id_satuan'] = strtoupper($this->input->post('id_satuan'));
+		$data['satuan'] = strtoupper($this->input->post('satuan'));
 		$data['userid'] = get_userid();
 		
 		$this->form_validation->set_rules('satuan', 'satuan', 'required');
@@ -110,10 +103,7 @@ class satuan extends My_Controller
 		$data['id_satuan'] = $id;
 		$data['satuan'] = $data['result']->row()->satuan;
                 $data['usernameValidation'] = 0;
-		
-		
 		$this->load->view('satuan/satuan_edit', $data);
-		
 		$this->close();
 	}
 	
@@ -123,8 +113,8 @@ class satuan extends My_Controller
 			redirect('auth/failed');
 		}
 		$this->open();
-		$data['id_satuan'] = $this->input->post('id_satuan');
-		$data['satuan'] = $this->input->post('satuan');
+		$data['id_satuan'] = strtoupper($this->input->post('id_satuan'));
+		$data['satuan'] = strtoupper($this->input->post('satuan'));
 		$data['userid'] = get_userid();
 		
 		$this->form_validation->set_rules('satuan', 'satuan', 'required');
@@ -146,9 +136,7 @@ class satuan extends My_Controller
 			$this->session->set_flashdata('message', 'Data Satuan Barang Berhasil diupdate.');
 			redirect('satuan');
 		}
-		
 		$this->close();
-		
 	}
 	
 	function delete($id)

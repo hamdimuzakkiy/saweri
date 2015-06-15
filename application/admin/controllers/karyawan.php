@@ -62,14 +62,8 @@ class karyawan extends My_Controller
 		$config['first_tag_close'] = '</li>';
 		
 		$this->pagination->initialize($config);	
-		
-		
-		
 		$data['results'] = $this->karyawan->getItem($config['per_page'], $this->uri->segment(3));
-		
-		
 		$this->load->view('karyawan/karyawan_list', $data);
-		
 		$this->close();
 	}
 	
@@ -131,12 +125,12 @@ class karyawan extends My_Controller
                             $kode_karyawan = $temp->kode_cabang;
                         }
 			$data_karyawan['kode_karyawan'] = $this->cokot($kode_karyawan);
-                        $data_karyawan['nama'] = $this->input->post('nama');
-			$data_karyawan['alamat'] = $this->input->post('alamat');
-			$data_karyawan['jenis_pengenal'] = $this->input->post('jenis_pengenal');
+                        $data_karyawan['nama'] = strtoupper($this->input->post('nama'));
+			$data_karyawan['alamat'] = strtoupper($this->input->post('alamat'));
+			$data_karyawan['jenis_pengenal'] = strtoupper($this->input->post('jenis_pengenal'));
 			$data_karyawan['no_pengenal'] = $this->input->post('no_pengenal');
 			$data_karyawan['point'] = $this->input->post('point');
-			$data_karyawan['status'] = $this->input->post('status');
+			$data_karyawan['status'] = strtoupper($this->input->post('status'));
 			$data_karyawan['telp1'] = $this->input->post('telp1');
 			
 			/* insert ke tabel user */
@@ -247,12 +241,12 @@ class karyawan extends My_Controller
 			$data_karyawan['id_cabang'] = $this->input->post('id_cabang');
 			//$data_karyawan['kode_karyawan'] = $this->input->post('kode_karyawan');
                         //$data_karyawan['kode_karyawan'] = $this->cokot($data_karyawan['id_cabang']);
-			$data_karyawan['nama'] = $this->input->post('nama');
-			$data_karyawan['alamat'] = $this->input->post('alamat');
-			$data_karyawan['jenis_pengenal'] = $this->input->post('jenis_pengenal');
+			$data_karyawan['nama'] = strtoupper($this->input->post('nama'));
+			$data_karyawan['alamat'] = strtoupper($this->input->post('alamat'));
+			$data_karyawan['jenis_pengenal'] = strtoupper($this->input->post('jenis_pengenal'));
 			$data_karyawan['no_pengenal'] = $this->input->post('no_pengenal');
 			$data_karyawan['point'] = $this->input->post('point');
-			$data_karyawan['status'] = $this->input->post('status');
+			$data_karyawan['status'] = strtoupper($this->input->post('status'));
 			$data_karyawan['telp1'] = $this->input->post('telp1');
 						
 			$this->karyawan->update($data_karyawan['id_karyawan'], $data_karyawan);

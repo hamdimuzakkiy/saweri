@@ -72,9 +72,9 @@ class area extends My_Controller
 		}
 		$this->open();
 	
-		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
-		$data['id_area'] = $this->input->post('id_area');
-		$data['area'] = $this->input->post('area');
+		$data['id_kecamatan'] = strtoupper($this->input->post('id_kecamatan'));
+		$data['id_area'] = strtoupper($this->input->post('id_area'));
+		$data['area'] = strtoupper($this->input->post('area'));
 		$data['userid'] = get_userid();
 		
 		$this->form_validation->set_rules('area', 'area', 'required');
@@ -152,9 +152,9 @@ class area extends My_Controller
 		
 		$this->open();
 		//$data['id_kabupaten'] = $this->input->post('id_kabupaten');
-		$data['id_area'] = $this->input->post('id_area');
-		$data['area'] = $this->input->post('area');
-                $data['id_kecamatan'] = $this->input->post('id_kecamatan');
+		$data['id_area'] = strtoupper($this->input->post('id_area'));
+		$data['area'] = strtoupper($this->input->post('area'));
+                $data['id_kecamatan'] = strtoupper($this->input->post('id_kecamatan'));
 		$data['userid'] = get_userid();
 		
 		$this->form_validation->set_rules('area', 'area', 'required');

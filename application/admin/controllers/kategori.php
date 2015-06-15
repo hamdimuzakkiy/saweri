@@ -67,13 +67,12 @@ class kategori extends My_Controller
 		
 		$this->open();
 		
-		$data['id_kategori'] = $this->input->post('id_kategori');
-		$data['kategori'] = $this->input->post('kategori');		
-		$data['jenis'] = $this->input->post('jenis');
+		$data['id_kategori'] = strtoupper($this->input->post('id_kategori'));
+		$data['kategori'] = strtoupper($this->input->post('kategori'));		
+		$data['jenis'] = strtoupper($this->input->post('jenis'));
 
                 $checker = $this->checkID($data['id_kategori']);
                 
-		//$this->form_validation->set_rules('kategori', 'kategori', 'callback_cek_nama|required');
                 $this->form_validation->set_rules('id_kategori', 'ID Kategori', 'required');
                 $this->form_validation->set_rules('kategori', 'Kategori', 'required');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -145,9 +144,9 @@ class kategori extends My_Controller
 		
 		$this->open();
 		
-		$data['id_kategori'] = $this->input->post('id_kategori');
-		$data['kategori'] = $this->input->post('kategori');
-		$data['jenis'] = $this->input->post('jenis');
+		$data['id_kategori'] = strtoupper($this->input->post('id_kategori'));
+		$data['kategori'] = strtoupper($this->input->post('kategori'));
+		$data['jenis'] = strtoupper($this->input->post('jenis'));
 		
 		$this->form_validation->set_rules('kategori', 'kategori', 'required');
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');

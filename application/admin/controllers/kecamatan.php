@@ -73,9 +73,9 @@ class kecamatan extends My_Controller
 		
 		$this->open();
 		
-		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
-		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
-		$data['kecamatan'] = $this->input->post('kecamatan');
+		$data['id_kecamatan'] = strtoupper($this->input->post('id_kecamatan'));
+		$data['id_kabupaten'] = strtoupper($this->input->post('id_kabupaten'));
+		$data['kecamatan'] = strtoupper($this->input->post('kecamatan'));
 		$data['userid'] = get_userid();
 			
 		$this->form_validation->set_rules('kecamatan', 'kecamatan', 'required');
@@ -145,12 +145,10 @@ class kecamatan extends My_Controller
 		}
 		
 		$this->open();
-		
-		
-		$data['id_kecamatan'] = $this->input->post('id_kecamatan');
-		$id = $data['id_kecamatan'];
-		$data['id_kabupaten'] = $this->input->post('id_kabupaten');
-		$data['kecamatan'] = $this->input->post('kecamatan');
+		$data['id_kecamatan'] = strtoupper($this->input->post('id_kecamatan'));
+		$id = strtoupper($data['id_kecamatan']);
+		$data['id_kabupaten'] = strtoupper($this->input->post('id_kabupaten'));
+		$data['kecamatan'] = strtoupper($this->input->post('kecamatan'));
 		$data['userid'] = get_userid();
 		
 		
