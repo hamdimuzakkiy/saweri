@@ -54,8 +54,20 @@
 
 	function laporan(title, w, h){
 
-
+		var cIdx = 'nama_barang';
+		var cControl = 'control';		
+		var flag = true;
+		for (var i=0;i < document.form1.elements.length;i++)
+		{
+			var e = document.form1.elements[i];
+			if (e.checked == true)
+				{flag = false; break;}
+		}	
+		if (flag == true)
+			{alert('Check Barang Terlebih dahulu');  return;}
+		
 		//var tanggal_cetak 
+		var tanggal_cetak=document.getElementById('tanggal_cetak').value;
 		var periode_awal=document.getElementById('tanggal_awal').value;
 		var periode_akhir=document.getElementById('tanggal_akhir').value;
 		if ((periode_awal=='')||(periode_akhir=='')){
@@ -75,7 +87,7 @@
 
 			// change form info:
 			myForm.target = title;
-			myForm.action = "<?=site_url();?>/laporan_pembelian/view_lap_pembelian_barang/v_html";
+			myForm.action = "<?=site_url();?>/laporan_pembelian/view_lap_pembelian_barang/v_html/"+tanggal_cetak;
 			myForm.method = "post"; // not needed if <form> was already post
 			myForm.submit( );  // invoke the form, submitting to the popup window
 
@@ -193,7 +205,7 @@
 			</fieldset>
 			
 			<div id="tab-settings" class="tabs-content">
-					<button type="button" onclick="laporan('name',1000,800)"><img src="<?=base_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16">Print Preview</button> 
+					<button type="button" onclick="laporan('name',1000,800);"><img src="<?=base_url()?>asset/admin/images/icons/fugue/tick-circle.png" width="16" height="16">Print Preview</button> 
 					<button type="button" onclick="javascript:batal()" class="red">Batal</button> 
 			</div>	
 			

@@ -63,15 +63,16 @@
 			$i++;
 		}
 	?>
+	<?php foreach ($perusahaan->result() as $prsh) {		?>
 <div id="div_laporan">
 	<table class="laporan" width="90%" border="1">
-		<tr><td colspan="8"><b>SAWERI GADING CELL</b></td></tr>
-		<tr><td colspan="8"><b>JL. S PARMAN 18 BANYUWANGI</b></td></tr>
-		<tr><td colspan="8"><b>TELP (0333)-411345</b></td></tr>
+		<tr><td colspan="8"><b><?php echo $prsh->perusahaan;?></b></td></tr>
+		<tr><td colspan="8"><b><?php echo $prsh->alamat; ?></b></td></tr>
+		<tr><td colspan="8"><b>TELP <?php echo $prsh->telepon ?></b></td></tr>
 		<tr><td colspan="8"><b></b><br/></td></tr>
 		<tr><td colspan="8" div align="center"><b>LAPORAN PEMBELIAN</b></td></tr>
 		<tr><td colspan="8"><b>PERIODE : <?php echo $periode_awal . ' s/d ' .  $periode_akhir; ?></b></td></tr>
-		<tr><td colspan="8"><b>TANGGAL CETAK : <?php echo date('d-M-Y') ?></b></td></tr>
+		<tr><td colspan="8"><b>TANGGAL CETAK : <?php echo $tanggal_cetak; ?></b></td></tr>
 		<tr>
 			<th scope="col">NO</th>
 			<th scope="col">TANGGAL </th>
@@ -82,7 +83,7 @@
 			<th scope="col">CABANG</th>
 			<th scope="col">RUPIAH</th>
 		</tr>
-		
+		<?php } ?>
 		<?php
 		$j=0;
 		$nama_brg = null;

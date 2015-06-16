@@ -7,7 +7,8 @@ class laporan_pembelian extends My_Controller
 	{
 		parent::__construct();
 		$this->load->model('mdl_laporan_pembelian', 'lap_pembelian');
-$this->load->model('mdl_inventory', 'inventory');
+		$this->load->model('mdl_inventory', 'inventory');
+		$this->load->model('mdl_cabang', 'cabang');
 		$this->load->library('pdf');
 		$this->load->library('fungsi');
 	}
@@ -73,20 +74,25 @@ $this->load->model('mdl_inventory', 'inventory');
 	}
 	
 	function view_lap_pembelian_barang(){
-		
+
 		$cek_pilihan = $this->uri->segment('3');
-		
+		$data['tanggal_cetak'] = $this->uri->segment('4');
+
 		/* $periode_akhir = $this->uri->segment('4'); */
 		$periode_awal = $this->input->post('periode_awal');
 		$periode_akhir = $this->input->post('periode_akhir');
 		
 		$nama_barang = $this->input->post('nama_barang');
 		
-		$date_now=date('d M Y');
+		//$date_now=date('d M Y');		
 	/*	echo $periode_awal . '-' . $periode_akhir . '<br/>';
 		foreach($nama_barang as $barang){
 			echo $barang.'<br>';
 		}*/
+		$idCabang = $this->getIdCabang();
+        $data['perusahaan'] = $this->cabang->getItemById($idCabang);
+
+
 		$data['dt_nama_barang'] = $nama_barang;
 		 if (($periode_awal)&&($periode_akhir)){
 			 $data['periode_awal']=$periode_awal;
