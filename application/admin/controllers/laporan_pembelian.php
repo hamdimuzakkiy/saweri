@@ -73,6 +73,7 @@ $this->load->model('mdl_inventory', 'inventory');
 	}
 	
 	function view_lap_pembelian_barang(){
+		
 		$cek_pilihan = $this->uri->segment('3');
 		
 		/* $periode_akhir = $this->uri->segment('4'); */

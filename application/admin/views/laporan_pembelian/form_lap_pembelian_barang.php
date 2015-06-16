@@ -49,8 +49,13 @@
 		});
 
 	}
-	
+		
+
+
 	function laporan(title, w, h){
+
+
+		//var tanggal_cetak 
 		var periode_awal=document.getElementById('tanggal_awal').value;
 		var periode_akhir=document.getElementById('tanggal_akhir').value;
 		if ((periode_awal=='')||(periode_akhir=='')){
@@ -94,7 +99,9 @@
 	$(function(){
 		$("#tanggal_awal").datepicker({dateFormat: 'yy-mm-dd' });
 	})	
-	
+	$(function(){
+		$("#tanggal_cetak").datepicker({dateFormat: 'yy-mm-dd' });
+	})	
 	$(function(){
 		$("#tanggal_akhir").datepicker({dateFormat: 'yy-mm-dd' });
 	})
@@ -118,6 +125,12 @@
 		tanggal.focus();
 	}
 	
+	function klick_tanggal_cetak()
+	{
+		var tanggal = document.getElementById("tanggal_cetak");
+		tanggal.focus();	
+	}
+
 	function klick_tanggal_akhir(){
 		var tanggal = document.getElementById("tanggal_akhir");
 		tanggal.focus();
@@ -135,18 +148,30 @@
 			
 			<fieldset>
 				
+				<div class="columns">
+					<input type="hidden" name="id_pembelian" id="id_pembelian" >
+					<p class="colx2-left">
+						<label for="complex-en-url">Periode :</label>
+						<span class="relative">
+								<span class="input-type-text margin-right relative"><input type="text" name="cetak" id="tanggal_cetak" class="datepicker" value="<?=date('Y-m-d')?>">  
+								<img onclick="javascript:klick_tanggal_cetak()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16"></span>
+						</span>						
+					</p>					
+				</div>
+
 				
+
 				<div class="columns">
 					<input type="hidden" name="id_pembelian" id="id_pembelian" value="<?=date('YmdHis')?>">
 					<p class="colx2-left">
 						<label for="complex-en-url">Periode :</label>
 						<span class="relative">
-								<span class="input-type-text margin-right relative"><input type="text" name="periode_awal" id="tanggal_awal" class="datepicker">  
+								<span class="input-type-text margin-right relative"><input type="text" name="periode_awal" id="tanggal_awal" class="datepicker" value="<?=date('Y-m-d')?>">  
 								<img onclick="javascript:klick_tanggal_awal()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16"></span>
 						</span>
 						S/D
 						<span class="relative">
-								<span class="input-type-text margin-right relative"><input type="text" name="periode_akhir" id="tanggal_akhir" class="datepicker">  
+								<span class="input-type-text margin-right relative"><input type="text" name="periode_akhir" id="tanggal_akhir" class="datepicker" value="<?=date('Y-m-d')?>">  
 								<img onclick="javascript:klick_tanggal_akhir()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16"></span>
 						</span>
 					</p>
