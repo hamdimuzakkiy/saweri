@@ -5,7 +5,7 @@
 	}
 	
 	$(function(){
-		$("#tgl_lahir").datepicker({dateFormat: 'yy-mm-dd', yearRange: '1945:2020' });
+		$("#tgl_lahir").datepicker({dateFormat: 'yy-mm-dd', yearRange: '1945:2005'});
 	})
 	
 	$(function(){
