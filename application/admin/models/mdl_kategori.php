@@ -54,4 +54,19 @@ class mdl_kategori extends CI_Model{
 		$this->db->delete('kategori', array('id_kategori' => $id));
 	}
 	
+
+	function get_kategori_like($key,$num=false){
+		$this->db->select('*');		
+		$this->db->from('kategori');
+		$this->db->join('jenis','jenis.id_jenis = kategori.jenis');
+		if($key!='')
+			$this->db->like('kategori.kategori',$key);
+		
+		if($num)
+		{
+		    return $this->db->count_all_results();
+		}
+		$this->db->order_by("kategori.kategori", "asc");
+		return $this->db->get();
+	}	
 }

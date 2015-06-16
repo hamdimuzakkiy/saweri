@@ -8,6 +8,7 @@ class laporan_pembelian extends My_Controller
 		parent::__construct();
 		$this->load->model('mdl_laporan_pembelian', 'lap_pembelian');
 		$this->load->model('mdl_inventory', 'inventory');
+		$this->load->model('mdl_kategori', 'kategori');
 		$this->load->model('mdl_cabang', 'cabang');
 		$this->load->library('pdf');
 		$this->load->library('fungsi');
@@ -31,10 +32,6 @@ class laporan_pembelian extends My_Controller
 		
 		$this->close();
 	}
-	
-	
-	
-	
 	
 	function show_report(){
 		$periode_awal = $this->uri->segment('3');
@@ -66,7 +63,8 @@ class laporan_pembelian extends My_Controller
 	}
 	
 	function form_lap_pembelian_barang(){
-		$this->open();
+		$this->open();		
+		
 		$data['barang'] = $this->lap_pembelian->get_item_barang(false);
 		$data['num'] = $this->lap_pembelian->get_item_barang(true);
 		$this->load->view('laporan_pembelian/form_lap_pembelian_barang',$data);
@@ -131,6 +129,7 @@ class laporan_pembelian extends My_Controller
 	}
 	
 	function get_barang(){
+		$data['kategori'] = $this->kategori->getItem(9999999);				
 		$data['barang'] = $this->lap_pembelian->get_item_barang(false);
 		$data['num'] = $this->lap_pembelian->get_item_barang(true);
 		$this->load->view('laporan_pembelian/get_barang',$data);
@@ -142,10 +141,15 @@ class laporan_pembelian extends My_Controller
 		
 		/*$offset = $this->uri->segment(4,0); */
 		$perpage=15;
-		$total_page=$this->lap_pembelian->get_barang_like($key,true);	
-		$data['num'] = $total_page;
-		/*$data['batas'] = $offset; */
-		$data['barang'] = $this->lap_pembelian->get_barang_like($key,false);
+
+		/*$total_page=$this->lap_pembelian->get_barang_like($key,true);
+		$data['num'] = $total_page;		
+		$data['barang'] = $this->lap_pembelian->get_barang_like($key,false);*/
+
+		$total_page=$this->kategori->get_kategori_like($key,true);
+		$data['num'] = $total_page;		
+		$data['kategori'] = $this->kategori->get_kategori_like($key,false);
+
 		$this->load->view('laporan_pembelian/get_barang',$data);
 	}
 	
