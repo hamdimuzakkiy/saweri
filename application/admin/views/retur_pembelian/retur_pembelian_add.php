@@ -51,11 +51,12 @@
 	}
 	
 	function get_po(po){
+		
 		$.ajax({
 			type: 'GET',
 			url: '<?php echo base_url().'index.php/retur_pembelian/get_barang_by_po/'?>' + po, //url: $(this).attr('action'),
 			//data: $('#form1').serialize(),
-			success: function(data) {
+			success: function(data) {				
 				$('#detail').html(data);
 			}						
 		});			
@@ -80,7 +81,7 @@
 			}
 
 		});	
-		alert('kanto');		
+			
 	}
 	
 	
@@ -166,4 +167,3 @@
 		</form>
 	</div>
 </section>
-<button onclick="javascript:test();">button</button>

@@ -204,16 +204,12 @@ class retur_pembelian extends My_Controller
 	
 	function get_barang_by_po($po){		
 		# ambil id pembelian berdasarkan no po di tabel pembelian
-
-
-
-
 		$this->db->flush_cache();
 		$this->db->from('pembelian');		
 		$this->db->where('id_pembelian', $po);
 		$que1 = $this->db->get();
 
-
+		
 
 		if($que1->num_rows() > 0){
 			$id_pembelian = $que1->row()->id_pembelian;
@@ -225,7 +221,7 @@ class retur_pembelian extends My_Controller
 			// $this->db->join('barang', 'barang.id_barang = detail_pembelian.id_barang');
 			// $this->db->where('id_pembelian', $id_pembelian);
 			// $que2 = $this->db->get();
-			
+
 			$this->db->flush_cache();
 			$this->db->select('id_retur_pembelian');
 			$this->db->from('terima_barang_retur');
@@ -239,10 +235,12 @@ class retur_pembelian extends My_Controller
 				}
 			}
 
+			//print sizeof($arr1);}
 			$this->db->flush_cache();
 			$this->db->select('id_detail_pembelian');
 			$this->db->from('retur_pembelian');
-			$this->db->where_not_in('id_retur_pembelian', $arr1);
+			if (sizeof($arr1) != 0)
+			{$this->db->where_not_in('id_retur_pembelian', $arr1);}
 			$no1 = $this->db->get();
 			$arr2 = array();
 			$jum = 0;
@@ -258,10 +256,11 @@ class retur_pembelian extends My_Controller
 			$this->db->from('pembelian');
 			$this->db->join('detail_pembelian', 'detail_pembelian.id_pembelian = pembelian.id_pembelian');
 			$this->db->join('barang', 'barang.id_barang = detail_pembelian.id_barang');
-			$this->db->join('supplier', 'supplier.id_supplier = pembelian.id_supplier');
+			$this->db->join('supplier', 'supplier.id_supplier = pembelian.id_supplier','left');
 			$this->db->where('detail_pembelian.posisi_pusat =', 1);
 			$this->db->where('pembelian.id_pembelian', $id_pembelian);
-			$this->db->where_not_in('detail_pembelian.id_detail_pembelian', $arr2);
+			if (sizeof($arr2)!=0)
+			{$this->db->where_not_in('detail_pembelian.id_detail_pembelian', $arr2);}
 			//$this->db->join_left('pembelian.id_pembelian', $id_pembelian);
 			$que2 = $this->db->get();
 			
@@ -291,5 +290,8 @@ class retur_pembelian extends My_Controller
 
 		}
 	}
-	
+	function test()
+	{
+		print "lala";
+	}	
 }
