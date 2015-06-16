@@ -111,7 +111,14 @@ class barang extends My_Controller
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
-		if ($this->form_validation->run() == FALSE){
+		
+                $checker = $this->checkID($data['id_barang']);
+                if ($this->form_validation->run() == FALSE){
+                        $data['usernameValidation']=0;
+			$this->load->view('barang/barang_add',$data);
+		}
+                else if ($checker==FALSE){
+                        $data['usernameValidation']=1;
 			$this->load->view('barang/barang_add',$data);
 		}
                 else{	
@@ -179,7 +186,8 @@ class barang extends My_Controller
 
 		$data['result'] = $this->barang->getItemById($id);
 		$data['sn'] = $data['result']->row()->sn;
-		$data['id_barang'] = $id;
+		//$data['id_barang'] = $id;
+                $data['id_barang'] = $data['result']->row()->id_barang;
 		$data['nama_barang'] = $data['result']->row()->nama_barang;
 		$data['id_jenis'] = $data['result']->row()->id_jenis;
 		$data['id_kategori'] = $data['result']->row()->id_kategori;
@@ -289,4 +297,9 @@ class barang extends My_Controller
 		redirect('barang');
 	}
 	
+        function checkID($id){
+            $result = $this->barang->getItemByID($id);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

@@ -118,15 +118,18 @@ class barang_point extends My_Controller
 		$this->form_validation->set_rules('sn', 'sn', 'trim');
 		
 		$this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-		
-		
 		$this->form_validation->set_message('required', 'Field %s harus diisi!');
 		$this->form_validation->set_message('numeric', 'Field %s harus diisi hanya dengan angka!');
 		
-		
+		$checker = $this->checkID($data['id_barang']);
 		if ($this->form_validation->run() == FALSE){
-			$this->load->view('barang_point/barang_point_add',$data);
+                    $data['usernameValidation']=0;
+                    $this->load->view('barang_point/barang_point_add',$data);
 		}
+                else if($checker==FALSE){
+                    $data['usernameValidation']=1;
+                    $this->load->view('barang_point/barang_point_add',$data);
+                }
                 else{	
 			$this->barang_point->insert($data);
 			$max = $this->barang->getMax();			
@@ -242,5 +245,9 @@ class barang_point extends My_Controller
 		$this->session->set_flashdata('message', 'Data Barang point Berhasil dihapus.');
 		redirect('barang_point');
 	}
-	
+        function checkID($id){
+            $result = $this->barang_point->getAllItemByID($id);
+            if($result->num_rows()==0)return TRUE;
+            else return FALSE;
+        }
 }

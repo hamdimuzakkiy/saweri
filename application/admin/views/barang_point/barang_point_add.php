@@ -3,7 +3,13 @@
 	function batal(){
 		document.location.href = '<?=base_url().'index.php/barang_point'?>';
 	}
-	
+	$(document).ready(function (){
+            var x = <?php echo $usernameValidation ;?>;
+            $("#username-error").hide();
+            if(x==1){
+                $("#username-error").show();
+            }
+        });
 </script>
 
 	<?php 
@@ -17,7 +23,9 @@
 	<?php
 		} 
 	?>
-
+<div id="username-error">
+    <h2>Kode Barang Point sudah ada.</h2>
+</div>
 <section class="grid_12">
 	<div class="block-border">
 		<?php
@@ -29,6 +37,15 @@
 			<fieldset>
 				<legend>Tambah Data Barang Point</legend>
 				
+                                <div class="columns">
+					<p class="colx2-left">
+						<label for="complex-en-url">ID Barang (*) :</label>
+						<span class="relative">
+							<input type="text" name="id_barang" id="id_barang" value="<?=set_value('id_barang')?>" class="setengah-width">
+						</span>
+                                        </p>
+				</div>
+                                
 				<div class="columns">
 					<p class="colx2-left">
 						<label for="complex-en-url">Nama Barang (*) :</label>

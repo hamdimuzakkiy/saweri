@@ -50,6 +50,12 @@ class mdl_barang_point extends CI_Model{
 		$this->db->insert('barang', $data);
 	}
 	
+        function getAllItemByID($id){
+                $this->db->flush_cache();
+		$this->db->where('id_barang', $id);
+		return $this->db->get('barang');
+        }
+        
 	function update($id, $data)
 	{
 		$this->db->flush_cache();

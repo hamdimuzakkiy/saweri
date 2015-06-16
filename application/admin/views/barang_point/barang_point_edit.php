@@ -26,11 +26,20 @@
 		?>
 			<h1>Master > Master Barang Point : Qty > Edit Data Barang Point</h1>
 			
-			<fieldset>				
+			<fieldset>	
+                            
+                                <div class="columns">
+					<p class="colx2-left">
+						<label for="complex-en-url">ID Barang (*) :</label>
+						<span class="relative">
+							<input type="text" name="id_barang" id="id_barang" value="<?=$id_barang?>" class="setengah-width" readonly>
+						</span>
+                                        </p>
+				</div>
+                            
 				<div class="columns">
 					<p class="colx2-left">
 						<label for="complex-en-url">Nama Barang :</label>
-						<input type="hidden" name="id_barang" value="<?=$id_barang?>">
 						<span class="relative">
 							<?php
 								if (form_error('nama_barang') != null)
