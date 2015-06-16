@@ -294,6 +294,42 @@
 		function klick_tanggal(){
 		var tanggal = document.getElementById("tanggal");
 		tanggal.focus();
+	}
+
+	function checksn(id)
+	{
+
+
+		var jumlah = document.getElementById('sum_detail').value;		
+		
+			
+			for (var j=0;j < jumlah; j++){
+
+				if (document.getElementById('detail_sn'+id).value == document.getElementById('detail_sn'+j).value && id!=j && document.getElementById('detail_idbarang'+id).value == document.getElementById('detail_idbarang'+j).value)
+				{									
+					alert('SN Tidak Boleh Sama');
+					document.getElementById('detail_sn'+id).value = '';
+					return false;
+				}
+		};
+
+
+		var idBarang = document.getElementById('detail_idbarang'+id).value;
+		var sn = document.getElementById('detail_sn'+id).value;
+
+		$.ajax({
+			type: 'GET',
+			url: '<?php echo base_url().'index.php/pembelian/checksn/'?>' + idBarang+'/'+sn,
+			success: function(data) {				
+				if (data == 'false')
+				{
+					alert("SN Sudah Pernah ada");
+					document.getElementById('detail_sn'+id).value = '';
+					return;
+				}
+				
+			}						
+		});			
 	}	
 
 </script>

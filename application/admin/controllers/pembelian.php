@@ -7,7 +7,8 @@ class pembelian extends My_Controller
 	{
 		parent::__construct();
 		
-		$this->load->model('mdl_pembelian', 'pembelian');				
+		$this->load->model('mdl_pembelian', 'pembelian');	
+		$this->load->model('mdl_detail_pembelian', 'detail_pembelian');				
 		$this->load->model('mdl_kode_trans', 'kode_trans');				
 		$this->load->model('mdl_hutang', 'hutang');		
 		$this->load->model('mdl_cabang', 'cabang');		
@@ -505,4 +506,12 @@ class pembelian extends My_Controller
 		$this->pdf->pdf_create($html, 'laporan_biaya','letter','landscape');
 	}
 	
+	function checksn($id_barang,$sn)
+	{
+		$res =  $this->detail_pembelian->checksn($id_barang,$sn);
+		if (sizeof($res->result())>0)
+			print 'false';
+		else
+			print 'true';
+	}
 }

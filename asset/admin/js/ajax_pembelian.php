@@ -60,7 +60,7 @@
 								'; if ($detail[$i]['issn'] == '0'){ echo'
 								<input hidden class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
 								'; } if ($detail[$i]['issn'] == '1') {echo '
-								<input style = "width:100%;" required  class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
+								<input style = "width:100%;" required onchange="javascript:checksn('.$i.')"   class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
 								';} print '
 								<input hidden class="tblInput" id="detail_issn'.$i.'" type="text" name="detail['.$i.'][issn]" value="'.$detail[$i]['issn'].'" />
 							</td>
@@ -110,7 +110,7 @@
 								<input type="hidden" name="detail['.$i.'][harga_cabang]" value="'.$data['detail_harga_cabang'].'" />
 							</td>
 							<td>
-								<input style = "width:100%;" required type="text"  name="detail['.$i.'][sn]" id="detail_sn'.$i.'" value=""  />
+								<input style = "width:100%;" required type="text" onchange="javascript:checksn('.$i.')"  name="detail['.$i.'][sn]" id="detail_sn'.$i.'" value=""  />
 								<input type="hidden"  name="detail['.$i.'][issn]" id="detail_issn'.$i.'" value="1"  />
 							</td>
 							<td>
@@ -233,7 +233,7 @@
 									; if ($detail[$i]['issn'] == 0){ echo'
 									<input hidden class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
 									'; } if ($detail[$i]['issn'] == 1) {echo '
-									<input style = "width:100%;" required class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
+									<input style = "width:100%;" onchange="javascript:checksn('.$i.')"  required class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
 									';} print
 								'
 								<input hidden class="tblInput" id="detail_issn'.$i.'" type="text" name="detail['.$i.'][issn]" value="'.$detail[$i]['issn'].'" />
@@ -499,7 +499,7 @@
 									; if ($detail[$i]['issn'] == 0){ echo'
 									<input hidden class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="" />
 									'; } if ($detail[$i]['issn'] == 1) {echo '
-									<input style = "width:100%;" required class="tblInput" id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
+									<input style = "width:100%;" required class="tblInput" onchange="javascript:checksn('.$i.')"  id="detail_sn'.$i.'" type="text" name="detail['.$i.'][sn]" value="'.$detail[$i]['sn'].'" />
 									';} print
 								'
 								<input hidden class="tblInput" id="detail_issn'.$i.'" type="text" name="detail['.$i.'][issn]" value="'.$detail[$i]['issn'].'" />

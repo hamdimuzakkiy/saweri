@@ -54,8 +54,7 @@
 		
 		$.ajax({
 			type: 'GET',
-			url: '<?php echo base_url().'index.php/retur_pembelian/get_barang_by_po/'?>' + po, //url: $(this).attr('action'),
-			//data: $('#form1').serialize(),
+			url: '<?php echo base_url().'index.php/retur_pembelian/get_barang_by_po/'?>' + po, //url: $(this).attr('action'),			
 			success: function(data) {				
 				$('#detail').html(data);
 			}						

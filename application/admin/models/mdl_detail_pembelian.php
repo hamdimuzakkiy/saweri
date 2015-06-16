@@ -47,4 +47,12 @@ class mdl_detail_pembelian extends CI_Model{
 		$this->db->where('posisi_pelanggan', 0);
 		return $this->db->get('detail_pembelian');
 	}
+
+	function checksn($id,$sn)
+	{
+		$this->db->flush_cache();
+		$this->db->where('id_barang', $id);
+		$this->db->where('sn', $sn);
+ 		return $this->db->get('detail_pembelian');
+	}
 }
