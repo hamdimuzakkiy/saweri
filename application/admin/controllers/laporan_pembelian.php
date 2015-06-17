@@ -7,7 +7,8 @@ class laporan_pembelian extends My_Controller
 	{
 		parent::__construct();
 		$this->load->model('mdl_laporan_pembelian', 'lap_pembelian');
-$this->load->model('mdl_inventory', 'inventory');
+		$this->load->model('mdl_inventory', 'inventory');
+		$this->load->model('mdl_cabang', 'cabang');
 		$this->load->library('pdf');
 		$this->load->library('fungsi');
 	}
@@ -83,6 +84,11 @@ $this->load->model('mdl_inventory', 'inventory');
 		
 		$nama_barang = $this->input->post('nama_barang');
 		
+
+		$idCabang = $this->getIdCabang();
+        $data['perusahaan'] = $this->cabang->getItemById($idCabang);
+
+
 		$date_now=date('d M Y');
 	/*	echo $periode_awal . '-' . $periode_akhir . '<br/>';
 		foreach($nama_barang as $barang){
@@ -94,6 +100,7 @@ $this->load->model('mdl_inventory', 'inventory');
 			 $data['periode_akhir']=$periode_akhir;
 			 $data['results'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,false);
 			 $data['num'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,true);
+
 			if ($cek_pilihan=='v_html'){
 				$this->load->view('laporan_pembelian/view_lap_pembelian_barang', $data);				
 			}elseif($cek_pilihan=='v_pdf'){
@@ -112,6 +119,8 @@ $this->load->model('mdl_inventory', 'inventory');
 	}
 	
 	function pdf_lap_pembelian_brg(){
+		$idCabang = $this->getIdCabang();
+       	$data['perusahaan'] = $this->cabang->getItemById($idCabang);
 		$periode_awal = $this->input->post('periode_awal');
 		$periode_akhir = $this->input->post('periode_akhir');
 		
@@ -120,6 +129,7 @@ $this->load->model('mdl_inventory', 'inventory');
 		$data['periode_akhir']=$periode_akhir;
 		$data['results'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,false);
 		$data['num'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,true);
+
 		$html=$this->load->view('laporan_pembelian/pdf_lap_pembelian_brg', $data, true);
 		$this->pdf->pdf_create($html, 'laporan_pembelian_barang','letter','landscape');
 	}
