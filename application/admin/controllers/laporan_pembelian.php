@@ -38,10 +38,12 @@ $this->load->model('mdl_inventory', 'inventory');
 	function show_report(){
 		$periode_awal = $this->uri->segment('3');
 		$periode_akhir = $this->uri->segment('4');
-		
+		$tanggal_cetak = $this->uri->segment('5');
+                
 		if (($periode_awal)&&($periode_akhir)){
 			$data['periode_awal']=$periode_awal;
 			$data['periode_akhir']=$periode_akhir;
+                        $data['tanggal_cetak']=$tanggal_cetak;
 			$data['results'] = $this->lap_pembelian->getItem($periode_awal,$periode_akhir);
 			$this->load->view('laporan_pembelian/show_report', $data);
 		}

@@ -61,8 +61,8 @@
 		<tr><td colspan="11"><b>TELP (0333)-411345</b></td></tr>
 		<tr><td colspan="11"><b></b><br/></td></tr>
 		<tr><td colspan="11" div align="center"><b>LAPORAN PEMBELIAN</b></td></tr>
-		<tr><td colspan="11"><b>PERIODE : <?php echo $this->fungsi->dateindo3('-',$periode_awal) . ' S/D ' .  $this->fungsi->dateindo3('-',$periode_akhir); ?></b></td></tr>
-		<tr><td colspan="11"><b>TANGGAL CETAK : <?php echo $this->fungsi->dateindo3('-',date('Y-m-d')) ?></b></td></tr>
+		<tr><td colspan="11"><b>PERIODE : <?php echo $periode_awal . ' S/D ' . $periode_akhir; ?></b></td></tr>
+		<tr><td colspan="11"><b>TANGGAL CETAK : <?php echo $tanggal_cetak; ?></b></td></tr>
 		<tr>
 			<th width="30" scope="col">NO</th>
 			<th width="70" scope="col">TANGGAL </th>
