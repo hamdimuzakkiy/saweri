@@ -68,10 +68,10 @@
 			<th width="70" scope="col">TANGGAL </th>
 			<th width="70" scope="col">PO NOMER</th>
 			<th width="90" scope="col">SUPPLIER</th>
-			<th width="90" scope="col">CABANG</th>
+			<th width="60" scope="col">Kode Kas</th>
 			<th width="50" scope="col">JATUH TEMPO</th>
-			<th width="30" scope="col">QTY</th>
-			<th width="30" scope="col">JUMLAH</th>
+			<!--<th width="30" scope="col">QTY</th>-->
+			<th width="30" scope="col">M CARD</th>
 			<th width="30" scope="col">DISC (%)</th>
 			<th width="40" scope="col">TAX</th>
 			<th width="90" scope="col">RUPIAH</th>
@@ -88,11 +88,29 @@
 					<td align="left" valign="middle"><?=$row->tanggal?></td>
 					<td align="right" valign="middle"><?=' '.$row->po_no?></td>
 					<td align="left" valign="middle"><?=$row->nama_supplier?></td>
-					<td align="left" valign="middle"><?=$row->nama_cabang?></td>
+					<td align="center" valign="middle"><?=$row->kode_kas?></td>
 					<td align="right" valign="middle"><?=$row->jatuh_tempo ?></td>
-					<td align="right" valign="middle"><?=$row->qty?></td>
-					<td align="right" valign="middle"><?=$row->total_harga;?></td>
-					<td align="right" valign="middle"><?=$row->diskon;?></td>
+					<!--<td align="right" valign="middle"><?=$row->qty?></td>-->
+					<!--<td align="right" valign="middle"><?=$row->total_harga;?></td>-->
+                                        <?php
+                                            $id_beban = $row->id_beban_transaksi;
+                                            $this->db->flush_cache();
+                                            $this->db->select('*');
+                                            $this->db->where('id',$id_beban);
+                                            $result_transaksi = $this->db->get('beban_transaksi');
+                                        ?>
+                                        <td align="left" valign="middle"><?php 
+                                        if($result_transaksi->num_rows()>0)
+                                            foreach($result_transaksi->result() as $result){
+                                                echo $result->pembayaran." : ";
+                                                echo $result->beban."%";
+                                            }
+                                        else {
+                                            echo "Uang Pas : Rp.";
+                                            echo $row->total_harga;
+                                        }
+                                        ?>
+					<td align="center" valign="middle"><?=$row->diskon;?></td>
 					<td align="left" valign="middle">&nbsp; </td>
 					<td align="right" valign="middle">
 					<?php 
@@ -110,7 +128,7 @@
 			}
 		?>
 			<tr><td colspan="6">JUMLAH : </td>
-			<td align="right"><b><?php if (isset($row->qty)){ echo array_sum($sum_qty); } ?></b></td>
+			<!--<td align="right"><b><?php if (isset($row->qty)){ echo array_sum($sum_qty); } ?></b></td>-->
 			<td align="right"><b><?php if (isset($row->total_harga)){ echo $this->fungsi->uangindo(array_sum($sum_total)); } ?></b></td>
 			<td colspan="2"></td>
 			<td align="right"><b><?php if (isset($row->total_harga)){ echo $this->fungsi->uangindo(array_sum($arrjmldiskon)); } ?></b></td>
