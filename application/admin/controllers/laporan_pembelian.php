@@ -7,9 +7,7 @@ class laporan_pembelian extends My_Controller
 	{
 		parent::__construct();
 		$this->load->model('mdl_laporan_pembelian', 'lap_pembelian');
-		$this->load->model('mdl_inventory', 'inventory');
-		$this->load->model('mdl_kategori', 'kategori');
-		$this->load->model('mdl_cabang', 'cabang');
+$this->load->model('mdl_inventory', 'inventory');
 		$this->load->library('pdf');
 		$this->load->library('fungsi');
 	}
@@ -32,6 +30,10 @@ class laporan_pembelian extends My_Controller
 		
 		$this->close();
 	}
+	
+	
+	
+	
 	
 	function show_report(){
 		$periode_awal = $this->uri->segment('3');
@@ -63,8 +65,7 @@ class laporan_pembelian extends My_Controller
 	}
 	
 	function form_lap_pembelian_barang(){
-		$this->open();		
-		
+		$this->open();
 		$data['barang'] = $this->lap_pembelian->get_item_barang(false);
 		$data['num'] = $this->lap_pembelian->get_item_barang(true);
 		$this->load->view('laporan_pembelian/form_lap_pembelian_barang',$data);
@@ -72,25 +73,19 @@ class laporan_pembelian extends My_Controller
 	}
 	
 	function view_lap_pembelian_barang(){
-
 		$cek_pilihan = $this->uri->segment('3');
 		$data['tanggal_cetak'] = $this->uri->segment('4');
-
 		/* $periode_akhir = $this->uri->segment('4'); */
 		$periode_awal = $this->input->post('periode_awal');
 		$periode_akhir = $this->input->post('periode_akhir');
 		
 		$nama_barang = $this->input->post('nama_barang');
 		
-		//$date_now=date('d M Y');		
+		$date_now=date('d M Y');
 	/*	echo $periode_awal . '-' . $periode_akhir . '<br/>';
 		foreach($nama_barang as $barang){
 			echo $barang.'<br>';
 		}*/
-		$idCabang = $this->getIdCabang();
-        $data['perusahaan'] = $this->cabang->getItemById($idCabang);
-
-
 		$data['dt_nama_barang'] = $nama_barang;
 		 if (($periode_awal)&&($periode_akhir)){
 			 $data['periode_awal']=$periode_awal;
@@ -98,8 +93,7 @@ class laporan_pembelian extends My_Controller
 			 $data['results'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,false);
 			 $data['num'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,true);
 			if ($cek_pilihan=='v_html'){
-				$this->load->view('laporan_pembelian/view_lap_pembelian_barang', $data);
-				
+				$this->load->view('laporan_pembelian/view_lap_pembelian_barang', $data);				
 			}elseif($cek_pilihan=='v_pdf'){
 				$html=$this->load->view('laporan_pembelian/pdf_lap_pembelian_brg', $data);
 				$this->pdf->pdf_create($html, 'laporan_pembelian_barang','letter','landscape');
@@ -129,7 +123,6 @@ class laporan_pembelian extends My_Controller
 	}
 	
 	function get_barang(){
-		$data['kategori'] = $this->kategori->getItem(9999999);				
 		$data['barang'] = $this->lap_pembelian->get_item_barang(false);
 		$data['num'] = $this->lap_pembelian->get_item_barang(true);
 		$this->load->view('laporan_pembelian/get_barang',$data);
@@ -141,15 +134,10 @@ class laporan_pembelian extends My_Controller
 		
 		/*$offset = $this->uri->segment(4,0); */
 		$perpage=15;
-
-		/*$total_page=$this->lap_pembelian->get_barang_like($key,true);
-		$data['num'] = $total_page;		
-		$data['barang'] = $this->lap_pembelian->get_barang_like($key,false);*/
-
-		$total_page=$this->kategori->get_kategori_like($key,true);
-		$data['num'] = $total_page;		
-		$data['kategori'] = $this->kategori->get_kategori_like($key,false);
-
+		$total_page=$this->lap_pembelian->get_barang_like($key,true);	
+		$data['num'] = $total_page;
+		/*$data['batas'] = $offset; */
+		$data['barang'] = $this->lap_pembelian->get_barang_like($key,false);
 		$this->load->view('laporan_pembelian/get_barang',$data);
 	}
 	

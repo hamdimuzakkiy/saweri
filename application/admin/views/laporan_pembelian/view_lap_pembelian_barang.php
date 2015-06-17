@@ -63,12 +63,11 @@
 			$i++;
 		}
 	?>
-	<?php foreach ($perusahaan->result() as $prsh) {		?>
 <div id="div_laporan">
 	<table class="laporan" width="90%" border="1">
-		<tr><td colspan="8"><b><?php echo $prsh->perusahaan;?></b></td></tr>
-		<tr><td colspan="8"><b><?php echo $prsh->alamat; ?></b></td></tr>
-		<tr><td colspan="8"><b>TELP <?php echo $prsh->telepon ?></b></td></tr>
+		<tr><td colspan="8"><b>SAWERI GADING CELL</b></td></tr>
+		<tr><td colspan="8"><b>JL. S PARMAN 18 BANYUWANGI</b></td></tr>
+		<tr><td colspan="8"><b>TELP (0333)-411345</b></td></tr>
 		<tr><td colspan="8"><b></b><br/></td></tr>
 		<tr><td colspan="8" div align="center"><b>LAPORAN PEMBELIAN</b></td></tr>
 		<tr><td colspan="8"><b>PERIODE : <?php echo $periode_awal . ' s/d ' .  $periode_akhir; ?></b></td></tr>
@@ -78,12 +77,12 @@
 			<th scope="col">TANGGAL </th>
 			<th scope="col">PO</th>
 			<th scope="col">NAMA BARANG</th>
-			<th scope="col">QTY</th>
 			<th scope="col">SUPPLIER</th>
-			<th scope="col">CABANG</th>
+			<th scope="col">QTY</th>			
+			<th scope="col">HARSAT</th>
 			<th scope="col">RUPIAH</th>
 		</tr>
-		<?php } ?>
+		
 		<?php
 		$j=0;
 		$nama_brg = null;
@@ -118,22 +117,22 @@
 						<td align="right" valign="middle"><?=$j;?></td>
 						<td align="center" valign="middle"><?=$row->tanggal?></td>
 						<td align="right" valign="middle"><?=$row->po_no?></td>
-						<td align="left" valign="middle"><?=$row->nama_barang?></td>
-						<td align="right" valign="middle"><?=$row->qty?></td>
+						<td align="left" valign="middle"><?=$row->nama_barang?></td>						
 						<td align="left" valign="middle"><?=$row->nama_supplier?></td>
-						<td align="left" valign="middle"><?=$row->nama_cabang?></td>
-						<td align="right" valign="middle"><?=$this->fungsi->uangindo($row->total);?></td>
-						<?php $sum_total[]=$row->total ;?>
+						<td align="right" valign="middle"><?=$row->qty?></td>
+						<td align="left" valign="middle"><?=$row->harga?></td>
+						<td align="right" valign="middle"><?=$this->fungsi->uangindo($row->harga*$row->qty);?></td>
+						<?php $sum_total[]=$row->harga*$row->qty ;?>
 						<?php $qty_perbrg=$row->qty+$qty_perbrg; ?>
-						<?php $total_brg=$row->total+$total_brg; ?>
+						<?php $total_brg=$row->harga*$row->qty+$total_brg; ?>
 					</tr>
 		<?php
 			}
 		?>
 				<tr class="rowjumlah">
-						<td colspan="4">Jumlah : </td>
+						<td colspan="5">Jumlah : </td>
 						<td align="right"><?php echo $qty_perbrg ;?></td>
-						<td colspan="2"></td>
+						<td colspan="1"></td>
 						<td align="right"><?=$this->fungsi->uangindo($total_brg)?></td>
 				</tr>
 			
