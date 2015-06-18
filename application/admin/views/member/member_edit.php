@@ -30,7 +30,30 @@
 		var tanggal = document.getElementById("expired");
 		tanggal.focus();
 	}
-	
+        
+	function getKecamatan(){
+            var kabupaten = document.getElementById("id_kabupaten").value;
+            $.ajax({
+			type: 'POST',
+                        url: '<?=base_url().'index.php/area/getKecamatan/'?>'+kabupaten, //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {
+				$('#id_kecamatan').html(data);
+			}
+            }); 
+        }
+        
+        function getArea(){
+            var kecamatan = document.getElementById("id_kecamatan").value;
+            $.ajax({
+			type: 'POST',
+                        url: '<?=base_url().'index.php/member/getArea/'?>'+kecamatan, //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {
+				$('#id_area').html(data);
+			}
+            }); 
+        }
 </script>
 
 	<?php 
@@ -252,49 +275,59 @@
 				</div>
 				<div class="columns">
 					<p class="colx2-left">
-						<label for="complex-en-url">Kabupaten - Kecamatan - Area :</label>
+						<label for="complex-en-url">Kabupaten</label>
 						<span class="relative">
-							<select name="id_area" id="id_area"class="seperempat-width" style="width: 50%;">
-								<?php
-									$query = $this->db->get('area');
+                                                    <select name="id_kabupaten" id="id_kabupaten" class="seperempat-width" onchange="getKecamatan()">
+                                                                <?php
+									$query = $this->db->get('kabupaten');
+                                                                        $this->db->flush_cache();
+                                                                        $this->db->where("id_area",$id_area);
+                                                                        $query2 = $this->db->get("area");
 									if($query->num_rows() > 0)
 									{
+                                                                                foreach ($query2->result() as $rows){}
 										foreach($query->result() as $row)
 										{
-                                                                                        $this->db->flush_cache();
-                                                                                        $this->db->select('*');
-                                                                                        $this->db->where("id_kecamatan",$row->id_kecamatan);
-                                                                                        $query1 = $this->db->get('kecamatan');
-                                                                                        
-                                                                                        $this->db->flush_cache();
-                                                                                        $this->db->select('*');
-                                                                                        $this->db->where("id_kabupaten",$row->id_kabupaten);
-                                                                                        $query2 = $this->db->get('kabupaten');
-                                                                                        
-                                                                                        if($query1->num_rows() > 0 || $query2->num_rows() > 0)
-                                                                                            foreach ($query1->result() as $rows_kec)foreach ($query2->result() as $rows_kab)
-                                                                                                if($row->id_area == $id_area)
-                                                                                                    echo '<option value="'.$row->id_area.'" selected>'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
-                                                                                                else
-                                                                                                    echo '<option value="'.$row->id_area.'">'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
+                                                                                    if($rows->id_kabupaten==$row->id_kabupaten)
+                                                                                        echo '<option value="'.$row->id_kabupaten.'" selected>'.$row->kabupaten.'</option>';
+                                                                                    else
+                                                                                        echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
 										}
 									}
 								?>
+							</select>
+						</span>
+						<label for="complex-en-url">Kecamatan</label>
+						<span class="relative">
+                                                    <select name="id_kecamatan" id="id_kecamatan" class="seperempat-width" onchange="getArea()">
+                                                            <option value="0">-</option>
+                                                            <?php
+                                                                $this->db->flush_cache();
+                                                                $this->db->where("id_Kecamatan",$rows->id_kecamatan);
+                                                                $query = $this->db->get("kecamatan");
+                                                                foreach ($query->result() as $row)
+                                                                echo '<option value="'.$row->id_kecamatan.'" selected>'.$row->kecamatan.'</option>';
+                                                            ?>
+							</select>
+						</span>
+                                                <label for="complex-en-url">Area</label>
+						<span class="relative">
+							<select name="id_area" id="id_area" class="seperempat-width">
+                                                            <option value="0">-</option>
+                                                            <?php
+                                                                $this->db->flush_cache();
+                                                                $this->db->where("id_area",$rows->id_area);
+                                                                $query = $this->db->get("area");
+                                                                foreach ($query->result() as $row)
+                                                                echo '<option value="'.$row->id_area.'" selected>'.$row->area.'</option>';
+                                                            ?>
 							</select>
 						</span>
 					</p>
 					<p class="colx2-right">
 						<label for="complex-en-url">Point :</label>
 						<span class="relative">
-							<?php 
-								if (form_error('point') != null)
-								{
-									echo '<input type="text" name="point" id="point" value="'.set_value('point').'" class="duapertiga-width">';
-								}else
-								{
-									echo '<input type="text" name="point" id="point" value="'.$point.'" class="duapertiga-width">';
-								}
-							?>
+							<input type="text" name="point" id="point" value="<?=set_value('point')?>" class="duapertiga-width">
 						</span>
 					</p>
 				</div>

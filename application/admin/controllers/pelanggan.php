@@ -231,4 +231,24 @@ class pelanggan extends My_Controller
             else return FALSE;
         }
 	
+        function getKecamatan(){ 
+            $kabupaten = $this->uri->segment('3');
+            $this->db->flush_cache();
+            $this->db->where("id_kabupaten",$kabupaten);
+            $id_kecamatan = $this->db->get("kecamatan");
+            echo '<option value="0">-</option>';
+            foreach ($id_kecamatan->result() as $kecamatan){
+                echo '<option value="'.$kecamatan->id_kecamatan.'">'.$kecamatan->kecamatan.'</option>';
+            }
+        }
+        function getArea(){ 
+            $kecamatan = $this->uri->segment('3');
+            $this->db->flush_cache();
+            $this->db->where("id_kecamatan",$kecamatan);
+            $id_area = $this->db->get("area");
+            echo '<option value="0">-</option>';
+            foreach ($id_area->result() as $area){
+                echo '<option value="'.$area->id_area.'">'.$area->area.'</option>';
+            }
+        }
 }

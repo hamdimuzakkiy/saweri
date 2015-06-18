@@ -28,6 +28,28 @@
 		var tanggal = document.getElementById("expired");
 		tanggal.focus();
 	}
+        function getKecamatan(){
+            var kabupaten = document.getElementById("id_kabupaten").value;
+            $.ajax({
+			type: 'POST',
+                        url: '<?=base_url().'index.php/member/getKecamatan/'?>'+kabupaten, //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {
+				$('#id_kecamatan').html(data);
+			}
+            }); 
+        }
+        function getArea(){
+            var kecamatan = document.getElementById("id_kecamatan").value;
+            $.ajax({
+			type: 'POST',
+                        url: '<?=base_url().'index.php/member/getArea/'?>'+kecamatan, //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {
+				$('#id_area').html(data);
+			}
+            }); 
+        }
 	$(document).ready(function (){
             var x = <?php echo $usernameValidation ;?>;
             $("#username-error").hide();
@@ -169,31 +191,32 @@
 				
 				<div class="columns">
 					<p class="colx2-left">
-						<label for="complex-en-url">Kabupaten - Kecamatan - Area :</label>
+						<label for="complex-en-url">Kabupaten</label>
 						<span class="relative">
-							<select name="id_area" id="id_area"class="seperempat-width" style="width: 50%;">
-								<?php
-									$query = $this->db->get('area');
+                                                    <select name="id_kabupaten" id="id_kabupaten" class="seperempat-width" onchange="getKecamatan()">
+                                                        <option value="0">-</option>
+                                                                <?php
+									$query = $this->db->get('kabupaten');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-                                                                                        $this->db->flush_cache();
-                                                                                        $this->db->select('*');
-                                                                                        $this->db->where("id_kecamatan",$row->id_kecamatan);
-                                                                                        $query1 = $this->db->get('kecamatan');
-                                                                                        
-                                                                                        $this->db->flush_cache();
-                                                                                        $this->db->select('*');
-                                                                                        $this->db->where("id_kabupaten",$row->id_kabupaten);
-                                                                                        $query2 = $this->db->get('kabupaten');
-                                                                                        
-                                                                                        if($query1->num_rows() > 0 || $query2->num_rows() > 0)
-                                                                                            foreach ($query1->result() as $rows_kec)foreach ($query2->result() as $rows_kab)
-                                                                                                echo '<option value="'.$row->id_area.'">'.$rows_kab->kabupaten." - ".$rows_kec->kecamatan." - ".$row->area.'</option>';
+                                                                                    echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
 										}
 									}
 								?>
+							</select>
+						</span>
+						<label for="complex-en-url">Kecamatan</label>
+						<span class="relative">
+                                                    <select name="id_kecamatan" id="id_kecamatan" class="seperempat-width" onchange="getArea()">
+                                                            <option value="0">-</option>
+							</select>
+						</span>
+                                                <label for="complex-en-url">Area</label>
+						<span class="relative">
+							<select name="id_area" id="id_area" class="seperempat-width">
+                                                            <option value="0">-</option>
 							</select>
 						</span>
 					</p>

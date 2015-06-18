@@ -123,6 +123,15 @@ class area extends My_Controller
 		
 	}
 	
+        function getKecamatan(){ 
+            $kabupaten = $this->uri->segment('3');
+            $this->db->flush_cache();
+            $this->db->where("id_kabupaten",$kabupaten);
+            $id_kecamatan = $this->db->get("kecamatan");
+            foreach ($id_kecamatan->result() as $kecamatan){
+                echo '<option value="'.$kecamatan->id_kecamatan.'">'.$kecamatan->kecamatan.'</option>';
+            }
+        }
 	function update($id)
 	{
 		if ($this->can_update() == FALSE){
@@ -136,8 +145,8 @@ class area extends My_Controller
 		$data['id_kabupaten'] = $data['result']->row()->id_kabupaten;
 		$data['id_area'] = $data['result']->row()->id_area;
 		$data['area'] = $data['result']->row()->area;
-        $data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
-        $data['usernameValidation'] = 0;
+                $data['id_kecamatan'] = $data['result']->row()->id_kecamatan;
+                $data['usernameValidation'] = 0;
 		
 		$this->load->view('area/area_edit', $data);
 		

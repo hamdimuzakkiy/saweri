@@ -10,8 +10,22 @@
                 $("#username-error").show();
             }
         });
+        function getKecamatan(){
+            var kabupaten = document.getElementById("id_kabupaten").value;
+            $.ajax({
+			type: 'POST',
+                        url: '<?=base_url().'index.php/area/getKecamatan/'?>'+kabupaten, //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {
+				$('#id_kecamatan').html(data);
+			}
+            }); 
+        }
 </script>
+    <div id="percobaan">
 
+        
+</div>
 	<?php 
 		if(validation_errors())
 		{
@@ -35,51 +49,28 @@
 			<h1>Setup > Tambah Data Area / Wilayah</h1>
 			
 			<fieldset>
-				
-				
 				<div class="columns">
-				<p class="colx2-left">
+                                    <p class="colx2-left">
 						<label for="complex-en-url">Kabupaten - Kecamatan (*)  :</label>
 						<span class="relative">
-							<select name="id_kecamatan" id="id_kecamatan" >
+                                                    <select name="id_kabupaten" id="id_kabupaten" onchange="getKecamatan()">
+                                                        <option value="-" selected>-</option>
 								<?php
 									$query = $this->db->get('kabupaten');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-                                                                                    $this->db->flush_cache();
-                                                                                    $this->db->select("*");
-                                                                                    $this->db->where("id_kabupaten",$row->id_kabupaten);
-                                                                                    $query1 = $this->db->get('kecamatan');
-                                                                                    if($query1->num_rows() > 0)
-                                                                                    foreach ($query1->result() as $row1){
-                                                                                        echo '<option value="'.$row1->id_kecamatan.'">'.$row->kabupaten." - ".$row1->kecamatan.'</option>';
-                                                                                    }
+                                                                                    echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
 										}
 									}
 								?>
+							</select>
+                                                    <select name="id_kecamatan" id="id_kecamatan">
+								<option value="-" selected>-</option>
 							</select>
 						</span>
 					</p>
-					
-					<!--<p class="colx2-right">
-						<label for="complex-en-url">Kecamatan (*)  :</label>
-						<span class="relative">
-							<select name="id_kecamatan" id="id_kecamatan" >
-								<?php
-									$query = $this->db->get('kecamatan');
-									if($query->num_rows() > 0)
-									{
-										foreach($query->result() as $row)
-										{
-											echo '<option value="'.$row->id_kecamatan.'">'.$row->kecamatan.'</option>';
-										}
-									}
-								?>
-							</select>
-						</span>
-					</p>-->
 				</div>
 				<div class="columns">	
 					<p class="colx2-left">

@@ -10,6 +10,17 @@
                 $("#username-error").show();
             }
         });
+        function getKecamatan(){
+            var kabupaten = document.getElementById("id_kabupaten").value;
+            $.ajax({
+			type: 'POST',
+                        url: '<?=base_url().'index.php/area/getKecamatan/'?>'+kabupaten, //url: $(this).attr('action'),
+			//data: $('#form1').serialize(),
+			success: function(data) {
+				$('#id_kecamatan').html(data);
+			}
+            }); 
+        }
 </script>
 
 	<?php 
@@ -35,58 +46,44 @@
 			<h1>Setup > Edit Data Area / Wilayah</h1>
 			
 			<fieldset>
-
-			<div class="columns">
-				<p class="colx2-left">
-						<label for="complex-en-url">Kabupaten (*)  :</label>
+<div class="columns">
+                                    <p class="colx2-left">
+						<label for="complex-en-url">Kabupaten - Kecamatan (*)  :</label>
 						<span class="relative">
-							<select name="id_kecamatan" id="id_kecamatan" >
+                                                    <select name="id_kabupaten" id="id_kabupaten" onchange="getKecamatan()">
 								<?php
 									$query = $this->db->get('kabupaten');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-                                                                                    $this->db->flush_cache();
-                                                                                    $this->db->select("*");
-                                                                                    $this->db->where("id_kabupaten",$row->id_kabupaten);
-                                                                                    $query1 = $this->db->get('kecamatan');
-                                                                                    if($query1->num_rows() > 0)
-                                                                                    foreach ($query1->result() as $row1){
-                                                                                        if($id_kecamatan==$row1->id_kecamatan){
-                                                                                            echo '<option value="'.$row1->id_kecamatan.'"selected>'.$row->kabupaten." - ".$row1->kecamatan.'</option>';
-                                                                                        }
-                                                                                        else echo '<option value="'.$row1->id_kecamatan.'">'.$row->kabupaten." - ".$row1->kecamatan.'</option>';
-                                                                                    }
-										}
+                                                                                    if($row->id_kabupaten==$id_kabupaten)
+                                                                                        echo '<option value="'.$row->id_kabupaten.'" selected>'.$row->kabupaten.'</option>';
+                                                                                    else
+                                                                                        echo '<option value="'.$row->id_kabupaten.'">'.$row->kabupaten.'</option>';
+                                                                                }
 									}
 								?>
 							</select>
-						</span>
-					</p>
-					
-					
-					<!--<p class="colx2-right">
-						<label for="complex-en-url">Kecamatan (*)  :</label>
-						<span class="relative">
-							<select name="id_kecamatan" id="id_kecamatan" lass="seperempat-width" >
-								<?php
+                                                    <select name="id_kecamatan" id="id_kecamatan">
+                                                                <?php
+                                                                        $this->db->flush_cache();
+                                                                        $this->db->where("id_kabupaten",$id_kabupaten);
 									$query = $this->db->get('kecamatan');
 									if($query->num_rows() > 0)
 									{
 										foreach($query->result() as $row)
 										{
-											if($id_kecamatan == $row->id_kecamatan){
-												echo '<option value="'.$row->id_kecamatan.'" selected="selected">'.$row->kecamatan.'</option>';
-											}else{
-												echo '<option value="'.$row->id_kecamatan.'" >'.$row->kecamatan.'</option>';
-											}
-										}
+                                                                                    if($row->id_kecamatan==$id_kecamatan)
+                                                                                        echo '<option value="'.$row->id_kecamatan.'" selected>'.$row->kecamatan.'</option>';
+                                                                                    else
+                                                                                        echo '<option value="'.$row->id_kecamatan.'">'.$row->kecamatan.'</option>';
+                                                                                }
 									}
 								?>
 							</select>
 						</span>
-					</p>-->
+					</p>
 				</div>
 				<div class="columns">
 					<p class="colx2-left">
