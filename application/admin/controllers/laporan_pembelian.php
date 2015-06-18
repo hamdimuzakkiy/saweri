@@ -100,7 +100,7 @@ class laporan_pembelian extends My_Controller
 			 $data['periode_akhir']=$periode_akhir;
 			 $data['results'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,false);
 			 $data['num'] = $this->lap_pembelian->get_lap_pembelian_barang($periode_awal,$periode_akhir,$nama_barang,true);
-
+			 
 			if ($cek_pilihan=='v_html'){
 				$this->load->view('laporan_pembelian/view_lap_pembelian_barang', $data);				
 			}elseif($cek_pilihan=='v_pdf'){
@@ -183,14 +183,21 @@ class laporan_pembelian extends My_Controller
 	
 	function view_lap_pembelian_supplier(){
 		$cek_pilihan = $this->uri->segment('3');
-		
-		
+
+
+		$tanggal_cetak = $this->uri->segment('4');
+		$data['tanggal_cetak'] = $tanggal_cetak;
+		$idCabang = $this->getIdCabang();
+        $data['perusahaan'] = $this->cabang->getItemById($idCabang);
+
+
 		$periode_awal = $this->input->post('periode_awal');
 		$periode_akhir = $this->input->post('periode_akhir');
 		
 		$id_supplier = $this->input->post('nama');
 		
 		$date_now=date('d M Y');
+
 
 		$data['dt_nama_supplier'] = $id_supplier;
 		 if (($periode_awal)&&($periode_akhir)){

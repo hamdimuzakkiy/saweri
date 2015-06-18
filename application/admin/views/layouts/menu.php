@@ -188,6 +188,12 @@
 										else{										
 											echo '<li class="icon_blog">Master Kas</li>'; 									
 										}
+										if ($privilage['master_biaya'][0] == 1){ 										
+											echo '<li class="icon_blog">'.anchor('master_biaya','Master Biaya').'</li>';
+										}
+										else{										
+											echo '<li class="icon_blog">Master Biaya</li>'; 									
+										}
 									?>
 								</ul>
 							</div>

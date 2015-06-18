@@ -163,7 +163,7 @@
 				<div class="columns">
 					<input type="hidden" name="id_pembelian" id="id_pembelian" >
 					<p class="colx2-left">
-						<label for="complex-en-url">Periode :</label>
+						<label for="complex-en-url">Tanggal Cetak :</label>
 						<span class="relative">
 								<span class="input-type-text margin-right relative"><input type="text" name="cetak" id="tanggal_cetak" class="datepicker" value="<?=date('Y-m-d')?>">  
 								<img onclick="javascript:klick_tanggal_cetak()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16"></span>

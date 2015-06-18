@@ -54,23 +54,24 @@
 			$i++;
 		}
 	?>
+	<?php foreach ($perusahaan->result() as $prsh) {		?>
 <div id="div_laporan">
 	<table class="laporan" width="90%" border="1">
-		<tr><td colspan="8"><b>SAWERI GADING CELL</b></td></tr>
-		<tr><td colspan="8"><b>JL. S PARMAN 18 BANYUWANGI</b></td></tr>
-		<tr><td colspan="8"><b>TELP (0333)-411345</b></td></tr>
+		<tr><td colspan="8"><b><?php echo $prsh->perusahaan; ?></b></td></tr>
+		<tr><td colspan="8"><b><?php echo $prsh->alamat; ?></b></td></tr>
+		<tr><td colspan="8"><b>TELP <?php echo $prsh->telepon; } ?></b></td></tr>
 		<tr><td colspan="8"><b></b><br/></td></tr>
 		<tr><td colspan="8" div align="center"><b>LAPORAN PEMBELIAN</b></td></tr>
 		<tr><td colspan="8"><b>PERIODE : <?php echo $periode_awal . ' s/d ' .  $periode_akhir; ?></b></td></tr>
-		<tr><td colspan="8"><b>TANGGAL CETAK : <?php echo date('d-M-Y') ?></b></td></tr>
+		<tr><td colspan="8"><b>TANGGAL CETAK : <?php echo $tanggal_cetak; ?></b></td></tr>
 		<tr>
 			<th scope="col">NO</th>
-			<th scope="col">TANGGAL </th>
-			<th scope="col">PO</th>
-			<th scope="col">NAMA BARANG</th>
-			<th scope="col">QTY</th>
 			<th scope="col">SUPPLIER</th>
-			<th scope="col">CABANG</th>
+			<th scope="col">TANGGAL </th>
+			<th scope="col">No Ref</th>
+			<th scope="col">NAMA BARANG</th>
+			<th scope="col">QTY</th>			
+			<th scope="col">Harsat</th>
 			<th scope="col">RUPIAH</th>
 		</tr>
 		
@@ -106,7 +107,7 @@
 					<tr>
 						<td align="right" valign="middle"><?=$j;?></td>
 						<td align="center" valign="middle"><?=$row->tanggal?></td>
-						<td align="right" valign="middle"><?php echo '\''.$row->po_no?></td>
+						<td align="right" valign="middle"><?php $row->po_no?></td>
 						<td align="left" valign="middle"><?=$row->nama_barang?></td>
 						<td align="right" valign="middle"><?=$row->qty?></td>
 						<td align="left" valign="middle"><?=$row->nama_supplier?></td>

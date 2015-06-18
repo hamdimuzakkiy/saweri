@@ -76,7 +76,7 @@
 		<tr>
 			<th scope="col">NO</th>
 			<th scope="col">TANGGAL </th>
-			<th scope="col">PO</th>
+			<th scope="col">No Ref</th>
 			<th scope="col">NAMA BARANG</th>
 			<th scope="col">SUPPLIER</th>
 			<th scope="col">QTY</th>			

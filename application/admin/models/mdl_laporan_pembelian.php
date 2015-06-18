@@ -157,7 +157,7 @@ class mdl_laporan_pembelian extends CI_Model{
 	
 	function get_lap_pembelian_supplier($periode_awal,$periode_akhir,$id_supplier,$num=false){
 		$this->db->flush_cache();
-		$this->db->select('pembelian.*,dp.id_barang,dp.qty,brg.nama_barang,sp.nama as nama_supplier,cbg.nama_cabang,dp.total');
+		$this->db->select('pembelian.*,dp.id_barang,COUNT(*) as qty,brg.nama_barang,sp.nama as nama_supplier,cbg.nama_cabang,dp.total');
 		$this->db->from('pembelian');
 		$this->db->join('detail_pembelian dp', 'dp.id_pembelian = pembelian.id_pembelian');
 		$this->db->join('barang brg', 'brg.id_barang = dp.id_barang');
@@ -165,6 +165,8 @@ class mdl_laporan_pembelian extends CI_Model{
 		$this->db->join('cabang cbg', 'cbg.id_cabang = pembelian.id_cabang');
 		$this->db->where("pembelian.tanggal BETWEEN '" . $periode_awal . "' AND '" . $periode_akhir .  "'");
 		$this->db->where_in('sp.id_supplier', $id_supplier);
+		$this->db->group_by('brg.id_barang');
+		$this->db->group_by('dp.harga');
 		$this->db->order_by('sp.nama','pembelian.tanggal');
 		
 		$get_id_cabang=get_idcabang();
@@ -179,6 +181,8 @@ class mdl_laporan_pembelian extends CI_Model{
 		
 		return $this->db->get();
 	}
+
+
 	
 	function get_lap_retur_pembelian($periode_awal,$periode_akhir,$num=false){
 		$this->db->flush_cache();

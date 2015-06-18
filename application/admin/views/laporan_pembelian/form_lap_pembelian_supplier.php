@@ -56,7 +56,7 @@
 	
 	function laporan(title, w, h){
 
-
+		var tanggal_cetak = document.getElementById('tanggal_cetak').value;
 		var cIdx = 'nama_barang';
 		var cControl = 'control';		
 		var flag = true;
@@ -67,7 +67,7 @@
 				{flag = false; break;}
 		}	
 		if (flag == true)
-			{alert('Check Barang Terlebih dahulu');  return;}
+			{alert('Check Supplier Terlebih dahulu');  return;}
 
 
 		var periode_awal=document.getElementById('tanggal_awal').value;
@@ -89,7 +89,7 @@
 
 			// change form info:
 			myForm.target = title;
-			myForm.action = "<?=site_url();?>/laporan_pembelian/view_lap_pembelian_supplier/v_html";
+			myForm.action = "<?=site_url();?>/laporan_pembelian/view_lap_pembelian_supplier/v_html/"+tanggal_cetak;
 			myForm.method = "post"; // not needed if <form> was already post
 			myForm.submit( );  // invoke the form, submitting to the popup window
 
@@ -156,7 +156,7 @@
 				<div class="columns">
 					<input type="hidden" name="id_pembelian" id="id_pembelian" >
 					<p class="colx2-left">
-						<label for="complex-en-url">Periode :</label>
+						<label for="complex-en-url">Tanggal Cetak :</label>
 						<span class="relative">
 								<span class="input-type-text margin-right relative"><input type="text" name="cetak" id="tanggal_cetak" class="datepicker" value="<?=date('Y-m-d')?>">  
 								<img onclick="javascript:klick_tanggal_cetak()" src="<?=base_url()?>asset/admin/images/icons/fugue/calendar-month.png" width="16" height="16"></span>

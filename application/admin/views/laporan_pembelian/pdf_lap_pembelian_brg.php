@@ -61,7 +61,7 @@ tr.border,th.th_border,td.use_border {
 				<td class="use_border" align="right"><b><?=$this->fungsi->uangindo($total_brg)?></b></td>
 			</tr>
 		<?php
-					$total_brg = 0;
+						$total_brg = 0;
 					$qty_perbrg = 0;
 				$nama_brg = '';
 				}
