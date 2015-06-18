@@ -157,7 +157,7 @@ class mdl_laporan_pembelian extends CI_Model{
 	
 	function get_lap_pembelian_supplier($periode_awal,$periode_akhir,$id_supplier,$num=false){
 		$this->db->flush_cache();
-		$this->db->select('pembelian.*,dp.id_barang,COUNT(*) as qty,brg.nama_barang,sp.nama as nama_supplier,cbg.nama_cabang,dp.total');
+		$this->db->select('pembelian.*,dp.id_barang,dp.harga,COUNT(*) as qty,brg.nama_barang,sp.nama as nama_supplier,cbg.nama_cabang,dp.total');
 		$this->db->from('pembelian');
 		$this->db->join('detail_pembelian dp', 'dp.id_pembelian = pembelian.id_pembelian');
 		$this->db->join('barang brg', 'brg.id_barang = dp.id_barang');

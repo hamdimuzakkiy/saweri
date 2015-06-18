@@ -106,18 +106,20 @@
 		?>
 					<tr>
 						<td align="right" valign="middle"><?=$j;?></td>
+						<td align="left" valign="middle"><?=$row->nama_supplier?></td>
+						
 						<td align="center" valign="middle"><?=$row->tanggal?></td>
-						<td align="right" valign="middle"><?php $row->po_no?></td>
+						<td align="right" valign="middle"><?=$row->po_no?></td>
 						<td align="left" valign="middle"><?=$row->nama_barang?></td>
 						<td align="right" valign="middle"><?=$row->qty?></td>
-						<td align="left" valign="middle"><?=$row->nama_supplier?></td>
-						<td align="left" valign="middle"><?=$row->nama_cabang?></td>
-						<td align="right" valign="middle"><?=$this->fungsi->uangindo($row->total);?></td>
 						
-						<?php $sum_total[]=$row->total ;?>
+						<td align="left" valign="middle"><?=$row->harga?></td>
+						<td align="right" valign="middle"><?=$this->fungsi->uangindo($row->qty*$row->harga);?></td>
+						
+						<?php $sum_total[]=$row->harga*$row->qty ;?>
 						<?php $sum_qty[]=$row->qty ;?>
 						<?php $qty_perbrg=$row->qty+$qty_perbrg; ?>
-						<?php $total_brg=$row->total+$total_brg; ?>
+						<?php $total_brg=$row->harga*$row->qty+$total_brg; ?>
 					</tr>
 		<?php
 			}
